@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+        <style>
+            table {
+                text-align: center;
+            }
+            th, td {
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: black;
+                color: white;
+            }
+            tr:hover {background-color: #f5f5f5;}
+            tr:nth-child(even) {background-color: #f2f2f2;}
+        </style>
+        </head>
+
+    <body>
+
+    <!-- below is how you are going to load your javascript file -->
+    <svg width="1000" height="700" style="display: flex;flex-direction: column;">
+        <g transform="translate(300, 310)"></g>
+        
+    </svg>
+    <button class="one" onclick="drawOnePlayer()">1</button>
+    <button class="one" onclick="drawTwoPlayers()">2</button>
+    <button class="one" onclick="drawThreePlayers()">3</button>
+
+    <script type="text/javascript" src="scripts.js"></script>
+
+    </body> 
+</html>
