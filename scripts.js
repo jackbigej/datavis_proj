@@ -1,4 +1,8 @@
-drawSinglePlayer();
+d3.json("test_data.json", parseData);
+
+function parseData(error, data) {
+    console.log(data);
+}
 
 function drawSinglePlayer() {
     var svg = d3.select("svg");
@@ -13,7 +17,7 @@ function drawSinglePlayer() {
 
     var arcGenerator = d3.arc();
 
-    var threePointArc = d3.select('g')
+    var arc = d3.select('g')
         .selectAll('path')
         .data(arcData)
         .enter()
@@ -51,7 +55,7 @@ function drawTwoPlayers() {
 
     var arcGenerator = d3.arc();
 
-    var threePointArc = d3.select('g')
+    var arc = d3.select('g')
         .selectAll('path')
         .data(arcData)
         .enter()
@@ -91,7 +95,7 @@ function drawThreePlayers() {
 
     var arcGenerator = d3.arc();
 
-    var threePointArc = d3.select('g')
+    var arc = d3.select('g')
         .selectAll('path')
         .data(arcData)
         .enter()
