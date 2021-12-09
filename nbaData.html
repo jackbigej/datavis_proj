@@ -3,29 +3,75 @@
 <html>
     <head>
         <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
-        <style>
-            table {
-                text-align: center;
-            }
-            th, td {
-                border-bottom: 1px solid #ddd;
-            }
-            th {
-                background-color: black;
-                color: white;
-            }
-            tr:hover {background-color: #f5f5f5;}
-            tr:nth-child(even) {background-color: #f2f2f2;}
-        </style>
-        </head>
+        <link rel="stylesheet" type="text/css" href="nbaData.css">
+    </head>
 
     <body>
 
+    <div style="display: flex;flex-direction: row;">
+        <svg width="600" height="700" style="display: flex;flex-direction: column;">
+            <g transform="translate(300, 310)"></g>
+        </svg>
+        <div id="statsBox" class="statBox">
+            <p class="statBoxTitle">
+                Summary of Player(s)
+            </p>
+            <div class="playerSummary">
+                <div id="player1">
+                    <p class="statTitle" id="player1Name">
+                        name
+                    </p>
+                    <p id="player1Name">
+                        Allen Iverson
+                    </p>
+                    <p class="statTitle" id="player1Name">
+                        Year
+                    </p>
+                    <p id="player1Year">
+                        2000-2001
+                    </p>
+                    <p class="statTitle" id="player1Totals">
+                        All Shots
+                    </p>
+                    <div style="display: flex;flex-direction: row;">
+                        <p class="statTitle" id="player1TotalMake">
+                            Makes: 
+                        </p>
+                        <p id="player1Year">
+                            878
+                        </p>
+                    </div>
+                    <div class="playerSummary" style="display: flex;flex-direction: row;">
+                        <p class="statTitle" id="player1TotalMiss">
+                            Misses:  
+                        </p>
+                        <p id="player1Year">
+                            546
+                        </p>
+                    </div>
+                    <div style="display: flex;flex-direction: row;">
+                        <p class="statTitle" id="player1TotalPercent">
+                            Shot %: 
+                        </p>
+                        <p id="player1Year">
+                            61.7%
+                        </p>
+                    </div>
+                    
+                </div>
+                <div class="player2" id="player2">
+    
+                </div>
+                <div class="player3" id="player3">
+    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
     <!-- below is how you are going to load your javascript file -->
-    <svg width="1000" height="700" style="display: flex;flex-direction: column;">
-        <g transform="translate(300, 310)"></g>
-        
-    </svg>
+    
     <!--<button class="one" id="onePlayerButton" onclick="drawSinglePlayer()">1</button>
     <button class="one" id="twoPlayerButton" onclick="drawTwoPlayers()">2</button>
     <button class="one" id="threePlayerButton" onclick="drawThreePlayers()">3</button>-->

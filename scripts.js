@@ -1,9 +1,10 @@
 // d3.json("test_data.json", parseData);
-d3.json("all-years-data.json", parseData);
+d3.json("test_data.json", parseData);
 
 // global variables to store data
 var playerNames = [];
 var allData = {};
+var numPlayers = 1;
 
 function parseData(error, data) {
     allData = data;
@@ -63,6 +64,7 @@ function parseData(error, data) {
 function displayVisual() {
     // read radio button
     var radioBtn = document.getElementsByName('numPlayers');
+    var radioBtnValue;
 
     for (let i = 0; i < radioBtn.length; i++) {
         if (radioBtn[i].checked) {
@@ -74,7 +76,7 @@ function displayVisual() {
     let playerOption1 = '';
     let playerOption2 = '';
     let playerOption3 = '';
-    switch(radioBtnValue) {
+    switch (radioBtnValue) {
         case 'one':
             playerOption1 = document.getElementById('firstPlayer1').value;
             drawSinglePlayer(playerOption1);
@@ -95,7 +97,7 @@ function displayVisual() {
 
 function drawSinglePlayer(player1) {
     console.log(player1);
-    
+
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
 
