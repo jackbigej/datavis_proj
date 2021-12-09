@@ -26,9 +26,34 @@
         <g transform="translate(300, 310)"></g>
         
     </svg>
-    <button class="one" onclick="drawSinglePlayer()">1</button>
-    <button class="one" onclick="drawTwoPlayers()">2</button>
-    <button class="one" onclick="drawThreePlayers()">3</button>
+    <!--<button class="one" id="onePlayerButton" onclick="drawSinglePlayer()">1</button>
+    <button class="one" id="twoPlayerButton" onclick="drawTwoPlayers()">2</button>
+    <button class="one" id="threePlayerButton" onclick="drawThreePlayers()">3</button>-->
+
+    <div id="oneInput">
+        <input type="radio" id= "one" name="numPlayers" value="one">
+        <label for="one">1</label>
+        <input type="text" id="firstPlayer1" list="datalistOne1">
+    </div>
+
+    <div id="twoInput">
+        <input type="radio" id= "two" name="numPlayers" value="two">
+        <label for="two">2</label>
+        <input type="text" id="secondPlayer1" list="datalistTwo1">
+        <input type="text" id="secondPlayer2" list="datalistTwo2">
+    </div>
+
+    <div id="threeInput">
+        <input type="radio" id= "three" name="numPlayers" value="three">
+        <label for="three">3</label>
+        <input type="text" id="thirdPlayer1" list="datalistThree1">
+        <input type="text" id="thirdPlayer2" list="datalistThree2">
+        <input type="text" id="thirdPlayer3" list="datalistThree3">
+    </div>
+    
+    <button onclick="displayVisual()">
+        Submit
+    </button>
 
     <script type="text/javascript" src="scripts.js"></script>
 
