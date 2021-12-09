@@ -13,87 +13,140 @@ function parseData(error, data) {
     console.log(allData);
     console.log(playerNames);
 
-    // create datalist entries
-    var d1 = document.createElement('datalist');
-    var d2 = document.createElement('datalist');
-    var d3 = document.createElement('datalist');
-    var d4 = document.createElement('datalist');
-    var d5 = document.createElement('datalist');
-    var d6 = document.createElement('datalist');
+    // create first datalist
+    var datalist = document.createElement('datalist');
 
     for (let i = 0; i < playerNames.length; i++) {
-        var option1 = document.createElement('option');
-        var option2 = document.createElement('option');
-        var option3 = document.createElement('option');
-        var option4 = document.createElement('option');
-        var option5 = document.createElement('option');
-        var option6 = document.createElement('option');
-        option1.value = playerNames[i];
-        option2.value = playerNames[i];
-        option3.value = playerNames[i];
-        option4.value = playerNames[i];
-        option5.value = playerNames[i];
-        option6.value = playerNames[i];
-        d1.appendChild(option1);
-        d2.appendChild(option2);
-        d3.appendChild(option3);
-        d4.appendChild(option4);
-        d5.appendChild(option5);
-        d6.appendChild(option6);
+        var option = document.createElement('option');
+        option.value = playerNames[i];
+        datalist.appendChild(option);
     }
-    // append to first input
-    d1.id = 'datalistOne1';
-    document.getElementById('firstPlayer1').appendChild(d1);
+    datalist.id = 'datalist1';
+    document.getElementById('datalists').appendChild(datalist);
+    document.getElementById('player1').addEventListener('input', addYear);
+}
 
-    // append to second input
-    d2.id = 'datalistTwo1';
-    document.getElementById('secondPlayer1').appendChild(d2);
-    d3.id = 'datalistTwo2';
-    document.getElementById('secondPlayer2').appendChild(d3);
+function addYear(data) {
+    var div = document.getElementById('div' + data.originalTarget.id);
 
-    // append to third input
-    d4.id = 'datalistThree1';
-    document.getElementById('thirdPlayer1').appendChild(d4);
-    d5.id = 'datalistThree2';
-    document.getElementById('thirdPlayer2').appendChild(d5);
-    d6.id = 'datalistThree3';
-    document.getElementById('thirdPlayer3').appendChild(d6);
+    if (playerNames.indexOf(data.data) > -1)  {
+        var select = document.createElement('select');
+        select.setAttribute('id', 'select' + data.originalTarget.id);
+
+        for (const [key, value] of Object.entries(allData[data.data])) {
+            if (key.match(/^\d/)) {
+                let option = document.createElement('option');
+                option.value = key;
+                option.text = key;
+                select.appendChild(option);
+            }
+        }
+        div.appendChild(select);
+    } else {
+        try {
+            document.getElementById('select' + data.originalTarget.id).remove();
+        } catch (error) {}
+    }
+}
+
+function addInput() {
+    var value = document.getElementById('addPlayerBtn').value;
+    var intValue = parseInt(value) + 1;
+    document.getElementById('addPlayerBtn').value = intValue;
+    console.log(intValue);
+
+    var div = document.createElement('div');
+    div.setAttribute('id', 'divplayer' + intValue);
+
+    // create input text element
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('id', 'player' + intValue);
+    input.setAttribute('list', 'datalist1');
+    input.addEventListener('input', addYear);
+
+    //document.getElementById('datalists').appendChild(input);
+    div.appendChild(input);
+    document.getElementById('datalists').appendChild(div);
+
+    //hide/show remove player btn
+    if (intValue > 1) {
+        document.getElementById('removePlayerBtn').style.visibility = 'visible';
+    } else {
+        document.getElementById('removePlayerBtn').style.visibility = 'hidden';
+    }
+
+    // hide add player btn
+    if (intValue == 3) {
+        // remove button
+        document.getElementById('addPlayerBtn').style.visibility = 'hidden';
+    }
+}
+
+function removeInput() {
+    var value = document.getElementById('addPlayerBtn').value;
+    var intValue = parseInt(value);
+
+    if (intValue == 3) {
+        // remove input
+        document.getElementById('divplayer3').remove();
+
+        intValue -= 1;
+        document.getElementById('addPlayerBtn').value = intValue;
+        // show addPlayer btn
+        document.getElementById('addPlayerBtn').style.visibility = 'visible';
+    } else if (intValue == 2) {
+        // remove input
+        document.getElementById('divplayer2').remove();
+
+        // update value
+        intValue -= 1;
+        document.getElementById('addPlayerBtn').value = intValue;
+
+        // hide removePlayer btn
+        document.getElementById('removePlayerBtn').style.visibility = 'hidden';
+    }
 }
 
 function displayVisual() {
-    // read radio button
-    var radioBtn = document.getElementsByName('numPlayers');
-
-    for (let i = 0; i < radioBtn.length; i++) {
-        if (radioBtn[i].checked) {
-            radioBtnValue = radioBtn[i].value;
-        }
-    }
+    // read value of 
+    var value = document.getElementById('addPlayerBtn').value;
+    var intValue = parseInt(value);
 
     // read player options
     let playerOption1 = '';
     let playerOption2 = '';
     let playerOption3 = '';
-    switch(radioBtnValue) {
-        case 'one':
-            playerOption1 = document.getElementById('firstPlayer1').value;
-            drawSinglePlayer(playerOption1);
+    let p1_yr = '';
+    let p2_yr = '';
+    let p3_yr = '';
+
+    switch(intValue) {
+        case 1:
+            playerOption1 = document.getElementById('player1').value;
+            p1_yr = document.getElementById('selectplayer1').value;
+            drawSinglePlayer(playerOption1, p1_yr);
             break;
-        case 'two':
-            playerOption1 = document.getElementById('secondPlayer1').value;
-            playerOption2 = document.getElementById('secondPlayer2').value;
-            drawTwoPlayers(playerOption1, playerOption2);
+        case 2:
+            playerOption1 = document.getElementById('player1').value;
+            playerOption2 = document.getElementById('player2').value;
+            p1_yr = document.getElementById('selectplayer1').value;
+            p2_yr = document.getElementById('selectplayer2').value;
+            drawTwoPlayers(playerOption1, p1_yr, playerOption2, p2_yr);
             break;
-        case 'three':
-            playerOption1 = document.getElementById('thirdPlayer1').value;
-            playerOption2 = document.getElementById('thirdPlayer2').value;
-            playerOption3 = document.getElementById('thirdPlayer3').value;
-            drawThreePlayers(playerOption1, playerOption2, playerOption3);
+        case 3:
+            playerOption1 = document.getElementById('player1').value;
+            playerOption2 = document.getElementById('player2').value;
+            playerOption3 = document.getElementById('player3').value;
+            p1_yr = document.getElementById('selectplayer1').value;
+            p2_yr = document.getElementById('selectplayer2').value;
+            p3_yr = document.getElementById('selectplayer3').value;
+            drawThreePlayers(playerOption1, p1_yr, playerOption2, p2_yr, playerOption3, p3_yr);
             break;
     }
 }
 
-function drawSinglePlayer(player1) {
+function drawSinglePlayer(player1, p1_yr) {
     console.log(player1);
     
     var svg = d3.select("svg");
@@ -129,7 +182,7 @@ function drawSinglePlayer(player1) {
 
 }
 
-function drawTwoPlayers(player1, player2) {
+function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
     console.log(player1);
     console.log(player2);
 
@@ -169,7 +222,7 @@ function drawTwoPlayers(player1, player2) {
         .attr('stroke', 'white');
 }
 
-function drawThreePlayers(player1, player2, player3) {
+function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
     console.log(player1);
     console.log(player2);
     console.log(player3);
