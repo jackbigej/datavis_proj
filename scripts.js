@@ -24,11 +24,10 @@ function parseData(error, data) {
     }
     datalist.id = 'datalist1';
     document.getElementById('datalists').appendChild(datalist);
-    document.getElementById('player1').addEventListener('change', addYear());
 }
 
 function addYear(data) {
-    console.log(document.getElementById('player1').value)
+    console.log(document.getElementById(data).value)
     var div = document.getElementById('div' + data.originalTarget.id);
 
     if (playerNames.indexOf(data.data) > -1) {
@@ -66,7 +65,7 @@ function addInput() {
     input.setAttribute('id', 'player' + intValue);
     input.setAttribute('class', 'playerInput');
     input.setAttribute('list', 'datalist1');
-    input.setAttribute('onchange', 'addYear()');
+    input.setAttribute('onchange', 'addYear("player' + intValue + '")');
 
     //document.getElementById('datalists').appendChild(input);
     div.appendChild(input);
