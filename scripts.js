@@ -1,5 +1,5 @@
 // d3.json("test_data.json", parseData);
-d3.json("test_data.json", parseData);
+d3.json("all-years-data.json", parseData);
 
 // global variables to store data
 var playerNames = [];
@@ -27,14 +27,14 @@ function parseData(error, data) {
 }
 
 function addYear(data) {
-    console.log(document.getElementById(data).value)
-    var div = document.getElementById('div' + data.originalTarget.id);
+    var div = document.getElementById('div' + data);
+    var player = document.getElementById(data).value;
 
-    if (playerNames.indexOf(data.data) > -1) {
+    if (playerNames.indexOf(player) > -1) {
         var select = document.createElement('select');
-        select.setAttribute('id', 'select' + data.originalTarget.id);
+        select.setAttribute('id', 'select' + data);
 
-        for (const [key, value] of Object.entries(allData[data.data])) {
+        for (const [key, value] of Object.entries(allData[player])) {
             if (key.match(/^\d/)) {
                 let option = document.createElement('option');
                 option.value = key;
@@ -45,8 +45,8 @@ function addYear(data) {
         div.appendChild(select);
     } else {
         try {
-            document.getElementById('select' + data.originalTarget.id).remove();
-        } catch (error) { }
+            document.getElementById('select' + data).remove();
+        } catch (error) {}
     }
 }
 
@@ -69,6 +69,7 @@ function addInput() {
 
     //document.getElementById('datalists').appendChild(input);
     div.appendChild(input);
+    div.appendChild(document.createElement('br'));
     document.getElementById('datalists').appendChild(div);
 
     //hide/show remove player btn
