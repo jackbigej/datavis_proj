@@ -41,3 +41,13 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 .playerSummary {
     text-align: center;
 }
+
+.playerInputs {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.playerInput {
+    margin-right: 5px;
+}
