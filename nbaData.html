@@ -9,61 +9,424 @@
     <body>
 
     <div style="display: flex;flex-direction: row;">
-        <svg width="600" height="700" style="display: flex;flex-direction: column;">
-            <g transform="translate(300, 310)"></g>
-        </svg>
+        <div style="display: flex;flex-direction: column;">
+            <svg width="600" height="700" style="display: flex;flex-direction: column;">
+                <g transform="translate(300, 310)"></g>
+            </svg>
+            <div id="input">
+                <div class="playerInputs" id="datalists">
+                    <div class="playerInput" id='divplayer1'>
+                        <input type="select" id="player1" list="datalist1" onchange="addYear('player1')">
+                    </div>
+                </div>
+                <button id="addPlayerBtn" onclick="addInput()" value=1>Add Player</button>
+                <button id="removePlayerBtn" onclick="removeInput()">Remove Player</button>
+            </div>
+            
+            <button onclick="displayVisual()">
+                Submit
+            </button>
+        </div>
+        
         <div id="statsBox" class="statBox">
             <p class="statBoxTitle">
                 Summary of Player(s)
             </p>
             <div class="playerSummary">
-                <div id="player1Stats">
-                    <p class="statTitle" id="player1Name">
-                        name
+                <div class="player1" id="player1Stats">
+                    <p class="statTitle">
+                        Name
                     </p>
-                    <p id="player1Name">
+                    <p class="statData" id="player1Name">
                         Allen Iverson
                     </p>
-                    <p class="statTitle" id="player1Name">
+                    <p class="statTitle">
                         Year
                     </p>
-                    <p id="player1Year">
+                    <p class="statData" id="player1Year">
                         2000-2001
                     </p>
-                    <p class="statTitle" id="player1Totals">
+                    <p class="statTitle">
                         All Shots
                     </p>
-                    <div style="display: flex;flex-direction: row;">
-                        <p class="statTitle" id="player1TotalMake">
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
                             Makes: 
                         </p>
-                        <p id="player1Year">
+                        <p class="shotData" id="player1TotalMake">
                             878
                         </p>
                     </div>
-                    <div class="playerSummary" style="display: flex;flex-direction: row;">
-                        <p class="statTitle" id="player1TotalMiss">
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
                             Misses:  
                         </p>
-                        <p id="player1Year">
+                        <p class="shotData" id="player1TotalMiss">
                             546
                         </p>
                     </div>
-                    <div style="display: flex;flex-direction: row;">
-                        <p class="statTitle" id="player1TotalPercent">
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
                             Shot %: 
                         </p>
-                        <p id="player1Year">
+                        <p class="shotData" id="player1TotalPercent">
                             61.7%
                         </p>
                     </div>
-                    
+
+                    <p class="statTitle" id="player13ptTotals">
+                        Three Pointers
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player13ptMake">
+                            202
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player13ptMiss">
+                            315
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player13ptPercent">
+                            39.1%
+                        </p>
+                    </div>
+
+                    <p class="statTitle">
+                        Long Two Pointers
+                    </p>
+                    <p class="range">
+                        (x ft - x ft)
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player12ptLongMake">
+                            310
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player12ptLongMiss">
+                            126
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player12ptLongPercent">
+                            77.7%
+                        </p>
+                    </div>
+
+                    <p class="statTitle">
+                        Short Two Pointers
+                    </p>
+                    <p class="range">
+                        (x ft - x ft)
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player1ShortMake">
+                            366
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player1ShortMiss">
+                            105
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player1ShortPercent">
+                            71.1%
+                        </p>
+                    </div>
                 </div>
                 <div class="player2" id="player2Stats">
-    
+                    <p class="statTitle">
+                        Name
+                    </p>
+                    <p class="statData" id="player1Name">
+                        Allen Iverson
+                    </p>
+                    <p class="statTitle">
+                        Year
+                    </p>
+                    <p class="statData" id="player1Year">
+                        2000-2001
+                    </p>
+                    <p class="statTitle">
+                        All Shots
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player1TotalMake">
+                            878
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player1TotalMiss">
+                            546
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player1TotalPercent">
+                            61.7%
+                        </p>
+                    </div>
+
+                    <p class="statTitle" id="player13ptTotals">
+                        Three Pointers
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player13ptMake">
+                            202
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player13ptMiss">
+                            315
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player13ptPercent">
+                            39.1%
+                        </p>
+                    </div>
+
+                    <p class="statTitle">
+                        Long Two Pointers
+                    </p>
+                    <p class="range">
+                        (x ft - x ft)
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player12ptLongMake">
+                            310
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player12ptLongMiss">
+                            126
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player12ptLongPercent">
+                            77.7%
+                        </p>
+                    </div>
+
+                    <p class="statTitle">
+                        Short Two Pointers
+                    </p>
+                    <p class="range">
+                        (x ft - x ft)
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player1ShortMake">
+                            366
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player1ShortMiss">
+                            105
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player1ShortPercent">
+                            71.1%
+                        </p>
+                    </div>
+
                 </div>
                 <div class="player3" id="player3Stats">
-    
+                    <p class="statTitle">
+                        Name
+                    </p>
+                    <p class="statData" id="player1Name">
+                        Allen Iverson
+                    </p>
+                    <p class="statTitle">
+                        Year
+                    </p>
+                    <p class="statData" id="player1Year">
+                        2000-2001
+                    </p>
+                    <p class="statTitle">
+                        All Shots
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player1TotalMake">
+                            878
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player1TotalMiss">
+                            546
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player1TotalPercent">
+                            61.7%
+                        </p>
+                    </div>
+
+                    <p class="statTitle" id="player13ptTotals">
+                        Three Pointers
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player13ptMake">
+                            202
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player13ptMiss">
+                            315
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player13ptPercent">
+                            39.1%
+                        </p>
+                    </div>
+
+                    <p class="statTitle">
+                        Long Two Pointers
+                    </p>
+                    <p class="range">
+                        (x ft - x ft)
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player12ptLongMake">
+                            310
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player12ptLongMiss">
+                            126
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player12ptLongPercent">
+                            77.7%
+                        </p>
+                    </div>
+
+                    <p class="statTitle">
+                        Short Two Pointers
+                    </p>
+                    <p class="range">
+                        (x ft - x ft)
+                    </p>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Makes: 
+                        </p>
+                        <p class="shotData" id="player1ShortMake">
+                            366
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Misses:  
+                        </p>
+                        <p class="shotData" id="player1ShortMiss">
+                            105
+                        </p>
+                    </div>
+                    <div class="shotData" style="display: flex;flex-direction: row;">
+                        <p class="shotTitle">
+                            Shot %: 
+                        </p>
+                        <p class="shotData" id="player1ShortPercent">
+                            71.1%
+                        </p>
+                    </div>
+
                 </div>
             </div>
             
@@ -76,19 +439,7 @@
     <button class="one" id="twoPlayerButton" onclick="drawTwoPlayers()">2</button>
     <button class="one" id="threePlayerButton" onclick="drawThreePlayers()">3</button>-->
 
-    <div id="input">
-        <div class="playerInputs" id="datalists">
-            <div class="playerInput" id='divplayer1'>
-                <input type="select" id="player1" list="datalist1" onchange="addYear('player1')">
-            </div>
-        </div>
-        <button id="addPlayerBtn" onclick="addInput()" value=1>Add Player</button>
-        <button id="removePlayerBtn" onclick="removeInput()">Remove Player</button>
-    </div>
     
-    <button onclick="displayVisual()">
-        Submit
-    </button>
 
     <script type="text/javascript" src="scripts.js"></script>
 
