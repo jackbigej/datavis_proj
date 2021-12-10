@@ -1,5 +1,5 @@
-// d3.json("test_data.json", parseData);
-d3.json("all-years-data.json", parseData);
+d3.json("test_data.json", parseData);
+//d3.json("all-years-data.json", parseData);
 
 // global variables to store data
 var playerNames = [];
@@ -46,7 +46,7 @@ function addYear(data) {
     } else {
         try {
             document.getElementById('select' + data).remove();
-        } catch (error) {}
+        } catch (error) { }
     }
 }
 
@@ -58,18 +58,18 @@ function addInput() {
 
     var div = document.createElement('div');
     div.setAttribute('id', 'divplayer' + intValue);
+    div.setAttribute('class', 'playerInput');
 
     // create input text element
     var input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('id', 'player' + intValue);
-    input.setAttribute('class', 'playerInput');
     input.setAttribute('list', 'datalist1');
     input.setAttribute('onchange', 'addYear("player' + intValue + '")');
 
     //document.getElementById('datalists').appendChild(input);
     div.appendChild(input);
-    div.appendChild(document.createElement('br'));
+    //div.appendChild(document.createElement('br'));
     document.getElementById('datalists').appendChild(div);
 
     //hide/show remove player btn
@@ -111,6 +111,71 @@ function removeInput() {
     }
 }
 
+function fillStatsBox(player1, player1Yr, player2 = null, player2Yr = null, player3 = null, player3Yr = null) {
+    document.getElementById('player1Name').innerHTML = player1;
+    document.getElementById('player1Year').innerHTML = player1Yr;
+    document.getElementById('player1TotalMake').innerHTML = allData[player1][player1Yr]["Make"];
+    document.getElementById('player1TotalMiss').innerHTML = allData[player1][player1Yr]["Miss"];
+    document.getElementById('player1TotalPercent').innerHTML = (100 * (allData[player1][player1Yr]["Make"] / allData[player1][player1Yr]["Total"])).toFixed(1);
+    document.getElementById('player13ptMake').innerHTML = allData[player1][player1Yr]["threePt"]["Make"];
+    document.getElementById('player13ptMiss').innerHTML = allData[player1][player1Yr]["threePt"]["Miss"];
+    document.getElementById('player13ptPercent').innerHTML = (100 * (allData[player1][player1Yr]["threePt"]["Make"] / allData[player1][player1Yr]["threePt"]["Total"])).toFixed(1);
+    document.getElementById('player1ShortMake').innerHTML = allData[player1][player1Yr]["twoShort"]["Make"];
+    document.getElementById('player1ShortMiss').innerHTML = allData[player1][player1Yr]["twoShort"]["Miss"];
+    document.getElementById('player1ShortPercent').innerHTML = (100 * (allData[player1][player1Yr]["twoShort"]["Make"] / allData[player1][player1Yr]["twoShort"]["Total"])).toFixed(1);
+    document.getElementById('player12ptLongMake').innerHTML = allData[player1][player1Yr]["twoLong"]["Make"];
+    document.getElementById('player12ptLongMiss').innerHTML = allData[player1][player1Yr]["twoLong"]["Miss"];
+    document.getElementById('player12ptLongPercent').innerHTML = (100 * (allData[player1][player1Yr]["twoLong"]["Make"] / allData[player1][player1Yr]["twoLong"]["Total"])).toFixed(1);
+
+    if (player2 && player2Yr) {
+        var p2 = document.getElementById('player2Stats')
+        p2.style.display = 'block';
+
+        document.getElementById('player2Name').innerHTML = player2;
+        document.getElementById('player2Year').innerHTML = player2Yr;
+        document.getElementById('player2TotalMake').innerHTML = allData[player2][player2Yr]["Make"];
+        document.getElementById('player2TotalMiss').innerHTML = allData[player2][player2Yr]["Miss"];
+        document.getElementById('player2TotalPercent').innerHTML = (100 * (allData[player2][player2Yr]["Make"] / allData[player2][player2Yr]["Total"])).toFixed(1);
+        document.getElementById('player23ptMake').innerHTML = allData[player2][player2Yr]["threePt"]["Make"];
+        document.getElementById('player23ptMiss').innerHTML = allData[player2][player2Yr]["threePt"]["Miss"];
+        document.getElementById('player23ptPercent').innerHTML = (100 * (allData[player2][player2Yr]["threePt"]["Make"] / allData[player2][player2Yr]["threePt"]["Total"])).toFixed(1);
+        document.getElementById('player2ShortMake').innerHTML = allData[player2][player2Yr]["twoShort"]["Make"];
+        document.getElementById('player2ShortMiss').innerHTML = allData[player2][player2Yr]["twoShort"]["Miss"];
+        document.getElementById('player2ShortPercent').innerHTML = (100 * (allData[player2][player2Yr]["twoShort"]["Make"] / allData[player2][player2Yr]["twoShort"]["Total"])).toFixed(1);
+        document.getElementById('player22ptLongMake').innerHTML = allData[player2][player2Yr]["twoLong"]["Make"];
+        document.getElementById('player22ptLongMiss').innerHTML = allData[player2][player2Yr]["twoLong"]["Miss"];
+        document.getElementById('player22ptLongPercent').innerHTML = (100 * (allData[player2][player2Yr]["twoLong"]["Make"] / allData[player2][player2Yr]["twoLong"]["Total"])).toFixed(1);
+    }
+    else {
+        var p2 = document.getElementById('player2Stats')
+        p2.style.display = 'none';
+    }
+
+    if (player3 && player3Yr) {
+        var p3 = document.getElementById('player3Stats')
+        p3.style.display = 'block';
+
+        document.getElementById('player3Name').innerHTML = player3;
+        document.getElementById('player3Year').innerHTML = player3Yr;
+        document.getElementById('player3TotalMake').innerHTML = allData[player3][player3Yr]["Make"];
+        document.getElementById('player3TotalMiss').innerHTML = allData[player3][player3Yr]["Miss"];
+        document.getElementById('player3TotalPercent').innerHTML = (100 * (allData[player3][player3Yr]["Make"] / allData[player3][player3Yr]["Total"])).toFixed(1);
+        document.getElementById('player33ptMake').innerHTML = allData[player3][player3Yr]["threePt"]["Make"];
+        document.getElementById('player33ptMiss').innerHTML = allData[player3][player3Yr]["threePt"]["Miss"];
+        document.getElementById('player33ptPercent').innerHTML = (100 * (allData[player3][player3Yr]["threePt"]["Make"] / allData[player3][player3Yr]["threePt"]["Total"])).toFixed(1);
+        document.getElementById('player3ShortMake').innerHTML = allData[player3][player3Yr]["twoShort"]["Make"];
+        document.getElementById('player3ShortMiss').innerHTML = allData[player3][player3Yr]["twoShort"]["Miss"];
+        document.getElementById('player3ShortPercent').innerHTML = (100 * (allData[player3][player3Yr]["twoShort"]["Make"] / allData[player3][player3Yr]["twoShort"]["Total"])).toFixed(1);
+        document.getElementById('player32ptLongMake').innerHTML = allData[player3][player3Yr]["twoLong"]["Make"];
+        document.getElementById('player32ptLongMiss').innerHTML = allData[player3][player3Yr]["twoLong"]["Miss"];
+        document.getElementById('player32ptLongPercent').innerHTML = (100 * (allData[player3][player3Yr]["twoLong"]["Make"] / allData[player3][player3Yr]["twoLong"]["Total"])).toFixed(1);
+    }
+    else {
+        var p3 = document.getElementById('player3Stats')
+        p3.style.display = 'none';
+    }
+}
+
 function displayVisual() {
     // read value of 
     var value = document.getElementById('addPlayerBtn').value;
@@ -128,6 +193,7 @@ function displayVisual() {
         case 1:
             playerOption1 = document.getElementById('player1').value;
             p1_yr = document.getElementById('selectplayer1').value;
+            fillStatsBox(playerOption1, p1_yr);
             drawSinglePlayer(playerOption1, p1_yr);
             break;
         case 2:
@@ -135,6 +201,7 @@ function displayVisual() {
             playerOption2 = document.getElementById('player2').value;
             p1_yr = document.getElementById('selectplayer1').value;
             p2_yr = document.getElementById('selectplayer2').value;
+            fillStatsBox(playerOption1, p1_yr, playerOption2, p2_yr);
             drawTwoPlayers(playerOption1, p1_yr, playerOption2, p2_yr);
             break;
         case 3:
@@ -144,6 +211,7 @@ function displayVisual() {
             p1_yr = document.getElementById('selectplayer1').value;
             p2_yr = document.getElementById('selectplayer2').value;
             p3_yr = document.getElementById('selectplayer3').value;
+            fillStatsBox(playerOption1, p1_yr, playerOption2, p2_yr, playerOption3, p3_yr);
             drawThreePlayers(playerOption1, p1_yr, playerOption2, p2_yr, playerOption3, p3_yr);
             break;
     }
