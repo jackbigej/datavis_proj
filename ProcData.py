@@ -19,6 +19,7 @@ def read_data():
             
     dist_reg = re.compile("[0-9]*'")
     free_reg = re.compile("FREE")
+    three = re.compile("3PT")
 
     for fpath in glob.glob(os.path.join(path, '*.csv')):
         with open(os.path.join(os.getcwd(), fpath), 'r') as f:
@@ -59,13 +60,22 @@ def read_data():
                         desc = desc.split(' ')
                         dist_key = ''
                         for i, d in enumerate(desc):
-                            result = dist_reg.match(d)
-                            if result != None:
-                                dist_key = result.string
+                            dist = dist_reg.match(d)
+                            three_shot = three.match(d)
+
+                            if three_shot != None:
+                                dist_key = "threePt"
+                            elif dist != None:
+                                dist_key = dist.string
+                                dist_key = dist_key.split("'")[0]
+                                if int(dist_key) < 13:
+                                    dist_key = "twoShort"
+                                elif int(dist_key) >= 13:
+                                    dist_key = "twoLong"
                             else:
-                                result = free_reg.match(d)
-                                if result != None:
-                                    dist_key = result.string
+                                dist = free_reg.match(d)
+                                if dist != None:
+                                    dist_key = "twoShort"
 
                         if dist_key == '':
                             continue
@@ -102,13 +112,22 @@ def read_data():
                         if desc[0] == 'MISS':
                             dist_key = ''
                             for i, d in enumerate(desc):
-                                result = dist_reg.match(d)
-                                if result != None:
-                                    dist_key = result.string
+                                dist = dist_reg.match(d)
+                                three_shot = three.match(d)
+
+                                if three_shot != None:
+                                    dist_key = "threePt"
+                                elif dist != None:
+                                    dist_key = dist.string
+                                    dist_key = dist_key.split("'")[0]
+                                    if int(dist_key) < 13:
+                                        dist_key = "twoShort"
+                                    elif int(dist_key) >= 13:
+                                        dist_key = "twoLong"
                                 else:
-                                    result = free_reg.match(d)
-                                    if result != None:
-                                        dist_key = result.string
+                                    dist = free_reg.match(d)
+                                    if dist != None:
+                                        dist_key = "twoShort"
 
                             if dist_key == '':
                                 continue
