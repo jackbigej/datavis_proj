@@ -1,5 +1,4 @@
-d3.json("test_data.json", parseData);
-//d3.json("all-years-data.json", parseData);
+d3.json("all-years-data.json", parseData);
 
 // global variables to store data
 var playerNames = [];
@@ -224,7 +223,7 @@ function displayVisual() {
     }
 }
 
-function updatePlayerStats(players){
+function updatePlayerStats(players) {
 
     var player1Stats = document.getElementById('player1Stats');
     var player2Stats = document.getElementById('player2Stats');
@@ -232,7 +231,7 @@ function updatePlayerStats(players){
 
     var num_players = players.length;
 
-    if (num_players >= 1){
+    if (num_players >= 1) {
         player1Stats.style.display = "block";
         player2Stats.style.display = "none";
         player3Stats.style.display = "none";
@@ -259,20 +258,20 @@ function updatePlayerStats(players){
         player1Year.innerText = p1_yr;
         p1_all_makes.innerText = allData[player1][p1_yr]["Make"];
         p1_all_miss.innerText = allData[player1][p1_yr]["Miss"];
-        p1_all_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["Make"]/allData[player1][p1_yr]["Total"])*100).toFixed(2);
+        p1_all_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["Make"] / allData[player1][p1_yr]["Total"]) * 100).toFixed(2);
         p1_3pt_makes.innerText = allData[player1][p1_yr]["threePt"]["Make"];
         p1_3pt_miss.innerText = allData[player1][p1_yr]["threePt"]["Miss"];
-        p1_3pt_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2);   
+        p1_3pt_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2);
         p1_2ptShort_makes.innerText = allData[player1][p1_yr]["twoShort"]["Make"];
         p1_2ptShort_miss.innerText = allData[player1][p1_yr]["twoShort"]["Miss"];
-        p1_2ptShort_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2);
+        p1_2ptShort_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2);
         p1_2ptLong_makes.innerText = allData[player1][p1_yr]["twoLong"]["Make"];
         p1_2ptLong_miss.innerText = allData[player1][p1_yr]["twoLong"]["Miss"];
-        p1_2ptLong_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2);
+        p1_2ptLong_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2);
 
     }
 
-    if (num_players >= 2){
+    if (num_players >= 2) {
         player1Stats.style.display = "block";
         player2Stats.style.display = "block";
         player3Stats.style.display = "none";
@@ -299,20 +298,20 @@ function updatePlayerStats(players){
         player2Year.innerText = p2_yr;
         p2_all_makes.innerText = allData[player2][p2_yr]["Make"];
         p2_all_miss.innerText = allData[player2][p2_yr]["Miss"];
-        p2_all_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["Make"]/allData[player2][p2_yr]["Total"])*100).toFixed(2);
+        p2_all_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["Make"] / allData[player2][p2_yr]["Total"]) * 100).toFixed(2);
         p2_3pt_makes.innerText = allData[player2][p2_yr]["threePt"]["Make"];
         p2_3pt_miss.innerText = allData[player2][p2_yr]["threePt"]["Miss"];
-        p2_3pt_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"]/allData[player2][p2_yr]["threePt"]["Total"])*100).toFixed(2);   
+        p2_3pt_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"] / allData[player2][p2_yr]["threePt"]["Total"]) * 100).toFixed(2);
         p2_2ptShort_makes.innerText = allData[player2][p2_yr]["twoShort"]["Make"];
         p2_2ptShort_miss.innerText = allData[player2][p2_yr]["twoShort"]["Miss"];
-        p2_2ptShort_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"]/allData[player2][p2_yr]["twoShort"]["Total"])*100).toFixed(2);
+        p2_2ptShort_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2);
         p2_2ptLong_makes.innerText = allData[player2][p2_yr]["twoLong"]["Make"];
         p2_2ptLong_miss.innerText = allData[player2][p2_yr]["twoLong"]["Miss"];
-        p2_2ptLong_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"]/allData[player2][p2_yr]["twoLong"]["Total"])*100).toFixed(2);
+        p2_2ptLong_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2);
 
     }
 
-    if (num_players == 3){
+    if (num_players == 3) {
         player1Stats.style.display = "block";
         player2Stats.style.display = "block";
         player3Stats.style.display = "block";
@@ -339,16 +338,16 @@ function updatePlayerStats(players){
         player3Year.innerText = p3_yr;
         p3_all_makes.innerText = allData[player3][p3_yr]["Make"];
         p3_all_miss.innerText = allData[player3][p3_yr]["Miss"];
-        p3_all_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["Make"]/allData[player3][p3_yr]["Total"])*100).toFixed(2);
+        p3_all_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["Make"] / allData[player3][p3_yr]["Total"]) * 100).toFixed(2);
         p3_3pt_makes.innerText = allData[player3][p3_yr]["threePt"]["Make"];
         p3_3pt_miss.innerText = allData[player3][p3_yr]["threePt"]["Miss"];
-        p3_3pt_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"]/allData[player3][p3_yr]["threePt"]["Total"])*100).toFixed(2);   
+        p3_3pt_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"] / allData[player3][p3_yr]["threePt"]["Total"]) * 100).toFixed(2);
         p3_2ptShort_makes.innerText = allData[player3][p3_yr]["twoShort"]["Make"];
         p3_2ptShort_miss.innerText = allData[player3][p3_yr]["twoShort"]["Miss"];
-        p3_2ptShort_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"]/allData[player3][p3_yr]["twoShort"]["Total"])*100).toFixed(2);
+        p3_2ptShort_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"] / allData[player3][p3_yr]["twoShort"]["Total"]) * 100).toFixed(2);
         p3_2ptLong_makes.innerText = allData[player3][p3_yr]["twoLong"]["Make"];
         p3_2ptLong_miss.innerText = allData[player3][p3_yr]["twoLong"]["Miss"];
-        p3_2ptLong_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"]/allData[player3][p3_yr]["twoLong"]["Total"])*100).toFixed(2);
+        p3_2ptLong_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"] / allData[player3][p3_yr]["twoLong"]["Total"]) * 100).toFixed(2);
     }
 
 
@@ -356,7 +355,7 @@ function updatePlayerStats(players){
 
 function drawSinglePlayer(player1, p1_yr) {
 
-    const players = [{'Name': player1, 'Year': p1_yr}];
+    const players = [{ 'Name': player1, 'Year': p1_yr }];
     updatePlayerStats(players);
 
     console.log(player1);
@@ -379,7 +378,7 @@ function drawSinglePlayer(player1, p1_yr) {
         .data(arcData)
         .enter()
         .append('path')
-        .attr('id', function(d, i){
+        .attr('id', function (d, i) {
             return "path" + i;
         })
         .attr('d', arcGenerator)
@@ -426,28 +425,28 @@ function drawSinglePlayer(player1, p1_yr) {
                 return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString();
             }
         });*/
-    
+
     var label0 = d3.select('g').append('text')
         .attr("stroke", 'white')
         .attr("fill", 'white')
         .attr("dy", 35)
         .append("textPath")
-        .attr('xlink:href', function(d, i){
+        .attr('xlink:href', function (d, i) {
             //return ('#path' + i).toString();
             return '#path0';
         })
         .style("text-anchor", "middle")
         .attr('startOffset', "26.5%")
-        .text(function(d, i){
-            if (i == 0){
-                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString();
-            }else if (i == 1){
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString();
-            }else if (i == 2){
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString();
+        .text(function (d, i) {
+            if (i == 0) {
+                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString();
+            } else if (i == 1) {
+                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString();
+            } else if (i == 2) {
+                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString();
             }
         });
 
@@ -456,15 +455,15 @@ function drawSinglePlayer(player1, p1_yr) {
         .attr("fill", 'white')
         .attr("dy", 35)
         .append("textPath")
-        .attr('xlink:href', function(d, i){
+        .attr('xlink:href', function (d, i) {
             //return ('#path' + i).toString();
             return '#path1';
         })
         .style("text-anchor", "middle")
         .attr('startOffset', "27.5%")
-        .text(function(d, i){
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString();
+        .text(function (d, i) {
+            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
+            return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString();
         });
 
     var label2 = d3.select('g').append('text')
@@ -472,15 +471,15 @@ function drawSinglePlayer(player1, p1_yr) {
         .attr("fill", 'white')
         .attr("dy", 35)
         .append("textPath")
-        .attr('xlink:href', function(d, i){
+        .attr('xlink:href', function (d, i) {
             //return ('#path' + i).toString();
             return '#path2';
         })
         .style("text-anchor", "middle")
         .attr('startOffset', "27.5%")
-        .text(function(d, i){
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString();
+        .text(function (d, i) {
+            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
+            return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString();
         });
 
     var box = d3.select('g')
@@ -489,7 +488,7 @@ function drawSinglePlayer(player1, p1_yr) {
         .attr('y', -95)
         .attr('width', 75)
         .attr('height', 95)
-        .attr('fill', 'transparent' )
+        .attr('fill', 'transparent')
         .attr('stroke', 'white');
 
     var court = d3.select('g')
@@ -510,14 +509,14 @@ function drawSinglePlayer(player1, p1_yr) {
         .attr('startOffset', '50%')
         .text(player1);
 
-    
+
 }
 
 function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
     console.log(player1);
     console.log(player2);
 
-    const players = [{'Name': player1, 'Year': p1_yr}, {'Name': player2, 'Year': p2_yr}];
+    const players = [{ 'Name': player1, 'Year': p1_yr }, { 'Name': player2, 'Year': p2_yr }];
     updatePlayerStats(players);
 
     var svg = d3.select("svg");
@@ -556,39 +555,39 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
         })
         .attr('stroke', 'white');
 
-        var box = d3.select('g')
-            .append('rect')
-            .attr('x', -37.5)
-            .attr('y', -95)
-            .attr('width', 75)
-            .attr('height', 95)
-            .attr('fill', 'transparent' )
-            .attr('stroke', 'white');
+    var box = d3.select('g')
+        .append('rect')
+        .attr('x', -37.5)
+        .attr('y', -95)
+        .attr('width', 75)
+        .attr('height', 95)
+        .attr('fill', 'transparent')
+        .attr('stroke', 'white');
 
-        var court = d3.select('g')
-            .append('rect')
-            .attr('x', -200)
-            .attr('y', -400)
-            .attr('width', 400)
-            .attr('height', 400)
-            .attr('fill', 'transparent')
-            .attr('stroke', 'black');
+    var court = d3.select('g')
+        .append('rect')
+        .attr('x', -200)
+        .attr('y', -400)
+        .attr('width', 400)
+        .attr('height', 400)
+        .attr('fill', 'transparent')
+        .attr('stroke', 'black');
 
-        var title = d3.select('g')
-            .append('text')
-            .attr('x', -100)
-            .attr('y', -220)
-            .attr('stroke', 'black')
-            .style("text-anchor", "middle")
-            .text(player1);
+    var title = d3.select('g')
+        .append('text')
+        .attr('x', -100)
+        .attr('y', -220)
+        .attr('stroke', 'black')
+        .style("text-anchor", "middle")
+        .text(player1);
 
-        var title2 = d3.select('g')
-            .append('text')
-            .attr('x', 100)
-            .attr('y', -220)
-            .attr('stroke', 'black')
-            .style("text-anchor", "middle")
-            .text(player2);
+    var title2 = d3.select('g')
+        .append('text')
+        .attr('x', 100)
+        .attr('y', -220)
+        .attr('stroke', 'black')
+        .style("text-anchor", "middle")
+        .text(player2);
 }
 
 function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
@@ -596,7 +595,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
     console.log(player2);
     console.log(player3);
 
-    const players = [{'Name': player1, 'Year': p1_yr}, {'Name': player2, 'Year': p2_yr}, {'Name': player3, 'Year': p3_yr}];
+    const players = [{ 'Name': player1, 'Year': p1_yr }, { 'Name': player2, 'Year': p2_yr }, { 'Name': player3, 'Year': p3_yr }];
     updatePlayerStats(players);
 
     var svg = d3.select("svg");
@@ -638,46 +637,46 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
         })
         .attr('stroke', 'white');
 
-        var box = d3.select('g')
-            .append('rect')
-            .attr('x', -37.5)
-            .attr('y', -95)
-            .attr('width', 75)
-            .attr('height', 95)
-            .attr('fill', 'transparent' )
-            .attr('stroke', 'white');
+    var box = d3.select('g')
+        .append('rect')
+        .attr('x', -37.5)
+        .attr('y', -95)
+        .attr('width', 75)
+        .attr('height', 95)
+        .attr('fill', 'transparent')
+        .attr('stroke', 'white');
 
-        var court = d3.select('g')
-            .append('rect')
-            .attr('x', -200)
-            .attr('y', -400)
-            .attr('width', 400)
-            .attr('height', 400)
-            .attr('fill', 'transparent')
-            .attr('stroke', 'black');
+    var court = d3.select('g')
+        .append('rect')
+        .attr('x', -200)
+        .attr('y', -400)
+        .attr('width', 400)
+        .attr('height', 400)
+        .attr('fill', 'transparent')
+        .attr('stroke', 'black');
 
-        var title1 = d3.select('g')
-            .append('text')
-            .attr('x', -250)
-            .attr('y', -100)
-            .attr('stroke', 'black')
-            .style("text-anchor", "middle")
-            .text(player1);
+    var title1 = d3.select('g')
+        .append('text')
+        .attr('x', -250)
+        .attr('y', -100)
+        .attr('stroke', 'black')
+        .style("text-anchor", "middle")
+        .text(player1);
 
-        var title2 = d3.select('g')
-            .append('text')
-            .attr('x', 0)
-            .attr('y', -220)
-            .attr('stroke', 'black')
-            .style("text-anchor", "middle")
-            .text(player2);
+    var title2 = d3.select('g')
+        .append('text')
+        .attr('x', 0)
+        .attr('y', -220)
+        .attr('stroke', 'black')
+        .style("text-anchor", "middle")
+        .text(player2);
 
-        var title3 = d3.select('g')
-            .append('text')
-            .attr('x', 250)
-            .attr('y', -100)
-            .attr('stroke', 'black')
-            .style("text-anchor", "middle")
-            .text(player3);
+    var title3 = d3.select('g')
+        .append('text')
+        .attr('x', 250)
+        .attr('y', -100)
+        .attr('stroke', 'black')
+        .style("text-anchor", "middle")
+        .text(player3);
 
 }
