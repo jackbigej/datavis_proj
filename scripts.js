@@ -6,11 +6,18 @@ var playerNames = [];
 var allData = {};
 var numPlayers = 1;
 
+/*
+var all_arcs = svg.select('g').selectAll('path');
+all_arcs.on('mouseover', function(d, i){
+    d3.select(this)
+});*/
+
 function parseData(error, data) {
     allData = data;
     for (const [key, value] of Object.entries(data)) {
         playerNames.push(key)
     }
+    playerNames.sort();
     console.log(allData);
     console.log(playerNames);
 
@@ -149,11 +156,146 @@ function displayVisual() {
     }
 }
 
+function updatePlayerStats(players){
+
+    var player1Stats = document.getElementById('player1Stats');
+    var player2Stats = document.getElementById('player2Stats');
+    var player3Stats = document.getElementById('player3Stats');
+
+    var num_players = players.length;
+
+    if (num_players >= 1){
+        player1Stats.style.display = "block";
+        player2Stats.style.display = "none";
+        player3Stats.style.display = "none";
+
+        player1 = players[0]["Name"];
+        p1_yr = players[0]["Year"];
+
+        var player1Name = document.getElementById('player1Name');
+        var player1Year = document.getElementById('player1Year');
+        var p1_all_makes = document.getElementById('player1TotalMake')
+        var p1_all_miss = document.getElementById('player1TotalMiss')
+        var p1_all_perc = document.getElementById('player1TotalPercent')
+        var p1_3pt_makes = document.getElementById('player13ptMake')
+        var p1_3pt_miss = document.getElementById('player13ptMiss')
+        var p1_3pt_perc = document.getElementById('player13ptPercent')
+        var p1_2ptLong_makes = document.getElementById('player12ptLongMake')
+        var p1_2ptLong_miss = document.getElementById('player12ptLongMiss')
+        var p1_2ptLong_perc = document.getElementById('player12ptLongPercent')
+        var p1_2ptShort_makes = document.getElementById('player1ShortMake')
+        var p1_2ptShort_miss = document.getElementById('player1ShortMiss')
+        var p1_2ptShort_perc = document.getElementById('player1ShortPercent')
+
+        player1Name.innerText = player1;
+        player1Year.innerText = p1_yr;
+        p1_all_makes.innerText = allData[player1][p1_yr]["Make"];
+        p1_all_miss.innerText = allData[player1][p1_yr]["Miss"];
+        p1_all_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["Make"]/allData[player1][p1_yr]["Total"])*100).toFixed(2);
+        p1_3pt_makes.innerText = allData[player1][p1_yr]["threePt"]["Make"];
+        p1_3pt_miss.innerText = allData[player1][p1_yr]["threePt"]["Miss"];
+        p1_3pt_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2);   
+        p1_2ptShort_makes.innerText = allData[player1][p1_yr]["twoShort"]["Make"];
+        p1_2ptShort_miss.innerText = allData[player1][p1_yr]["twoShort"]["Miss"];
+        p1_2ptShort_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2);
+        p1_2ptLong_makes.innerText = allData[player1][p1_yr]["twoLong"]["Make"];
+        p1_2ptLong_miss.innerText = allData[player1][p1_yr]["twoLong"]["Miss"];
+        p1_2ptLong_perc.innerText = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2);
+
+    }
+
+    if (num_players >= 2){
+        player1Stats.style.display = "block";
+        player2Stats.style.display = "block";
+        player3Stats.style.display = "none";
+
+        player2 = players[1]["Name"];
+        p2_yr = players[1]["Year"];
+
+        var player2Name = document.getElementById('player2Name');
+        var player2Year = document.getElementById('player2Year');
+        var p2_all_makes = document.getElementById('player2TotalMake')
+        var p2_all_miss = document.getElementById('player2TotalMiss')
+        var p2_all_perc = document.getElementById('player2TotalPercent')
+        var p2_3pt_makes = document.getElementById('player23ptMake')
+        var p2_3pt_miss = document.getElementById('player23ptMiss')
+        var p2_3pt_perc = document.getElementById('player23ptPercent')
+        var p2_2ptLong_makes = document.getElementById('player22ptLongMake')
+        var p2_2ptLong_miss = document.getElementById('player22ptLongMiss')
+        var p2_2ptLong_perc = document.getElementById('player22ptLongPercent')
+        var p2_2ptShort_makes = document.getElementById('player2ShortMake')
+        var p2_2ptShort_miss = document.getElementById('player2ShortMiss')
+        var p2_2ptShort_perc = document.getElementById('player2ShortPercent')
+
+        player2Name.innerText = player2;
+        player2Year.innerText = p2_yr;
+        p2_all_makes.innerText = allData[player2][p2_yr]["Make"];
+        p2_all_miss.innerText = allData[player2][p2_yr]["Miss"];
+        p2_all_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["Make"]/allData[player2][p2_yr]["Total"])*100).toFixed(2);
+        p2_3pt_makes.innerText = allData[player2][p2_yr]["threePt"]["Make"];
+        p2_3pt_miss.innerText = allData[player2][p2_yr]["threePt"]["Miss"];
+        p2_3pt_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"]/allData[player2][p2_yr]["threePt"]["Total"])*100).toFixed(2);   
+        p2_2ptShort_makes.innerText = allData[player2][p2_yr]["twoShort"]["Make"];
+        p2_2ptShort_miss.innerText = allData[player2][p2_yr]["twoShort"]["Miss"];
+        p2_2ptShort_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"]/allData[player2][p2_yr]["twoShort"]["Total"])*100).toFixed(2);
+        p2_2ptLong_makes.innerText = allData[player2][p2_yr]["twoLong"]["Make"];
+        p2_2ptLong_miss.innerText = allData[player2][p2_yr]["twoLong"]["Miss"];
+        p2_2ptLong_perc.innerText = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"]/allData[player2][p2_yr]["twoLong"]["Total"])*100).toFixed(2);
+
+    }
+
+    if (num_players == 3){
+        player1Stats.style.display = "block";
+        player2Stats.style.display = "block";
+        player3Stats.style.display = "block";
+
+        player3 = players[2]["Name"];
+        p3_yr = players[2]["Year"];
+
+        var player3Name = document.getElementById('player3Name');
+        var player3Year = document.getElementById('player3Year');
+        var p3_all_makes = document.getElementById('player3TotalMake')
+        var p3_all_miss = document.getElementById('player3TotalMiss')
+        var p3_all_perc = document.getElementById('player3TotalPercent')
+        var p3_3pt_makes = document.getElementById('player33ptMake')
+        var p3_3pt_miss = document.getElementById('player33ptMiss')
+        var p3_3pt_perc = document.getElementById('player33ptPercent')
+        var p3_2ptLong_makes = document.getElementById('player32ptLongMake')
+        var p3_2ptLong_miss = document.getElementById('player32ptLongMiss')
+        var p3_2ptLong_perc = document.getElementById('player32ptLongPercent')
+        var p3_2ptShort_makes = document.getElementById('player3ShortMake')
+        var p3_2ptShort_miss = document.getElementById('player3ShortMiss')
+        var p3_2ptShort_perc = document.getElementById('player3ShortPercent')
+
+        player3Name.innerText = player3;
+        player3Year.innerText = p3_yr;
+        p3_all_makes.innerText = allData[player3][p3_yr]["Make"];
+        p3_all_miss.innerText = allData[player3][p3_yr]["Miss"];
+        p3_all_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["Make"]/allData[player3][p3_yr]["Total"])*100).toFixed(2);
+        p3_3pt_makes.innerText = allData[player3][p3_yr]["threePt"]["Make"];
+        p3_3pt_miss.innerText = allData[player3][p3_yr]["threePt"]["Miss"];
+        p3_3pt_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"]/allData[player3][p3_yr]["threePt"]["Total"])*100).toFixed(2);   
+        p3_2ptShort_makes.innerText = allData[player3][p3_yr]["twoShort"]["Make"];
+        p3_2ptShort_miss.innerText = allData[player3][p3_yr]["twoShort"]["Miss"];
+        p3_2ptShort_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"]/allData[player3][p3_yr]["twoShort"]["Total"])*100).toFixed(2);
+        p3_2ptLong_makes.innerText = allData[player3][p3_yr]["twoLong"]["Make"];
+        p3_2ptLong_miss.innerText = allData[player3][p3_yr]["twoLong"]["Miss"];
+        p3_2ptLong_perc.innerText = Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"]/allData[player3][p3_yr]["twoLong"]["Total"])*100).toFixed(2);
+    }
+
+
+}
+
 function drawSinglePlayer(player1, p1_yr) {
+
+    const players = [{'Name': player1, 'Year': p1_yr}];
+    updatePlayerStats(players);
+
     console.log(player1);
 
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
+    svg.selectAll('text').remove();
 
     var arcData = [
 
@@ -169,6 +311,9 @@ function drawSinglePlayer(player1, p1_yr) {
         .data(arcData)
         .enter()
         .append('path')
+        .attr('id', function(d, i){
+            return "path" + i;
+        })
         .attr('d', arcGenerator)
         .attr('fill', function (d, i) {
             if (i == 0) {
@@ -181,16 +326,135 @@ function drawSinglePlayer(player1, p1_yr) {
                 return 'green';
             }
         })
+        .attr('stroke', 'white')
+    /*
+    var labels = d3.select('g').selectAll('path').append("text")
+        .attr("transform", function(d,i) { 
+            if (i == 0){
+                d.outerRadius = 200;
+                d.innerRadius = 140;
+            }else if (i == 1){
+                d.outerRadius = 140;
+                d.innerRadius = 70;
+            }else if (i == 2){
+                d.outerRadius = 70;
+                d.innerRadius = 0;
+            }
+            console.log(arcGenerator.centroid(d)); 
+            return "translate(" + arcGenerator.centroid(d) + ")"; 
+        })
+        .attr("dy", ".35em")
+        .style("text-anchor", "middle")
+        .style("fill", "black")
+        .text(function(d, i){
+            if (i == 0){
+                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString();
+            }else if (i == 1){
+                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString();
+            }else if (i == 2){
+                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString();
+            }
+        });*/
+    
+    var label0 = d3.select('g').append('text')
+        .attr("stroke", 'white')
+        .attr("fill", 'white')
+        .attr("dy", 35)
+        .append("textPath")
+        .attr('xlink:href', function(d, i){
+            //return ('#path' + i).toString();
+            return '#path0';
+        })
+        .style("text-anchor", "middle")
+        .attr('startOffset', "26.5%")
+        .text(function(d, i){
+            if (i == 0){
+                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString();
+            }else if (i == 1){
+                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString();
+            }else if (i == 2){
+                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString());
+                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString();
+            }
+        });
+
+    var label1 = d3.select('g').append('text')
+        .attr("stroke", 'white')
+        .attr("fill", 'white')
+        .attr("dy", 35)
+        .append("textPath")
+        .attr('xlink:href', function(d, i){
+            //return ('#path' + i).toString();
+            return '#path1';
+        })
+        .style("text-anchor", "middle")
+        .attr('startOffset', "27.5%")
+        .text(function(d, i){
+            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
+            return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString();
+        });
+
+    var label2 = d3.select('g').append('text')
+        .attr("stroke", 'white')
+        .attr("fill", 'white')
+        .attr("dy", 35)
+        .append("textPath")
+        .attr('xlink:href', function(d, i){
+            //return ('#path' + i).toString();
+            return '#path2';
+        })
+        .style("text-anchor", "middle")
+        .attr('startOffset', "27.5%")
+        .text(function(d, i){
+            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
+            return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString();
+        });
+
+    var box = d3.select('g')
+        .append('rect')
+        .attr('x', -37.5)
+        .attr('y', -95)
+        .attr('width', 75)
+        .attr('height', 95)
+        .attr('fill', 'transparent' )
         .attr('stroke', 'white');
 
+    var court = d3.select('g')
+        .append('rect')
+        .attr('x', -200)
+        .attr('y', -400)
+        .attr('width', 400)
+        .attr('height', 400)
+        .attr('fill', 'transparent')
+        .attr('stroke', 'black');
+
+    var title = d3.select('g')
+        .append('text')
+        .attr('x', 0)
+        .attr('y', -220)
+        .attr('stroke', 'black')
+        .style("text-anchor", "middle")
+        .attr('startOffset', '50%')
+        .text(player1);
+
+    
 }
 
 function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
     console.log(player1);
     console.log(player2);
 
+    const players = [{'Name': player1, 'Year': p1_yr}, {'Name': player2, 'Year': p2_yr}];
+    updatePlayerStats(players);
+
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
+    svg.selectAll('text').remove();
 
     var arcData = [
 
@@ -223,6 +487,40 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             }
         })
         .attr('stroke', 'white');
+
+        var box = d3.select('g')
+            .append('rect')
+            .attr('x', -37.5)
+            .attr('y', -95)
+            .attr('width', 75)
+            .attr('height', 95)
+            .attr('fill', 'transparent' )
+            .attr('stroke', 'white');
+
+        var court = d3.select('g')
+            .append('rect')
+            .attr('x', -200)
+            .attr('y', -400)
+            .attr('width', 400)
+            .attr('height', 400)
+            .attr('fill', 'transparent')
+            .attr('stroke', 'black');
+
+        var title = d3.select('g')
+            .append('text')
+            .attr('x', -100)
+            .attr('y', -220)
+            .attr('stroke', 'black')
+            .style("text-anchor", "middle")
+            .text(player1);
+
+        var title2 = d3.select('g')
+            .append('text')
+            .attr('x', 100)
+            .attr('y', -220)
+            .attr('stroke', 'black')
+            .style("text-anchor", "middle")
+            .text(player2);
 }
 
 function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
@@ -230,8 +528,12 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
     console.log(player2);
     console.log(player3);
 
+    const players = [{'Name': player1, 'Year': p1_yr}, {'Name': player2, 'Year': p2_yr}, {'Name': player3, 'Year': p3_yr}];
+    updatePlayerStats(players);
+
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
+    svg.selectAll('text').remove();
 
     var arcData = [
 
@@ -267,5 +569,47 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             }
         })
         .attr('stroke', 'white');
+
+        var box = d3.select('g')
+            .append('rect')
+            .attr('x', -37.5)
+            .attr('y', -95)
+            .attr('width', 75)
+            .attr('height', 95)
+            .attr('fill', 'transparent' )
+            .attr('stroke', 'white');
+
+        var court = d3.select('g')
+            .append('rect')
+            .attr('x', -200)
+            .attr('y', -400)
+            .attr('width', 400)
+            .attr('height', 400)
+            .attr('fill', 'transparent')
+            .attr('stroke', 'black');
+
+        var title1 = d3.select('g')
+            .append('text')
+            .attr('x', -250)
+            .attr('y', -100)
+            .attr('stroke', 'black')
+            .style("text-anchor", "middle")
+            .text(player1);
+
+        var title2 = d3.select('g')
+            .append('text')
+            .attr('x', 0)
+            .attr('y', -220)
+            .attr('stroke', 'black')
+            .style("text-anchor", "middle")
+            .text(player2);
+
+        var title3 = d3.select('g')
+            .append('text')
+            .attr('x', 250)
+            .attr('y', -100)
+            .attr('stroke', 'black')
+            .style("text-anchor", "middle")
+            .text(player3);
 
 }
