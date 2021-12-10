@@ -436,6 +436,7 @@ function drawSinglePlayer(player1, p1_yr) {
             return '#path0';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "26.5%")
         .text(function (d, i) {
             if (i == 0) {
@@ -460,6 +461,7 @@ function drawSinglePlayer(player1, p1_yr) {
             return '#path1';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "27.5%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
@@ -476,6 +478,7 @@ function drawSinglePlayer(player1, p1_yr) {
             return '#path2';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "27.5%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
@@ -568,6 +571,7 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             return '#path0';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "27.5%")
         .text(function (d, i) {
             if (i == 0) {
@@ -592,6 +596,7 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             return '#path2';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "27.5%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
@@ -608,6 +613,7 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             return '#path4';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "27.5%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
@@ -625,6 +631,7 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             return '#path1';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             if (i == 0) {
@@ -649,6 +656,7 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             return '#path3';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
@@ -665,6 +673,7 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             return '#path5';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
@@ -767,6 +776,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path0';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "27.5%")
         .text(function (d, i) {
             if (i == 0) {
@@ -791,6 +801,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path3';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "27.5%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
@@ -807,6 +818,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path6';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
@@ -824,6 +836,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path1';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             if (i == 0) {
@@ -848,6 +861,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path4';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
@@ -864,6 +878,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path7';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
@@ -880,6 +895,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path2';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             if (i == 0) {
@@ -904,6 +920,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path5';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"] / allData[player3][p3_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
@@ -920,6 +937,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
             return '#path8';
         })
         .style("text-anchor", "middle")
+        .style("font-size", "22px")
         .attr('startOffset', "25%")
         .text(function (d, i) {
             console.log(Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"] / allData[player3][p3_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
