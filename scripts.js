@@ -71,7 +71,7 @@ function addInput() {
     input.setAttribute('type', 'text');
     input.setAttribute('id', 'player' + intValue);
     input.setAttribute('list', 'datalist1');
-    input.setAttribute('onchange', 'addYear("player' + intValue + '")');
+    input.setAttribute('oninput', 'addYear("player' + intValue + '")');
 
     //document.getElementById('datalists').appendChild(input);
     div.appendChild(input);
