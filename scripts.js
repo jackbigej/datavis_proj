@@ -371,35 +371,6 @@ function drawSinglePlayer(player1, p1_yr) {
         { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140 }
     ];
 
-    // Prep the tooltip bits, initial display is hidden
-    var tooltip = svg.append("g")
-        .attr("class", "tooltip")
-        .style("display", "none");
-
-    tooltip.append("rect")
-        .attr("width", 65)
-        .attr("height", 35)
-        .attr("fill", "white")
-        .style("opacity", 0.5);
-
-    tooltip.append("text")
-        .attr("x", 15)
-        .attr("class", "age")
-        .attr("dy", "1.2em")
-        .style("text-anchor", "start")
-        .attr("font-size", "12px")
-        .attr("font-weight", "bold");
-
-    tooltip.append("text")
-        .attr("x", 15)
-        .attr("y", 15)
-        .attr("class", "value")
-        .attr("dy", "1.2em")
-        .style("text-anchor", "start")
-        .attr("font-size", "12px")
-        .attr("font-weight", "bold");
-
-
     var arcGenerator = d3.arc();
 
     var arc = d3.select('g')
@@ -422,8 +393,14 @@ function drawSinglePlayer(player1, p1_yr) {
                 return 'green';
             }
         })
-        .attr('stroke', 'white')
-        .on("mouseover", function () { tooltip.style("display", null); })
+        .attr('stroke', 'white');
+
+    svg.selectAll('path')
+        .attr('pointer-events', 'visibleStroke')
+        .on("mouseover", function () {
+            console.log("Here");
+            tooltip.style("display", null);
+        })
         .on("mouseout", function () { tooltip.style("display", "none"); })
         .on("mousemove", function (d) {
             console.log(d)
@@ -433,6 +410,7 @@ function drawSinglePlayer(player1, p1_yr) {
             tooltip.select("text.age").text(d);
             tooltip.select("text.value").text(d);
         });
+
     /*
     var labels = d3.select('g').selectAll('path').append("text")
         .attr("transform", function(d,i) { 
@@ -551,6 +529,34 @@ function drawSinglePlayer(player1, p1_yr) {
         .attr('startOffset', '50%')
         .text(player1);
 
+
+    // Prep the tooltip bits, initial display is hidden
+    var tooltip = svg.append("g")
+        .attr("class", "tooltip")
+        .style("display", "none");
+
+    tooltip.append("rect")
+        .attr("width", 65)
+        .attr("height", 35)
+        .attr("fill", "white")
+        .style("opacity", 0.5);
+
+    tooltip.append("text")
+        .attr("x", 15)
+        .attr("class", "age")
+        .attr("dy", "1.2em")
+        .style("text-anchor", "start")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold");
+
+    tooltip.append("text")
+        .attr("x", 15)
+        .attr("y", 15)
+        .attr("class", "value")
+        .attr("dy", "1.2em")
+        .style("text-anchor", "start")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold");
 
 }
 
