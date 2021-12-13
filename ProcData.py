@@ -13,7 +13,7 @@ def read_older_data():
     pass
 
 def read_data():
-    path = './AllData/'
+    path = '../AllData/'
 
     pd = {}
             
@@ -38,7 +38,7 @@ def read_data():
                 score = 30
                 vis_desc = 32
 
-                season = fpath.split('.')[1].split('/')[2].split('_')[0]
+                season = fpath.split('/')[2].split('_')[0]
                 print(season)
 
                 curr_score = ''
@@ -83,7 +83,7 @@ def read_data():
                         if row[player_1_name] not in pd:
                             pd[row[player_1_name]] = {'Make':0, 'Miss':0, 'Total':0}
                         if season not in pd[row[player_1_name]]:
-                            pd[row[player_1_name]][season] = {'Make':0, 'Miss':0, 'Total':0}
+                            pd[row[player_1_name]][season] = {'Make':0, 'Miss':0, 'Total':0, 'Team': row[player_1_team]}
                         if (dist_key not in pd[row[player_1_name]][season]) and (dist_key != ''):
                             #print('Inserting dist_key: ' + str(dist_key) + ' for ' + row[player_1_name])
                             pd[row[player_1_name]][season][dist_key] = {'Make':0, 'Miss':0, 'Total':0}
@@ -135,7 +135,7 @@ def read_data():
                             if row[player_1_name] not in pd:
                                 pd[row[player_1_name]] = {'Make':0, 'Miss':0, 'Total':0}
                             if season not in pd[row[player_1_name]]:
-                                pd[row[player_1_name]][season] = {'Make':0, 'Miss':0, 'Total':0}
+                                pd[row[player_1_name]][season] = {'Make':0, 'Miss':0, 'Total':0, 'Team': row[player_1_team]}
                             if (dist_key not in pd[row[player_1_name]][season]) and (dist_key != ''):
                                 #print('Inserting dist_key: ' + str(dist_key) + ' for ' + row[player_1_name])
                                 pd[row[player_1_name]][season][dist_key] = {'Make':0, 'Miss':0, 'Total':0}

@@ -1,0 +1,1949 @@
+<!DOCTYPE html><html lang="en-US"><head><meta charset="UTF-8"/>
+<script data-ezscrex='false' data-cfasync='false' data-pagespeed-no-defer>var __ez=__ez||{};__ez.stms=Date.now();__ez.evt={};__ez.script={};__ez.ck=__ez.ck||{};__ez.template={};__ez.template.isOrig=true;__ez.queue=(function(){var count=0,incr=0,items=[],timeDelayFired=false,hpItems=[],lpItems=[],allowLoad=true;var obj={func:function(name,funcName,parameters,isBlock,blockedBy,deleteWhenComplete,proceedIfError){var self=this;this.name=name;this.funcName=funcName;this.parameters=parameters===null?null:(parameters instanceof Array)?parameters:[parameters];this.isBlock=isBlock;this.blockedBy=blockedBy;this.deleteWhenComplete=deleteWhenComplete;this.isError=false;this.isComplete=false;this.isInitialized=false;this.proceedIfError=proceedIfError;this.isTimeDelay=false;this.process=function(){log("... func = "+name);self.isInitialized=true;self.isComplete=true;log("... func.apply: "+name);var funcs=self.funcName.split('.');var func=null;if(funcs.length>3){}else if(funcs.length===3){func=window[funcs[0]][funcs[1]][funcs[2]];}else if(funcs.length===2){func=window[funcs[0]][funcs[1]];}else{func=window[self.funcName];}
+if(typeof func!=='undefined'&&func!==null){func.apply(null,this.parameters);}
+if(self.deleteWhenComplete===true)delete items[name];if(self.isBlock===true){log("----- F'D: "+self.name);processAll();}}},file:function(name,path,isBlock,blockedBy,async,defer,proceedIfError){var self=this;this.name=name;this.path=path;this.async=async;this.defer=defer;this.isBlock=isBlock;this.blockedBy=blockedBy;this.isInitialized=false;this.isError=false;this.isComplete=false;this.proceedIfError=proceedIfError;this.isTimeDelay=false;this.process=function(){self.isInitialized=true;log("... file = "+name);var scr=document.createElement('script');scr.src=path;if(async===true)scr.async=true;else if(defer===true)scr.defer=true;scr.onerror=function(){log("----- ERR'D: "+self.name);self.isError=true;if(self.isBlock===true){processAll();}};scr.onreadystatechange=scr.onload=function(){var state=scr.readyState;log("----- F'D: "+self.name);if((!state||/loaded|complete/.test(state))){self.isComplete=true;if(self.isBlock===true){processAll();}}};document.getElementsByTagName('head')[0].appendChild(scr);}},fileLoaded:function(name,isComplete){this.name=name;this.path="";this.async=false;this.defer=false;this.isBlock=false;this.blockedBy=[];this.isInitialized=true;this.isError=false;this.isComplete=isComplete;this.proceedIfError=false;this.isTimeDelay=false;this.process=function(){};}};function init(){window.addEventListener("load",function(){setTimeout(function(){timeDelayFired=true;log('TDELAY -----');processAll();},5000);},false);}
+function addFile(name,path,isBlock,blockedBy,async,defer,proceedIfError,priority){var item=new obj.file(name,path,isBlock,blockedBy,async,defer,proceedIfError);if(priority===true){hpItems[name]=item}else{lpItems[name]=item}
+items[name]=item;checkIfBlocked(item);}
+function setallowLoad(settobool){allowLoad=settobool}
+function addFunc(name,func,parameters,isBlock,blockedBy,autoInc,deleteWhenComplete,proceedIfError,priority){if(autoInc===true)name=name+"_"+incr++;var item=new obj.func(name,func,parameters,isBlock,blockedBy,deleteWhenComplete,proceedIfError);if(priority===true){hpItems[name]=item}else{lpItems[name]=item}
+items[name]=item;checkIfBlocked(item);}
+function addTimeDelayFile(name,path){var item=new obj.file(name,path,false,[],false,false,true);item.isTimeDelay=true;log(name+' ... '+' FILE! TDELAY');lpItems[name]=item;items[name]=item;checkIfBlocked(item);}
+function addTimeDelayFunc(name,func,parameters){var item=new obj.func(name,func,parameters,false,[],true,true);item.isTimeDelay=true;log(name+' ... '+' FUNCTION! TDELAY');lpItems[name]=item;items[name]=item;checkIfBlocked(item);}
+function checkIfBlocked(item){if(isBlocked(item)===true||allowLoad==false)return;item.process();}
+function isBlocked(item){if(item.isTimeDelay===true&&timeDelayFired===false){log(item.name+" blocked = TIME DELAY!");return true;}
+if(item.blockedBy instanceof Array){for(var i=0;i<item.blockedBy.length;i++){var block=item.blockedBy[i];if(items.hasOwnProperty(block)===false){log(item.name+" blocked = "+block);return true;}else if(item.proceedIfError===true&&items[block].isError===true){return false;}else if(items[block].isComplete===false){log(item.name+" blocked = "+block);return true;}}}
+return false;}
+function markLoaded(filename){if(!filename||0===filename.length){return;}
+if(filename in items){var item=items[filename];if(item.isComplete===true){log(item.name+' '+filename+': error loaded duplicate')}else{item.isComplete=true;item.isInitialized=true;}}else{items[filename]=new obj.fileLoaded(filename,true);}
+log("markLoaded dummyfile: "+items[filename].name);}
+function logWhatsBlocked(){for(var i in items){if(items.hasOwnProperty(i)===false)continue;var item=items[i];isBlocked(item)}}
+function log(msg){var href=window.location.href;var reg=new RegExp('[?&]ezq=([^&#]*)','i');var string=reg.exec(href);var res=string?string[1]:null;if(res==="1")console.debug(msg);}
+function processAll(){count++;if(count>200)return;log("let's go");processItems(hpItems);processItems(lpItems);}
+function processItems(list){for(var i in list){if(list.hasOwnProperty(i)===false)continue;var item=list[i];if(item.isComplete===true||isBlocked(item)||item.isInitialized===true||item.isError===true){if(item.isError===true){log(item.name+': error')}else if(item.isComplete===true){log(item.name+': complete already')}else if(item.isInitialized===true){log(item.name+': initialized already')}}else{item.process();}}}
+init();return{addFile:addFile,addDelayFile:addTimeDelayFile,addFunc:addFunc,addDelayFunc:addTimeDelayFunc,items:items,processAll:processAll,setallowLoad:setallowLoad,markLoaded:markLoaded,logWhatsBlocked:logWhatsBlocked,};})();__ez.evt.add=function(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n()},__ez.evt.remove=function(e,t,n){e.removeEventListener?e.removeEventListener(t,n,!1):e.detachEvent?e.detachEvent("on"+t,n):delete e["on"+t]};__ez.script.add=function(e){var t=document.createElement("script");t.src=e,t.async=!0,t.type="text/javascript",document.getElementsByTagName("head")[0].appendChild(t)};__ez.dot={};__ez.queue.addFile('/detroitchicago/boise.js', '/detroitchicago/boise.js?gcb=195-3&cb=1', false, [], true, false, true, false);__ez.queue.addFile('/detroitchicago/memphis.js', '/detroitchicago/memphis.js?gcb=195-3&cb=14', false, [], true, false, true, false);__ez.queue.addFile('/detroitchicago/minneapolis.js', '/detroitchicago/minneapolis.js?gcb=195-3&cb=3', false, [], true, false, true, false);__ez.queue.addFile('/detroitchicago/rochester.js', '/detroitchicago/rochester.js?gcb=195-3&cb=12', false, ['/detroitchicago/memphis.js','/detroitchicago/minneapolis.js'], true, false, true, false);__ez.vep=(function(){var pixels=[],pxURL="/detroitchicago/grapefruit.gif";function AddPixel(vID,pixelData){if(__ez.dot.isDefined(vID)&&__ez.dot.isValid(pixelData)){pixels.push({type:'video',video_impression_id:vID,domain_id:__ez.dot.getDID(),t_epoch:__ez.dot.getEpoch(0),data:__ez.dot.dataToStr(pixelData)});}}
+function Fire(){if(typeof document.visibilityState!=='undefined'&&document.visibilityState==="prerender"){return;}
+if(__ez.dot.isDefined(pixels)&&pixels.length>0){while(pixels.length>0){var j=5;if(j>pixels.length){j=pixels.length;}
+var pushPixels=pixels.splice(0,j);var pixelURL=__ez.dot.getURL(pxURL)+"?orig="+(__ez.template.isOrig===true?1:0)+"&v="+btoa(JSON.stringify(pushPixels));__ez.dot.Fire(pixelURL);}}
+pixels=[];}
+return{Add:AddPixel,Fire:Fire};})();</script><script data-ezscrex='false' data-cfasync='false' data-pagespeed-no-defer>__ez.pel=(function(){var pixels=[],pxURL="/porpoiseant/army.gif";function AddAndFirePixel(adSlot,pixelData){AddPixel(adSlot,pixelData,0,0,0,0,0);Fire();}
+function AddAndFireOrigPixel(adSlot,pixelData){AddPixel(adSlot,pixelData,0,0,0,0,0,true);Fire();}
+function GetCurrentPixels(){return pixels;}
+function AddPixel(adSlot,pixelData,revenue,est_revenue,bid_floor_filled,bid_floor_prev,stat_source_id,isOrig){if(!__ez.dot.isDefined(adSlot)||__ez.dot.isAnyDefined(adSlot.getSlotElementId,adSlot.ElementId)==false){return;}
+var ad_position_id=parseInt(__ez.dot.getTargeting(adSlot,'ap'));var impId=__ez.dot.getSlotIID(adSlot),adUnit=__ez.dot.getAdUnit(adSlot,isOrig);var compId=parseInt(__ez.dot.getTargeting(adSlot,"compid"));var lineItemId=0;var creativeId=0;var ezimData=getEzimData(adSlot);if(typeof ezimData=='object'){if(ezimData.creative_id!==undefined){creativeId=ezimData.creative_id;}
+if(ezimData.line_item_id!==undefined){lineItemId=ezimData.line_item_id;}}
+if(__ez.dot.isDefined(impId,adUnit)&&__ez.dot.isValid(pixelData)){pixels.push({type:"impression",impression_id:impId,domain_id:__ez.dot.getDID(),unit:adUnit,t_epoch:__ez.dot.getEpoch(0),revenue:revenue,est_revenue:est_revenue,ad_position:ad_position_id,ad_size:"",bid_floor_filled:bid_floor_filled,bid_floor_prev:bid_floor_prev,stat_source_id:stat_source_id,country_code:__ez.dot.getCC(),pageview_id:__ez.dot.getPageviewId(),comp_id:compId,line_item_id:lineItemId,creative_id:creativeId,data:__ez.dot.dataToStr(pixelData),is_orig:isOrig||__ez.template.isOrig,});}}
+function AddPixelById(impFullId,pixelData,isOrig){var vals=impFullId.split('/');if(__ez.dot.isDefined(impFullId)&&vals.length===3&&__ez.dot.isValid(pixelData)){var adUnit=vals[0],impId=vals[2];pixels.push({type:"impression",impression_id:impId,domain_id:__ez.dot.getDID(),unit:adUnit,t_epoch:__ez.dot.getEpoch(0),pageview_id:__ez.dot.getPageviewId(),data:__ez.dot.dataToStr(pixelData),is_orig:isOrig||__ez.template.isOrig});}}
+function Fire(){if(typeof document.visibilityState!=='undefined'&&document.visibilityState==="prerender")return;if(__ez.dot.isDefined(pixels)&&pixels.length>0){var allPixels=[pixels.filter(function(pixel){return pixel.is_orig}),pixels.filter(function(pixel){return!pixel.is_orig})];allPixels.forEach(function(pixels){while(pixels.length>0){var isOrig=pixels[0].is_orig||false;var j=5;if(j>pixels.length){j=pixels.length;}
+var pushPixels=pixels.splice(0,j);var pixelURL=__ez.dot.getURL(pxURL)+"?orig="+(isOrig===true?1:0)+"&sts="+btoa(JSON.stringify(pushPixels));if(typeof window.isAmp!=='undefined'&&isAmp&&typeof window._ezaq!=='undefined'&&_ezaq.hasOwnProperty("domain_id")){pixelURL+="&visit_uuid="+_ezaq['visit_uuid'];}
+__ez.dot.Fire(pixelURL);}})}
+pixels=[];}
+function getEzimData(adSlot){if(typeof _ezim_d=="undefined"){return false}
+var adUnitName=__ez.dot.getAdUnitPath(adSlot).split('/').pop();if(typeof _ezim_d==='object'&&_ezim_d.hasOwnProperty(adUnitName)){return _ezim_d[adUnitName];}
+for(var ezimKey in _ezim_d){if(ezimKey.split('/').pop()===adUnitName){return _ezim_d[ezimKey];}}
+return false;}
+return{Add:AddPixel,AddAndFire:AddAndFirePixel,AddAndFireOrig:AddAndFireOrigPixel,AddById:AddPixelById,Fire:Fire,GetPixels:GetCurrentPixels,};})();__ez.queue.addFile('/detroitchicago/raleigh.js', '/detroitchicago/raleigh.js?gcb=195-3&cb=5', false, [], true, false, true, false);__ez.queue.addFile('/detroitchicago/tampa.js', '/detroitchicago/tampa.js?gcb=195-3&cb=4', false, [], true, false, true, false);</script>
+<script data-ezscrex="false" data-cfasync="false">(function(){if("function"===typeof window.CustomEvent)return!1;window.CustomEvent=function(c,a){a=a||{bubbles:!1,cancelable:!1,detail:null};var b=document.createEvent("CustomEvent");b.initCustomEvent(c,a.bubbles,a.cancelable,a.detail);return b}})();</script><script data-ezscrex="false" data-cfasync="false">__ez.queue.addFile('/detroitchicago/tulsa.js', '/detroitchicago/tulsa.js?gcb=195-3&cb=5', false, [], true, false, true, false);</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>NBA Team Color Codes Hex, RGB, PANTONE and CMYK - Team Color Codes</title>
+<meta name="robots" content="max-image-preview:large"/>
+
+<!-- This site is optimized with the Yoast SEO plugin v12.0 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Here are the team colors for all 30 NBA Teams. Use these color codes for your digital or print based projects. Colors are updated as they change."/>
+<link rel="canonical" href="https://teamcolorcodes.com/nba-team-color-codes/"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="NBA Team Color Codes Hex, RGB, PANTONE and CMYK - Team Color Codes"/>
+<meta property="og:description" content="Here are the team colors for all 30 NBA Teams. Use these color codes for your digital or print based projects. Colors are updated as they change."/>
+<meta property="og:url" content="https://teamcolorcodes.com/nba-team-color-codes/"/>
+<meta property="og:site_name" content="Team Color Codes"/>
+<meta property="og:image" content="https://teamcolorcodes.com/wp-content/uploads/2019/02/nba_logo_colors-133x300.png"/>
+<meta property="og:image:secure_url" content="https://teamcolorcodes.com/wp-content/uploads/2019/02/nba_logo_colors-133x300.png"/>
+<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--main">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://teamcolorcodes.com/#website","url":"https://teamcolorcodes.com/","name":"Team Color Codes","potentialAction":{"@type":"SearchAction","target":"https://teamcolorcodes.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"https://teamcolorcodes.com/nba-team-color-codes/#primaryimage","url":"https://teamcolorcodes.com/wp-content/uploads/2019/02/nba_logo_colors.png","width":221,"height":500,"caption":"nba logo colors"},{"@type":"WebPage","@id":"https://teamcolorcodes.com/nba-team-color-codes/#webpage","url":"https://teamcolorcodes.com/nba-team-color-codes/","inLanguage":"en-US","name":"NBA Team Color Codes Hex, RGB, PANTONE and CMYK - Team Color Codes","isPartOf":{"@id":"https://teamcolorcodes.com/#website"},"primaryImageOfPage":{"@id":"https://teamcolorcodes.com/nba-team-color-codes/#primaryimage"},"datePublished":"2016-06-10T19:40:08-05:00","dateModified":"2021-09-14T08:14:05-05:00","description":"Here are the team colors for all 30 NBA Teams. Use these color codes for your digital or print based projects. Colors are updated as they change."}]}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com"/>
+<link rel="dns-prefetch" href="//code.ionicframework.com"/>
+<link rel="dns-prefetch" href="//s.w.org"/>
+<link rel="alternate" type="application/rss+xml" title="Team Color Codes » Feed" href="https://teamcolorcodes.com/feed/"/>
+<link rel="alternate" type="application/rss+xml" title="Team Color Codes » Comments Feed" href="https://teamcolorcodes.com/comments/feed/"/>
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/teamcolorcodes.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.4"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="gtranslate-style-css" href="https://teamcolorcodes.com/wp-content/plugins/gtranslate/gtranslate-style24.css?ver=5.7.4" type="text/css" media="all"/>
+<link rel="stylesheet" id="monochrome-pro-css" href="https://teamcolorcodes.com/wp-content/themes/monochrome-pro/style.css?ver=1.0.0" type="text/css" media="all"/>
+<style id="monochrome-pro-inline-css" type="text/css">
+
+
+		a,
+		.entry-meta a:hover,
+		.entry-meta a:focus,
+		.entry-title a:hover,
+		.entry-title a:focus,
+		.genesis-nav-menu a:focus,
+		.genesis-nav-menu a:hover,
+		.genesis-nav-menu .current-menu-item > a,
+		.genesis-nav-menu .toggle-header-search:focus,
+		.genesis-nav-menu .toggle-header-search:hover,
+		.genesis-responsive-menu .genesis-nav-menu a:focus,
+		.genesis-responsive-menu .genesis-nav-menu a:hover,
+		.sub-menu-toggle:focus,
+		.sub-menu-toggle:hover,
+		#genesis-mobile-nav-primary:focus,
+		#genesis-mobile-nav-primary:hover {
+			color: #1e7fff;
+		}
+
+		@media only screen and (max-width: 1023px) {
+			.genesis-responsive-menu .genesis-nav-menu a:focus,
+			.genesis-responsive-menu .genesis-nav-menu a:hover,
+			.genesis-responsive-menu .genesis-nav-menu .sub-menu .menu-item a:focus,
+			.genesis-responsive-menu .genesis-nav-menu .sub-menu .menu-item a:hover,
+			.genesis-responsive-menu.nav-primary .genesis-nav-menu .sub-menu .current-menu-item > a {
+				color: #1e7fff;
+			}
+		}
+
+		
+
+		button:hover,
+		button:focus,
+		input:hover[type="button"],
+		input:hover[type="reset"],
+		input:hover[type="submit"],
+		input:focus[type="button"],
+		input:focus[type="reset"],
+		input:focus[type="submit"],
+		.archive-pagination a:hover,
+		.archive-pagination a:focus,
+		.archive-pagination li.active a,
+		.button:hover,
+		.button:focus,
+		.image-section button:hover,
+		.image-section button:focus,
+		.image-section input[type="button"]:hover,
+		.image-section input[type="button"]:focus,
+		.image-section input[type="reset"]:hover,
+		.image-section input[type="reset"]:focus,
+		.image-section input[type="submit"]:hover,
+		.image-section input[type="submit"]:focus,
+		.image-section .button:hover,
+		.image-section .button:focus,
+		.image-section .more-link:hover,
+		.image-section .more-link:focus,
+		.more-link:hover,
+		.more-link:focus {
+			background-color: #00e5ff;
+			color: #000000;
+		}
+		
+			.before-footer-cta {
+				background-color: #00eeff;
+				background: linear-gradient(45deg,#00eeff,#02cbfb);
+			}
+
+			.before-footer-cta,
+			.before-footer-cta a,
+			.before-footer-cta p,
+			.before-footer-cta .widget-title {
+				color: #000000;
+			}
+			
+</style>
+<link rel="stylesheet" id="wp-block-library-css" href="https://teamcolorcodes.com/wp-includes/css/dist/block-library/style.min.css?ver=5.7.4" type="text/css" media="all"/>
+<link rel="stylesheet" id="toc-screen-css" href="https://teamcolorcodes.com/wp-content/plugins/table-of-contents-plus/screen.min.css?ver=2002" type="text/css" media="all"/>
+<link rel="stylesheet" id="monochrome-fonts-css" href="//fonts.googleapis.com/css?family=Muli%3A200%2C300%2C300i%2C400%2C400i%2C600%2C600i%7COpen+Sans+Condensed%3A300&amp;ver=1.0.0" type="text/css" media="all"/>
+<link rel="stylesheet" id="monochrome-ionicons-css" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css?ver=1.0.0" type="text/css" media="all"/>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-includes/js/jquery/jquery.min.js?ver=3.5.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://teamcolorcodes.com/wp-json/"/><link rel="alternate" type="application/json" href="https://teamcolorcodes.com/wp-json/wp/v2/pages/791"/><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://teamcolorcodes.com/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://teamcolorcodes.com/wp-includes/wlwmanifest.xml"/> 
+<meta name="generator" content="WordPress 5.7.4"/>
+<link rel="shortlink" href="https://teamcolorcodes.com/?p=791"/>
+<link rel="alternate" type="application/json+oembed" href="https://teamcolorcodes.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fteamcolorcodes.com%2Fnba-team-color-codes%2F"/>
+<link rel="alternate" type="text/xml+oembed" href="https://teamcolorcodes.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fteamcolorcodes.com%2Fnba-team-color-codes%2F&amp;format=xml"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<script src="sw.js"></script>
+<style></style>
+    
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8718027968382544",
+          enable_page_level_ads: true
+     });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-51073037-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-51073037-1');
+</script><link rel="icon" href="https://teamcolorcodes.com/wp-content/uploads/2018/02/cropped-icon-32x32.png" sizes="32x32"/>
+<link rel="icon" href="https://teamcolorcodes.com/wp-content/uploads/2018/02/cropped-icon-192x192.png" sizes="192x192"/>
+<link rel="apple-touch-icon" href="https://teamcolorcodes.com/wp-content/uploads/2018/02/cropped-icon-180x180.png"/>
+<meta name="msapplication-TileImage" content="https://teamcolorcodes.com/wp-content/uploads/2018/02/cropped-icon-270x270.png"/>
+		<style type="text/css" id="wp-custom-css">
+			.leaguelogos {
+	text-align: center;
+}
+.leaguelogos h4 {
+	margin-bottom: 45px;
+}
+.genesis-nav-menu a {
+	font-size: 12px;
+}
+.logobutton {
+	height: 250px;
+	justify-content: space-between;
+	text-align: center;
+	display: inline-block;
+	margin: 0px 20px;
+}
+.logobutton img {
+	height: 100px;
+	text-align: center;
+}
+a.logobutton {
+	color: #000;
+}
+.colorblock, .team-button {
+  padding: 10px;
+  text-align: left;
+}
+.colorblock {
+  margin-bottom: 5px;
+	font-family: 'Roboto Mono', monospace;
+	color: white;
+	text-transform: uppercase;
+	border-radius: 5px;
+}
+.colorblock a {
+	color: white;
+	text-decoration: underline;
+}
+#search-7 {
+	padding: 50px;
+	background-color: #041e42;
+	color: white;
+	border-radius: 5px;
+}
+.black {
+	color: white;
+  background-color: #000;
+}
+.white {
+	color: black;
+}
+.front-page-2 .flexible-widgets .widget_text:nth-of-type(1)::after, .front-page-3 .flexible-widgets .widget_text:nth-of-type(1)::after, .front-page-4 .flexible-widgets .widget_text:nth-of-type(1)::after {
+	border-bottom: none;
+}
+.home-button {
+    text-align: left;
+    display: inline-block;
+    margin: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+  	font-family: 'Helvetica Neue', sans-serif;
+  	font-weight: bold;
+	color: #000;
+		font-size: 22px;
+	width: 335px;
+}
+.team-button {
+    background-color: #fff;
+    margin: 5px;
+    width: 325px;
+    display: inline-block;
+    font-size: 24px;
+		font-family: 'Helvetica Neue', sans-serif;
+	font-weight: bold;
+	color: white;
+	border-radius: 5px;
+}
+.team-button:hover {
+	box-shadow: 2px 2px 2px #696969;
+}
+.nflsidebar {
+  width: 100%;
+}
+.front-page-1 .widgettitle {
+	font-size: 40px;
+}
+.front-page-4 .widgettitle {
+	font-size: 35px;
+}
+.front-page .flexible-widgets {
+	padding-top: 75px;
+	padding-bottom: 75px;
+}
+.site-footer {
+	background-color: #041042;
+}
+
+/* Tpbr topbar
+#tpbr_topbar a{
+	font-weight:600;
+	border-color:#ffffff;
+	border-style:solid;
+	border-width:1px;
+} */		</style>
+		<script type="text/javascript">var ezouid = "1";</script><base href="https://teamcolorcodes.com/nba-team-color-codes/"><script type='text/javascript'>
+var ezoTemplate = 'old_site_gc';
+if(typeof ezouid == 'undefined')
+{
+    var ezouid = 'none';
+}
+var ezoFormfactor = '1';
+var ezo_elements_to_check = Array();
+</script>
+
+<!-- START EZHEAD -->
+<script data-ezscrex="false" type='text/javascript'>
+var soc_app_id = '0';
+var did = 23681;
+var ezdomain = 'teamcolorcodes.com';
+var ezoicSearchable = 1;
+</script>
+<!--{jquery}-->
+<!-- END EZHEAD -->
+
+<script data-ezscrex="false" type="text/javascript" data-cfasync="false">var _ezaq = {"ad_cache_level":0,"ad_lazyload_version":0,"ad_load_version":0,"city":"South Bend","country":"US","days_since_last_visit":-1,"domain_id":23681,"domain_test_group":20210304,"engaged_time_visit":0,"ezcache_level":2,"ezcache_skip_code":0,"form_factor_id":1,"framework_id":1,"is_return_visitor":false,"is_sitespeed":0,"last_page_load":"","last_pageview_id":"","lt_cache_level":0,"metro_code":588,"page_ad_positions":"","page_view_count":0,"page_view_id":"0b75e7f9-4728-48ee-7aaf-fc3c3f2ef061","position_selection_id":0,"postal_code":"46637","pv_event_count":0,"response_size_orig":132947,"response_time_orig":6,"serverid":"35.171.160.97:17634","state":"IN","t_epoch":1639351721,"template_id":126,"time_on_site_visit":0,"url":"https://teamcolorcodes.com/nba-team-color-codes/","user_id":0,"word_count":6219,"worst_bad_word_level":0};var _ezExtraQueries = "&ez_orig=1";</script>
+<script data-ezscrex='false' data-pagespeed-no-defer data-cfasync='false'>
+function create_ezolpl(pvID, rv) {
+    var d = new Date();
+    d.setTime(d.getTime() + (365*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    __ez.ck.setByCat("ezux_lpl_23681=" + new Date().getTime() + "|" + pvID + "|" + rv + "; " + expires, 3);
+}
+function attach_ezolpl(pvID, rv) {
+    if (document.readyState === "complete") {
+        create_ezolpl(pvID, rv);
+    }
+    if(window.attachEvent) {
+        window.attachEvent("onload", create_ezolpl, pvID, rv);
+    } else {
+        if(window.onload) {
+            var curronload = window.onload;
+            var newonload = function(evt) {
+                curronload(evt);
+                create_ezolpl(pvID, rv);
+            };
+            window.onload = newonload;
+        } else {
+            window.onload = create_ezolpl.bind(null, pvID, rv);
+        }
+    }
+}
+
+__ez.queue.addFunc("attach_ezolpl", "attach_ezolpl", ["0b75e7f9-4728-48ee-7aaf-fc3c3f2ef061", "false"], false, ['/detroitchicago/boise.js'], true, false, false, false);
+</script></head>
+<body class="page-template-default page page-id-791 custom-header full-width-content genesis-breadcrumbs-hidden"><div class="site-container"><ul class="genesis-skip-link"><li><a href="#genesis-nav-primary" class="screen-reader-shortcut"> Skip to primary navigation</a></li><li><a href="#genesis-content" class="screen-reader-shortcut"> Skip to main content</a></li></ul><header class="site-header"><div class="wrap"><div class="title-area"><p class="site-title"><a href="https://teamcolorcodes.com/">Team Color Codes</a></p><p class="site-description">Color Codes For NFL, MLB, NBA and NCAA Teams</p></div><nav class="nav-primary" aria-label="Main" id="genesis-nav-primary"><div class="wrap"><ul id="menu-main-menu" class="menu genesis-nav-menu menu-primary js-superfish"><li id="menu-item-11035" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-11035"><a href="https://teamcolorcodes.com/"><span>Home</span></a></li>
+<li id="menu-item-11036" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11036"><a href="https://teamcolorcodes.com/mlb-color-codes/"><span>MLB Colors</span></a></li>
+<li id="menu-item-11037" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-791 current_page_item menu-item-11037"><a href="https://teamcolorcodes.com/nba-team-color-codes/" aria-current="page"><span>NBA Colors</span></a></li>
+<li id="menu-item-11038" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11038"><a href="https://teamcolorcodes.com/nascar-colors/"><span>NASCAR Colors</span></a></li>
+<li id="menu-item-11039" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11039"><a href="https://teamcolorcodes.com/ncaa-color-codes/"><span>NCAA Colors</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-11041" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11041"><a href="https://teamcolorcodes.com/ncaa-color-codes/america-east/"><span>America East</span></a></li>
+	<li id="menu-item-11040" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11040"><a href="https://teamcolorcodes.com/ncaa-color-codes/acc-color-codes/"><span>ACC</span></a></li>
+	<li id="menu-item-11043" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11043"><a href="https://teamcolorcodes.com/ncaa-color-codes/atlantic-10-colors/"><span>Atlantic 10</span></a></li>
+	<li id="menu-item-11044" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11044"><a href="https://teamcolorcodes.com/ncaa-color-codes/atlantic-sun/"><span>Atlantic Sun</span></a></li>
+	<li id="menu-item-11049" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11049"><a href="https://teamcolorcodes.com/ncaa-color-codes/big-ten-team-colors/"><span>Big Ten</span></a></li>
+	<li id="menu-item-11047" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11047"><a href="https://teamcolorcodes.com/ncaa-color-codes/big-sky-conference/"><span>Big Sky Conference</span></a></li>
+	<li id="menu-item-11048" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11048"><a href="https://teamcolorcodes.com/ncaa-color-codes/big-south-conference-colors/"><span>Big South Conference</span></a></li>
+	<li id="menu-item-11050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11050"><a href="https://teamcolorcodes.com/ncaa-color-codes/big-west/"><span>Big West</span></a></li>
+	<li id="menu-item-11045" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11045"><a href="https://teamcolorcodes.com/ncaa-color-codes/big-12-colors/"><span>Big 12</span></a></li>
+	<li id="menu-item-11052" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11052"><a href="https://teamcolorcodes.com/ncaa-color-codes/conference-usa/"><span>Conference USA</span></a></li>
+	<li id="menu-item-11051" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11051"><a href="https://teamcolorcodes.com/ncaa-color-codes/colonial-athletic-association-colors/"><span>CAA</span></a></li>
+	<li id="menu-item-11054" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11054"><a href="https://teamcolorcodes.com/ncaa-color-codes/ivy-league/"><span>Ivy League</span></a></li>
+	<li id="menu-item-11053" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11053"><a href="https://teamcolorcodes.com/ncaa-color-codes/horizon-league/"><span>Horizon League</span></a></li>
+	<li id="menu-item-11055" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11055"><a href="https://teamcolorcodes.com/ncaa-color-codes/maac/"><span>MAAC</span></a></li>
+	<li id="menu-item-11056" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11056"><a href="https://teamcolorcodes.com/ncaa-color-codes/mac/"><span>MAC</span></a></li>
+	<li id="menu-item-11057" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11057"><a href="https://teamcolorcodes.com/ncaa-color-codes/mid-eastern-athletic-conference-colors/"><span>MEAC</span></a></li>
+	<li id="menu-item-11058" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11058"><a href="https://teamcolorcodes.com/ncaa-color-codes/missouri-valley/"><span>Missouri Valley</span></a></li>
+	<li id="menu-item-11059" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11059"><a href="https://teamcolorcodes.com/ncaa-color-codes/mountain-west/"><span>Mountain West</span></a></li>
+	<li id="menu-item-11060" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11060"><a href="https://teamcolorcodes.com/ncaa-color-codes/northeast-conference-nec-colors/"><span>Northeast Conference</span></a></li>
+	<li id="menu-item-11061" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11061"><a href="https://teamcolorcodes.com/ncaa-color-codes/ohio-valley-conference-colors/"><span>Ohio Valley</span></a></li>
+	<li id="menu-item-11062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11062"><a href="https://teamcolorcodes.com/ncaa-color-codes/pac-12-colors/"><span>PAC 12</span></a></li>
+	<li id="menu-item-11063" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11063"><a href="https://teamcolorcodes.com/ncaa-color-codes/patriot-league-colors/"><span>Patriot League</span></a></li>
+	<li id="menu-item-11064" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11064"><a href="https://teamcolorcodes.com/ncaa-color-codes/sec-team-color-codes/"><span>SEC</span></a></li>
+	<li id="menu-item-11065" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11065"><a href="https://teamcolorcodes.com/ncaa-color-codes/southern-conference-colors/"><span>Southern Conference</span></a></li>
+	<li id="menu-item-11066" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11066"><a href="https://teamcolorcodes.com/ncaa-color-codes/southland-conference-colors/"><span>Southland Conference</span></a></li>
+	<li id="menu-item-11069" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11069"><a href="https://teamcolorcodes.com/ncaa-color-codes/summit-league/"><span>Summit League</span></a></li>
+	<li id="menu-item-11068" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11068"><a href="https://teamcolorcodes.com/ncaa-color-codes/sun-belt/"><span>Sun Belt Conference</span></a></li>
+	<li id="menu-item-11067" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11067"><a href="https://teamcolorcodes.com/ncaa-color-codes/southwestern-athletic-conference-colors/"><span>SWAC</span></a></li>
+	<li id="menu-item-11125" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11125"><a href="https://teamcolorcodes.com/ncaa-color-codes/western-athletic-conference/"><span>WAC</span></a></li>
+	<li id="menu-item-11126" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11126"><a href="https://teamcolorcodes.com/ncaa-color-codes/west-coast-conference/"><span>WCC</span></a></li>
+</ul>
+</li>
+<li id="menu-item-11070" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11070"><a href="https://teamcolorcodes.com/nfl-team-color-codes/"><span>NFL Colors</span></a></li>
+<li id="menu-item-11071" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11071"><a href="https://teamcolorcodes.com/nhl-team-color-codes/"><span>NHL Colors</span></a></li>
+<li id="menu-item-11073" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11073"><a href="https://teamcolorcodes.com/soccer/"><span>Soccer</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-11077" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11077"><a href="https://teamcolorcodes.com/soccer/serie-a-color-codes/"><span>Serie A</span></a></li>
+	<li id="menu-item-11074" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11074"><a href="https://teamcolorcodes.com/soccer/laliga-color-codes/"><span>LaLiga</span></a></li>
+	<li id="menu-item-11075" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11075"><a href="https://teamcolorcodes.com/soccer/mls-team-color-codes/"><span>MLS</span></a></li>
+	<li id="menu-item-11076" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11076"><a href="https://teamcolorcodes.com/soccer/premier-league-color-codes/"><span>Premier League</span></a></li>
+	<li id="menu-item-11078" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11078"><a href="https://teamcolorcodes.com/soccer/uefa-champions-league-colors/"><span>Champions League</span></a></li>
+</ul>
+</li>
+<li id="menu-item-11080" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11080"><a href="https://teamcolorcodes.com/esports-colors/"><span>eSports</span></a></li>
+<li id="menu-item-11072" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11072"><a href="https://teamcolorcodes.com/how-we-do-it/"><span>How We Do It</span></a></li>
+<li class="menu-item"><a href="#header-search-wrap" aria-controls="header-search-wrap" aria-expanded="false" role="button" class="toggle-header-search"><span class="screen-reader-text">Show Search</span><span class="ionicons ion-ios-search"></span></a></li></ul></div></nav><div id="header-search-wrap" class="header-search-wrap"><form class="search-form" method="get" action="https://teamcolorcodes.com/" role="search"><label class="search-form-label screen-reader-text" for="searchform-1">Search this website</label><input class="search-form-input" type="search" name="s" id="searchform-1" placeholder="Search this website"/><input class="search-form-submit" type="submit" value="Search"/><meta content="https://teamcolorcodes.com/?s={s}"/></form> <a href="#" role="button" aria-expanded="false" aria-controls="header-search-wrap" class="toggle-header-search close"><span class="screen-reader-text">Hide Search</span><span class="ionicons ion-ios-close-empty"></span></a></div></div></header><div class="site-inner"><div class="content-sidebar-wrap"><!-- Ezoic - under_page_title 122 - under_page_title -->
+<div id="ezoic-pub-ad-placeholder-122"></div>
+<!-- End Ezoic - under_page_title 122 - under_page_title --><main class="content" id="genesis-content"><article class="post-791 page type-page status-publish entry" aria-label="NBA Team Color Codes"><header class="entry-header"><h1 class="entry-title">NBA Team Color Codes</h1>
+</header><div class="entry-content">
+<h2><span id="What_Are_the_NBA_Teams_and_Their_Colors">What Are the NBA Teams and Their Colors?</span></h2>
+
+
+
+<p>The NBA is a professional basketball league with 30 teams (29 teams from the United States and 1 team from Canada). NBA stands for National Basketball Association. NBA Team Colors in RGB, Pantone, HEX, and CMYK can be found in the respective tables below.</p>
+
+
+
+<p>The NBA has 2 conferences – western and eastern. 15 NBA teams play in the western conference and 15 NBA teams play in the eastern conference.</p>
+
+
+
+<span id="more-791"></span>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter"><img loading="lazy" width="133" height="300" src="https://teamcolorcodes.com/wp-content/uploads/2019/02/nba_logo_colors-133x300.png" alt="nba logo colors" class="wp-image-8122" srcset="https://teamcolorcodes.com/wp-content/uploads/2019/02/nba_logo_colors-133x300.png 133w, https://teamcolorcodes.com/wp-content/uploads/2019/02/nba_logo_colors.png 221w" sizes="(max-width: 133px) 100vw, 133px"/></figure></div>
+
+
+
+<p>All 30 teams play in the regular season, and 16 NBA teams play in the playoffs (8 teams from each conference). NBA team colors can change based on the NBA Team’s city, character, history, or foundation culture. NBA Team colors can reflect the team’s character and the fans’ perception of the NBA team itself. Usually, NBA Teams include white, black, blue, and red color tones within their logos and uniforms.</p>
+
+
+
+<p>The most recent NBA champion are the <a href="https://teamcolorcodes.com/milwaukee-bucks-color-codes/" target="_blank" rel="noopener">Milwaukee Bucks</a>. The list of all NBA teams can be found below. The NBA teams are listed alphabetically.</p>
+
+
+
+<ol><li><a href="https://teamcolorcodes.com/atlanta-hawks-color-codes/" target="_blank" rel="noreferrer noopener">Atlanta Hawks</a></li><li><a href="https://teamcolorcodes.com/boston-celtics-color-codes/" target="_blank" rel="noreferrer noopener">Boston Celtics</a></li><li><a href="https://teamcolorcodes.com/brooklyn-nets-color-codes/" target="_blank" rel="noreferrer noopener">Brooklyn Nets</a></li><li><a href="https://teamcolorcodes.com/charlotte-hornets-color-codes/" target="_blank" rel="noreferrer noopener">Charlotte Hornets</a></li><li><a href="https://teamcolorcodes.com/chicago-bulls-color-codes/" target="_blank" rel="noreferrer noopener">Chicago Bulls</a></li><li><a href="https://teamcolorcodes.com/cleveland-cavaliers-color-codes/" target="_blank" rel="noreferrer noopener">Cleveland Cavaliers</a></li><li><a href="https://teamcolorcodes.com/dallas-mavericks-color-codes/" target="_blank" rel="noreferrer noopener">Dallas Mavericks</a></li><li><a href="https://teamcolorcodes.com/denver-nuggets-color-codes/" target="_blank" rel="noreferrer noopener">Denver Nuggets</a></li><li><a href="https://teamcolorcodes.com/detroit-pistons-color-codes/" target="_blank" rel="noreferrer noopener">Detroit Pistons</a></li><li><a href="https://teamcolorcodes.com/golden-state-warriors-color-codes/" target="_blank" rel="noreferrer noopener">Golden State Warriors</a></li><li><a href="https://teamcolorcodes.com/houston-rockets-color-codes/" target="_blank" rel="noreferrer noopener">Houston Rockets</a></li><li><a href="https://teamcolorcodes.com/indiana-pacers-color-codes/" target="_blank" rel="noreferrer noopener">Indiana Pacers</a></li><li><a href="https://teamcolorcodes.com/los-angeles-clippers-color-codes/" target="_blank" rel="noreferrer noopener">Los Angeles Clippers</a></li><li><a href="https://teamcolorcodes.com/los-angeles-lakers-color-codes/" target="_blank" rel="noreferrer noopener">Los Angeles Lakers</a></li><li><a href="https://teamcolorcodes.com/memphis-grizzlies-color-codes/" target="_blank" rel="noreferrer noopener">Memphis Grizzlies</a></li><li><a href="https://teamcolorcodes.com/miami-heat-color-codes/" target="_blank" rel="noreferrer noopener">Miami Heat</a></li><li><a href="https://teamcolorcodes.com/milwaukee-bucks-color-codes/" target="_blank" rel="noreferrer noopener">Milwaukee Bucks</a></li><li><a href="https://teamcolorcodes.com/minnesota-timberwolves-color-codes/" target="_blank" rel="noreferrer noopener">Minnesota Timberwolves</a></li><li><a href="https://teamcolorcodes.com/new-orleans-pelicans-team-color-codes/" target="_blank" rel="noreferrer noopener">New Orleans Pelicans</a></li><li><a href="https://teamcolorcodes.com/new-york-knicks-color-codes/" target="_blank" rel="noreferrer noopener">New York Knicks</a></li><li><a href="https://teamcolorcodes.com/oklahoma-city-thunder-color-codes/" target="_blank" rel="noreferrer noopener">Oklahoma City Thunder</a></li><li><a href="https://teamcolorcodes.com/orlando-magic-color-codes/" target="_blank" rel="noreferrer noopener">Orlando Magic</a></li><li><a href="https://teamcolorcodes.com/philadelphia-76ers-color-codes/" target="_blank" rel="noreferrer noopener">Philadelphia 76ers</a></li><li><a href="https://teamcolorcodes.com/phoenix-suns-color-codes/" target="_blank" rel="noreferrer noopener">Phoenix Suns</a></li><li><a href="https://teamcolorcodes.com/portland-trailblazers-color-codes/" target="_blank" rel="noreferrer noopener">Portland Trail Blazers</a></li><li><a href="https://teamcolorcodes.com/sacramento-kings-color-codes/" target="_blank" rel="noreferrer noopener">Sacramento Kings</a></li><li><a href="https://teamcolorcodes.com/san-antonio-spurs-color-codes/" target="_blank" rel="noreferrer noopener">San Antonio Spurs</a></li><li><a href="https://teamcolorcodes.com/toronto-raptors-color-codes/" target="_blank" rel="noreferrer noopener">Toronto Raptors</a></li><li><a href="https://teamcolorcodes.com/utah-jazz-color-codes/" target="_blank" rel="noreferrer noopener">Utah Jazz</a></li><li><a href="https://teamcolorcodes.com/washington-wizards-color-codes/" target="_blank" rel="noreferrer noopener">Washington Wizards</a></li></ol>
+
+
+
+<p>The colors that NBA teams use are Red, Green, Black, Blue, Navy, Purple, Gold, Silver, Gray, White, Yellow, Wine, Orange, Brown, Teal, and Cream.</p>
+
+
+
+<p>The most popular colors for NBA teams are black, blue, and red. 18 NBA teams use black color, 17 NBA teams use blue color, 12 NBA teams use red color.</p>
+
+
+
+<p>The least used colors of NBA teams are teal, burgundy, cream, and brown. Only 1 NBA team uses brown color.</p>
+
+
+
+<p>The colors that NBA teams use can be seen in the NBA Color Table below.</p>
+
+
+<div class="su-table su-table-responsive su-table-alternate">
+<table>
+<caption><strong>NBA Team Colors</strong></caption>
+<colgroup>
+<col span="1" class="nba-team-name"/>
+<col span="1" class="color-1"/>
+<col span="1" class="color-2"/>
+<col span="1" class="color-3"/>
+<col span="1" class="color-4"/>
+<col span="1" class="color-5"/>
+    </colgroup>
+<thead>
+<tr><th scope="col"> NBA Team Name </th>
+<th scope="col"> Color 1</th>
+<th scope="col"> Color 2</th>
+<th scope="col"> Color 3</th>
+<th scope="col"> Color 4</th>
+<th scope="col"> Color 5</th>
+</tr></thead>
+<tbody>
+<tr>
+<th scope="row"> Atlanta Hawks </th>
+<td> Hawks Red</td>
+<td> Volt Green</td>
+<td> Hawks Charcoal</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Boston Celtics </th>
+<td> Celtics Green</td>
+<td> Celtics Gold</td>
+<td> Celtics Brown</td>
+<td> White </td>
+<td> Celtics Black</td>
+</tr>
+<tr>
+<th scope="row"> Brooklyn Nets </th>
+<td> Black </td>
+<td> White </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Charlotte Hornets </th>
+<td> Hornets Purple</td>
+<td> Teal </td>
+<td> Gray </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Chicago Bulls </th>
+<td> Bulls Red</td>
+<td> Black </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Cleveland Cavaliers </th>
+<td> Cavaliers Wine</td>
+<td> Cavaliers Navy</td>
+<td> Cavaliers Gold</td>
+<td> Cavaliers Black</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Dallas Mavericks </th>
+<td> Royal Blue</td>
+<td> Navy Blue</td>
+<td> Silver </td>
+<td> Black </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Denver Nuggets </th>
+<td> Midnight Blue</td>
+<td> Sunshine Yellow</td>
+<td> Flatirons Red</td>
+<td> Skyline Blue</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Detroit Pistons </th>
+<td> Red </td>
+<td> Royal </td>
+<td> Gray </td>
+<td> Navy </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Golden State Warriors </th>
+<td> Warriors Blue</td>
+<td> Golden Yellow</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Houston Rockets </th>
+<td> Red </td>
+<td> Black </td>
+<td> Silver </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Indiana Pacers </th>
+<td> Pacers Blue</td>
+<td> Yellow </td>
+<td> Silver </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Clippers </th>
+<td> Red </td>
+<td> Blue </td>
+<td> Silver </td>
+<td> Black </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Lakers </th>
+<td> Lakers Purple</td>
+<td> Gold </td>
+<td> Black </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Memphis Grizzlies </th>
+<td> Blue </td>
+<td> Navy </td>
+<td> Yellow </td>
+<td> Gray </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Miami Heat </th>
+<td> Red </td>
+<td> Yellow </td>
+<td> Black </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Milwaukee Bucks </th>
+<td> Good Land Green</td>
+<td> Cream City Cream</td>
+<td> Great Lakes Blue</td>
+<td> Black </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Minnesota Timberwolves </th>
+<td> Midnight Blue</td>
+<td> Lake Blue</td>
+<td> Moonlight Grey</td>
+<td> Aurora Green</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New Orleans Pelicans </th>
+<td> Pelicans Navy</td>
+<td> Pelicans Red</td>
+<td> Pelicans Gold</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New York Knicks </th>
+<td> Knicks Blue</td>
+<td> Knicks Orange</td>
+<td> Knicks Silver</td>
+<td> Knicks Black</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Oklahoma City Thunder </th>
+<td> Thunder Blue</td>
+<td> Sunset </td>
+<td> Blue </td>
+<td> Yellow </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Orlando Magic </th>
+<td> Magic Blue</td>
+<td> Silver </td>
+<td> Black </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Philadelphia 76ers </th>
+<td> Blue </td>
+<td> Red </td>
+<td> Navy </td>
+<td> Silver </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Phoenix Suns </th>
+<td> Purple </td>
+<td> Orange </td>
+<td> Black </td>
+<td> Gray </td>
+<td> Yellow </td>
+</tr>
+<tr>
+<th scope="row"> Portland Trail Blazers </th>
+<td> Red </td>
+<td> Black </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Sacramento Kings </th>
+<td> Purple </td>
+<td> Gray </td>
+<td> Black </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> San Antonio Spurs </th>
+<td> Silver </td>
+<td> Black </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Toronto Raptors </th>
+<td> Red </td>
+<td> Black </td>
+<td> Silver </td>
+<td> Gold </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Utah Jazz </th>
+<td> Navy </td>
+<td> Green </td>
+<td> Yellow </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Washington Wizards </th>
+<td> Navy Blue</td>
+<td> Red </td>
+<td> Silver </td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div id="toc_container" class="no_bullets"><p class="toc_title">Contents</p><ul class="toc_list"><li><a href="#What_Are_the_NBA_Teams_and_Their_Colors"><span class="toc_number toc_depth_1">1</span> What Are the NBA Teams and Their Colors?</a></li><li><a href="#What_Colors_Do_NBA_Teams_Use"><span class="toc_number toc_depth_1">2</span> What Colors Do NBA Teams Use?</a></li><li><a href="#What_Are_the_Meanings_of_the_Colors_Used_by_NBA_Teams"><span class="toc_number toc_depth_1">3</span> What Are the Meanings of the Colors Used by NBA Teams?</a></li><li><a href="#What_Are_the_RGB_Color_Codes_Used_by_NBA_Teams"><span class="toc_number toc_depth_1">4</span> What Are the RGB Color Codes Used by NBA Teams?</a></li><li><a href="#What_Are_the_Pantone_Color_Codes_Used_by_NBA_Teams"><span class="toc_number toc_depth_1">5</span> What Are the Pantone Color Codes Used by NBA Teams?</a></li><li><a href="#What_Are_the_HEX_Color_Codes_Used_by_NBA_Teams"><span class="toc_number toc_depth_1">6</span> What Are the HEX Color Codes Used by NBA Teams?</a></li><li><a href="#What_Are_the_CMYK_Colors_Used_by_NBA_Teams"><span class="toc_number toc_depth_1">7</span> What Are the CMYK Colors Used by NBA Teams?</a></li><li><a href="#What_Do_NBA_Teams8217_Logos_Mean"><span class="toc_number toc_depth_1">8</span> What Do NBA Teams’ Logos Mean?</a></li><li><a href="#How_Are_the_Logos_Of_the_NBA_Teams_Drawn"><span class="toc_number toc_depth_1">9</span> How Are the Logos Of the NBA Teams Drawn?</a><ul><li><a href="#What_Colors_Do_NBA_Teams_Use_in_Their_Logos"><span class="toc_number toc_depth_2">9.1</span> What Colors Do NBA Teams Use in Their Logos?</a></li><li><a href="#What_Are_the_Animals_and_Symbols_in_NBA_Team_Logos"><span class="toc_number toc_depth_2">9.2</span> What Are the Animals and Symbols in NBA Team Logos?</a></li></ul></li><li><a href="#What_Are_Other_Teams_With_Colors_Similar_To_NBA_Teams"><span class="toc_number toc_depth_1">10</span> What Are Other Teams With Colors Similar To NBA Teams?</a></li></ul></div>
+
+
+
+
+<h2><span id="What_Colors_Do_NBA_Teams_Use">What Colors Do NBA Teams Use?</span></h2>
+
+
+
+<p>The colors used by the NBA teams are listed below.</p>
+
+
+
+<ol><li><strong>Black </strong>(Boston Celtics, Brooklyn Nets, Chicago Bulls, Cleveland Cavaliers, Dallas Mavericks, Houston Rockets, Los Angeles Clippers, Los Angeles Lakers, Miami Heat, Milwaukee Bucks, New York Knicks, Orlando Magic, Phoenix Suns, Portland Trail Blazers, Sacramento Kings, San Antonio Spurs, Toronto Raptors, Atlanta Hawks)</li><li><strong>Blue/Navy</strong> (Cleveland Cavaliers, Dallas Mavericks, Denver Nuggets, Detroit Pistons, Golden State Warriors, Indiana Pacers, Los Angeles Clippers, Memphis Grizzlies, Minnesota Timberwolves, New Orleans Pelicans, New York Knicks, Oklahoma City Thunder, Orlando Magic, Philadelphia 76ers, Utah Jazz, Washington Wizards, Milwaukee Bucks)</li><li><strong>Red </strong>(Atlanta Hawks, Chicago Bulls, Denver Nuggets, Detroit Pistons, Houston Rockets, Los Angeles Clippers, Miami Heat, New Orleans Pelicans, Philadelphia 76ers, Portland Trail Blazers, Toronto Raptors, Washington Wizards)</li><li><strong>Silver </strong>(Dallas Mavericks, Houston Rockets, Indiana Pacers, Los Angeles Clippers, New York Knicks, Orlando Magic, Philadelphia 76ers, San Antonio Spurs, Toronto Raptors, Washington Wizards)</li><li><strong>Yellow </strong>(Denver Nuggets, Golden State Warriors, Indiana Pacers, Memphis Grizzlies, Miami Heat, Oklahoma City Thunder, Phoenix Suns, Utah Jazz)</li><li><strong>Gray </strong>(Charlotte Hornets, Detroit Pistons, Memphis Grizzlies, Minnesota Timberwolves, Phoenix Suns, Sacramento Kings)</li><li><strong>Green </strong>(Atlanta Hawks, Boston Celtics, Milwaukee Bucks, Minnesota Timberwolves, Utah Jazz)</li><li><strong>Gold </strong>(Boston Celtics, Cleveland Cavaliers, Los Angeles Lakers, New Orleans Pelicans, Toronto Raptors)</li><li><strong>Purple </strong>(Charlotte Hornets, Los Angeles Lakers, Phoenix Suns, Sacramento Kings)</li><li><strong>Orange </strong>(New York Knicks, Phoenix Suns, Oklahoma City Thunder)</li><li><strong>White </strong>(Boston Celtics, Brooklyn Nets)</li><li><strong>Wine </strong>(Cleveland Cavaliers)</li><li><strong>Brown </strong>(Boston Celtics)</li><li><strong>Teal </strong>(Charlotte Hornets)</li><li><strong>Cream </strong>(Milwaukee Bucks)</li></ol>
+
+
+
+<p>NBA Teams often chose their colors based on the significance of these colors to their city or state. Generally, for NBA Teams, the most used colors (which are black, blue, and red) have been chosen because they are often featured on city or state flags.</p>
+
+
+
+<h2><span id="What_Are_the_Meanings_of_the_Colors_Used_by_NBA_Teams">What Are the Meanings of the Colors Used by NBA Teams?</span></h2>
+
+
+
+<p>The meanings of NBA Team Colors are listed below.</p>
+
+
+
+<ol><li><a href="https://teamcolorcodes.com/atlanta-hawks-color-codes/" target="_blank" rel="noreferrer noopener">Atlanta Hawks</a> – The Atlanta Hawks colors (Hawks red, Volt green, Hawks charcoal) pay tribute to the Atlanta Flames, now Calgary Flames.</li><li><a href="https://teamcolorcodes.com/boston-celtics-color-codes/" target="_blank" rel="noreferrer noopener">Boston Celtics</a> – The Boston Celtics colors (Celtics green, Celtics gold, Celtics brown, white, Celtics black) pay tribute to the Celtic heritage.</li><li><a href="https://teamcolorcodes.com/brooklyn-nets-color-codes/" target="_blank" rel="noreferrer noopener">Brooklyn Nets</a> – The Brooklyn Nets colors (black, white) symbolize the confidence and strong traditions of Brooklyn.</li><li><a href="https://teamcolorcodes.com/charlotte-hornets-color-codes/" target="_blank" rel="noreferrer noopener">Charlotte Hornets</a> – The exact meaning of the Charlotte Hornets colors (Hornets purple, teal, gray) is unknown. The teal color was chosen as a fashion statement.</li><li><a href="https://teamcolorcodes.com/chicago-bulls-color-codes/" target="_blank" rel="noreferrer noopener">Chicago Bulls</a> – The Chicago Bulls colors (Bulls red, black) symbolize the traditions of the city of Chicago.</li><li><a href="https://teamcolorcodes.com/cleveland-cavaliers-color-codes/" target="_blank" rel="noreferrer noopener">Cleveland Cavaliers</a> – The exact meaning of the Cleveland Cavaliers colors (Cavaliers wine, Cavaliers navy, Cavaliers gold, Cavaliers black) is unknown.</li><li><a href="https://teamcolorcodes.com/dallas-mavericks-color-codes/" target="_blank" rel="noreferrer noopener">Dallas Mavericks</a> – The Dallas Mavericks colors (Royal blue, navy blue, silver, black) pay tribute to the Dallas Cowboys who use the same colors.</li><li><a href="https://teamcolorcodes.com/denver-nuggets-color-codes/" target="_blank" rel="noreferrer noopener">Denver Nuggets</a> – The Denver Nuggets colors (Midnight blue, Sunshine yellow, Flatirons red, Skyline blue) are a combination of colors that the team used in the past. The current color combination has been in use since 2018.</li><li><a href="https://teamcolorcodes.com/detroit-pistons-color-codes/" target="_blank" rel="noreferrer noopener">Detroit Pistons</a> – The exact meaning of the Detroit Pistons colors (red, royal, gray, navy) is unknown.</li><li><a href="https://teamcolorcodes.com/golden-state-warriors-color-codes/" target="_blank" rel="noreferrer noopener">Golden State Warriors</a> – The Golden State Warriors colors (Warriors blue, golden yellow) pay tribute to the California state colors and the California State Flag.</li><li><a href="https://teamcolorcodes.com/houston-rockets-color-codes/" target="_blank" rel="noreferrer noopener">Houston Rockets</a> – The meaning of the Houston Rockets colors (red, black, silver) is unknown. The recognizable red color was introduced when the team moved from San Diego to Houston.</li><li><a href="https://teamcolorcodes.com/indiana-pacers-color-codes/" target="_blank" rel="noreferrer noopener">Indiana Pacers</a> – The Indiana Pacers colors (Pacers blue, yellow, silver) pay tribute to the Indiana state flag.</li><li><a href="https://teamcolorcodes.com/los-angeles-clippers-color-codes/" target="_blank" rel="noreferrer noopener">Los Angeles Clippers</a> – The exact meaning of the Los Angeles Clippers colors (red, blue, silver, black) is unknown.</li><li><a href="https://teamcolorcodes.com/los-angeles-lakers-color-codes/" target="_blank" rel="noreferrer noopener">Los Angeles Lakers</a> – The meaning of the Los Angeles Lakers colors (Lakers purple, gold, black) is interesting. Former team owner Jack Kent Cooke liked the color purple so he chose it as the team color. At first, Lakers purple was called Forum blue.</li><li><a href="https://teamcolorcodes.com/memphis-grizzlies-color-codes/" target="_blank" rel="noreferrer noopener">Memphis Grizzlies</a> – The Memphis Grizzlies colors (Beale Street blue, navy, yellow, gray) pay tribute to the heritage of the city of Memphis. Beale Street blue symbolizes Beale Street, a significant place in the history of Memphis and blues music.</li><li><a href="https://teamcolorcodes.com/miami-heat-color-codes/" target="_blank" rel="noreferrer noopener">Miami Heat</a> – The Miami Heat colors (red, yellow, black) symbolize stylized colors of a flame (heat).</li><li><a href="https://teamcolorcodes.com/milwaukee-bucks-color-codes/" target="_blank" rel="noreferrer noopener">Milwaukee Bucks</a> – The exact meaning of the Milwaukee Bucks colors (Good Land green, Cream City cream, Great Lakes blue, black) is unknown. The Milwaukee Bucks green was there from the beginning and has never changed.</li><li><a href="https://teamcolorcodes.com/minnesota-timberwolves-color-codes/" target="_blank" rel="noreferrer noopener">Minnesota Timberwolves</a> – The exact meaning of the Minnesota Timberwolves colors (Midnight blue, Lake blue, Moonlight grey, Aurora green) is unknown.</li><li><a href="https://teamcolorcodes.com/new-orleans-pelicans-team-color-codes/" target="_blank" rel="noreferrer noopener">New Orleans Pelicans</a> – The New Orleans Pelicans colors (Pelicans navy, Pelicans red, Pelicans gold) pay tribute to the New Orleans city flag and to the city itself.</li><li><a href="https://teamcolorcodes.com/new-york-knicks-color-codes/" target="_blank" rel="noreferrer noopener">New York Knicks</a> – The New York Knicks colors (Knicks blue, Knicks orange, Knicks silver, Knicks black) pay tribute to the flag of New York.</li><li><a href="https://teamcolorcodes.com/oklahoma-city-thunder-color-codes/" target="_blank" rel="noreferrer noopener">Oklahoma City Thunder</a> – The Oklahoma City Thunder colors (Thunder blue, Sunset, blue, yellow) pay tribute to the state flag of Oklahoma, as well as to the colors of the sunset.</li><li><a href="https://teamcolorcodes.com/orlando-magic-color-codes/" target="_blank" rel="noreferrer noopener">Orlando Magic</a> – The exact meaning of the Orlando Magic colors (Magic blue, silver, black) is unknown. The black color was inspired by Wake Forest and suggested by Pat Williams.</li><li><a href="https://teamcolorcodes.com/philadelphia-76ers-color-codes/" target="_blank" rel="noreferrer noopener">Philadelphia 76ers</a> – The exact meaning of the Philadelphia 76ers colors (blue, red, navy, silver) is unknown.</li><li><a href="https://teamcolorcodes.com/phoenix-suns-color-codes/" target="_blank" rel="noreferrer noopener">Phoenix Suns</a> – The exact meaning of the Phoenix Suns colors (purple, orange, black, gray, yellow) is unknown.</li><li><a href="https://teamcolorcodes.com/portland-trailblazers-color-codes/" target="_blank" rel="noreferrer noopener">Portland Trail Blazers</a> – The exact meaning of the Portland Trail Blazers colors (red, black) is unknown.</li><li><a href="https://teamcolorcodes.com/sacramento-kings-color-codes/" target="_blank" rel="noreferrer noopener">Sacramento Kings</a> – The meaning of the Sacramento Kings colors (purple, gray, black) is unknown. The current color scheme was introduced when the Kings moved from Kansas City to Sacramento.</li><li><a href="https://teamcolorcodes.com/san-antonio-spurs-color-codes/" target="_blank" rel="noreferrer noopener">San Antonio Spurs</a> – The meaning of the San Antonio Spurs colors (silver, black) is unknown. The current color scheme was introduced when the team moved and changed its name from Dallas Chaparrals to San Antonio Spurs.</li><li><a href="https://teamcolorcodes.com/toronto-raptors-color-codes/" target="_blank" rel="noreferrer noopener">Toronto Raptors</a> – The Toronto Raptors colors (red, black, silver, gold) pay tribute to Canada’s national colors (red and white).</li><li><a href="https://teamcolorcodes.com/utah-jazz-color-codes/" target="_blank" rel="noreferrer noopener">Utah Jazz</a> – The exact meaning of the Utah Jazz colors (navy, green, yellow) is unknown.</li><li><a href="https://teamcolorcodes.com/washington-wizards-color-codes/" target="_blank" rel="noreferrer noopener">Washington Wizards</a> – The Washington Wizards colors (navy blue, red, silver) pay tribute to the United States flag colors.</li></ol>
+
+
+
+<h2><span id="What_Are_the_RGB_Color_Codes_Used_by_NBA_Teams">What Are the RGB Color Codes Used by NBA Teams?</span></h2>
+
+
+
+<p>RGB Color Codes of NBA Teams can be found at the NBA RGB Color Codes Table below.</p>
+
+
+<div class="su-table su-table-responsive su-table-alternate">
+<table>
+<caption><strong> NBA RGB Color Codes Table </strong></caption>
+<colgroup>
+<col span="1" class="nba-team-name"/>
+<col span="1" class="color-1"/>
+<col span="1" class="color-2"/>
+<col span="1" class="color-3"/>
+<col span="1" class="color-4"/>
+<col span="1" class="color-5"/>
+    </colgroup>
+<thead>
+<tr><th scope="col"> NBA Team Name </th>
+<th scope="col"> Color 1</th>
+<th scope="col"> Color 2</th>
+<th scope="col"> Color 3</th>
+<th scope="col"> Color 4</th>
+<th scope="col"> Color 5</th>
+</tr></thead>
+<tbody>
+<tr>
+<th scope="row"> Atlanta Hawks </th>
+<td> Hawks Red (225, 68, 52)</td>
+<td> Volt Green (196, 214, 0)</td>
+<td> Hawks Charcoal (38, 40, 42)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Boston Celtics </th>
+<td> Celtics Green (0, 122, 51)</td>
+<td> Celtics Gold (139, 111, 78)</td>
+<td> Celtics Brown (150, 56, 33)</td>
+<td> White (255, 255, 255)</td>
+<td> Celtics Black (0, 0, 0)</td>
+</tr>
+<tr>
+<th scope="row"> Brooklyn Nets </th>
+<td> Black (0, 0, 0)</td>
+<td> White (255, 255, 255)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Charlotte Hornets </th>
+<td> Hornets Purple (29, 17, 96)</td>
+<td> Teal (0, 120, 140)</td>
+<td> Gray (161, 161, 164)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Chicago Bulls </th>
+<td> Bulls Red (206, 17, 65)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Cleveland Cavaliers </th>
+<td> Cavaliers Wine (134, 0, 56)</td>
+<td> Cavaliers Navy (4, 30, 66)</td>
+<td> Cavaliers Gold (253, 187, 48)</td>
+<td> Cavaliers Black (0, 0, 0)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Dallas Mavericks </th>
+<td> Royal Blue (0, 83, 188)</td>
+<td> Navy Blue (0, 43, 92)</td>
+<td> Silver (187, 196, 202)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Denver Nuggets </th>
+<td> Midnight Blue (13, 34, 64)</td>
+<td> Sunshine Yellow (255, 198, 39)</td>
+<td> Flatirons Red (139, 35, 50)</td>
+<td> Skyline Blue (29, 66, 138)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Detroit Pistons </th>
+<td> Red (200, 16, 46)</td>
+<td> Royal (29, 66, 138)</td>
+<td> Gray (181, 179, 179)</td>
+<td> Navy (0, 45, 98)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Golden State Warriors </th>
+<td> Warriors Blue (29, 66, 138)</td>
+<td> Golden Yellow (255, 199, 44)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Houston Rockets </th>
+<td> Red (206, 17, 65)</td>
+<td> Black (6, 25, 34)</td>
+<td> Silver (196, 206, 211)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Indiana Pacers </th>
+<td> Pacers Blue (0, 45, 98)</td>
+<td> Yellow (253, 187, 48)</td>
+<td> Silver (190, 192, 194)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Clippers </th>
+<td> Red (200, 16, 46)</td>
+<td> Blue (29, 66, 148)</td>
+<td> Silver (190, 192, 194)</td>
+<td> Black (0, 0, 0)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Lakers </th>
+<td> Lakers Purple (85, 37, 130)</td>
+<td> Gold (253, 185, 39)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Memphis Grizzlies </th>
+<td> Blue (93, 118, 169)</td>
+<td> Navy (18, 23, 63)</td>
+<td> Yellow (255, 187, 34)</td>
+<td> Gray (112, 114, 113)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Miami Heat </th>
+<td> Red (152, 0, 46)</td>
+<td> Yellow (249, 160, 27)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Milwaukee Bucks </th>
+<td> Good Land Green (0, 71, 27)</td>
+<td> Cream City Cream (240, 235, 210)</td>
+<td> Great Lakes Blue (0, 125, 197)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Minnesota Timberwolves </th>
+<td> Midnight Blue (12, 35, 64)</td>
+<td> Lake Blue (35, 97, 146)</td>
+<td> Moonlight Grey (158, 162, 162)</td>
+<td> Aurora Green (120, 190, 32)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New Orleans Pelicans </th>
+<td> Pelicans Navy (0, 22, 65)</td>
+<td> Pelicans Red (225, 58, 62)</td>
+<td> Pelicans Gold (180, 151, 90)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New York Knicks </th>
+<td> Knicks Blue (0, 107, 182)</td>
+<td> Knicks Orange (245, 132, 38)</td>
+<td> Knicks Silver (190, 192, 194)</td>
+<td> Knicks Black (35, 31, 32)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Oklahoma City Thunder </th>
+<td> Thunder Blue (0, 125, 195)</td>
+<td> Sunset (239, 59, 36)</td>
+<td> Blue (0, 45, 98)</td>
+<td> Yellow (253, 187, 48)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Orlando Magic </th>
+<td> Magic Blue (0, 125, 197)</td>
+<td> Silver (196, 206, 211)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Philadelphia 76ers </th>
+<td> Blue (0, 107, 182)</td>
+<td> Red (237, 23, 76)</td>
+<td> Navy (0, 43, 92)</td>
+<td> Silver (196, 206, 211)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Phoenix Suns </th>
+<td> Purple (29, 17, 96)</td>
+<td> Orange (229, 95, 32)</td>
+<td> Black (6, 25, 34)</td>
+<td> Gray (99, 113, 122)</td>
+<td> Yellow (249, 160, 27)</td>
+</tr>
+<tr>
+<th scope="row"> Portland Trail Blazers </th>
+<td> Red (224, 58, 62)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Sacramento Kings </th>
+<td> Purple (91, 43, 130)</td>
+<td> Gray (99, 113, 122)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> San Antonio Spurs </th>
+<td> Silver (196, 206, 211)</td>
+<td> Black (6, 25, 34)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Toronto Raptors </th>
+<td> Red (206, 17, 65)</td>
+<td> Black (6, 25, 34)</td>
+<td> Silver (161, 161, 164)</td>
+<td> Gold (180, 151, 90)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Utah Jazz </th>
+<td> Navy (0, 43, 92)</td>
+<td> Green (0, 71, 27)</td>
+<td> Yellow (249, 160, 27)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Washington Wizards </th>
+<td> Navy Blue (0, 43, 92)</td>
+<td> Red (227, 24, 55)</td>
+<td> Silver (196, 206, 212)</td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+<h2><span id="What_Are_the_Pantone_Color_Codes_Used_by_NBA_Teams">What Are the Pantone Color Codes Used by NBA Teams?</span></h2>
+
+
+
+<p>Pantone Color Codes of NBA Teams can be found at the NBA Pantone Color Codes Table below.</p>
+
+
+<div class="su-table su-table-responsive su-table-alternate">
+<table>
+<caption><strong>NBA Pantone Color Codes Table</strong></caption>
+<colgroup>
+<col span="1" class="nba-team-name"/>
+<col span="1" class="color-1"/>
+<col span="1" class="color-2"/>
+<col span="1" class="color-3"/>
+<col span="1" class="color-4"/>
+<col span="1" class="color-5"/>
+    </colgroup>
+<thead>
+<tr><th scope="col"> NBA Team Name </th>
+<th scope="col"> Color 1</th>
+<th scope="col"> Color 2</th>
+<th scope="col"> Color 3</th>
+<th scope="col"> Color 4</th>
+<th scope="col"> Color 5</th>
+</tr></thead>
+<tbody>
+<tr>
+<th scope="row"> Atlanta Hawks </th>
+<td> Hawks Red PMS 186 C </td>
+<td> Volt Green PMS 382 C </td>
+<td> Hawks Charcoal PMS 426 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Boston Celtics </th>
+<td> Celtics Green PMS 356 C </td>
+<td> Celtics Gold PMS 874 C </td>
+<td> Celtics Brown PMS 174 C </td>
+<td> White Not Available </td>
+<td> Celtics Black PMS Black 6 C </td>
+</tr>
+<tr>
+<th scope="row"> Brooklyn Nets </th>
+<td> Black PMS Black 6 C </td>
+<td> White Not Available </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Charlotte Hornets </th>
+<td> Hornets Purple PMS 275 C </td>
+<td> Teal  PMS 3145 C </td>
+<td> Gray PMS Cool Gray 8 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Chicago Bulls </th>
+<td> Bulls Red PMS 200 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Cleveland Cavaliers </th>
+<td> Cavaliers Wine PMS 209 C </td>
+<td> Cavaliers Navy PMS 282 C </td>
+<td> Cavaliers Gold PMS 1235 C </td>
+<td> Cavaliers Black PMS Black 6 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Dallas Mavericks </th>
+<td> Royal Blue PMS 2388 C </td>
+<td> Navy Blue PMS 289 C </td>
+<td> Silver PMS 877 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Denver Nuggets </th>
+<td> Midnight Blue PMS 289 C </td>
+<td> Sunshine Yellow PMS 123 C </td>
+<td> Flatirons Red PMS 202 C </td>
+<td> Skyline Blue PMS 7687 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Detroit Pistons </th>
+<td> Red PMS 186 C </td>
+<td> Royal PMS 7687 C </td>
+<td> Gray PMS Cool Gray 5 C </td>
+<td> Navy PMS 282 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Golden State Warriors </th>
+<td> Warriors Blue PMS 7687 C </td>
+<td> Golden Yellow PMS 123 C </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Houston Rockets </th>
+<td> Red PMS 200 C </td>
+<td> Black PMS Black 6 C </td>
+<td> Silver PMS 877 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Indiana Pacers </th>
+<td> Pacers Blue PMS 282 C </td>
+<td> Yellow PMS 123 C </td>
+<td> Silver PMS Cool Gray 5 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Clippers </th>
+<td> Red PMS 186 C </td>
+<td> Blue PMS 7687 C </td>
+<td> Silver PMS Cool Gray 5 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Lakers </th>
+<td> Lakers Purple PMS 526 C </td>
+<td> Gold PMS 123 C </td>
+<td> Black PMS Process Black C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Memphis Grizzlies </th>
+<td> Blue PMS 652 C </td>
+<td> Navy PMS 289 C </td>
+<td> Yellow PMS 123 C </td>
+<td> Gray PMS 424 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Miami Heat </th>
+<td> Red PMS 202 C </td>
+<td> Yellow PMS 137 C </td>
+<td> Black PMS Process Black C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Milwaukee Bucks </th>
+<td> Good Land Green PMS 350 C </td>
+<td> Cream City Cream PMS 468 C </td>
+<td> Great Lakes Blue PMS 2935 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Minnesota Timberwolves </th>
+<td> Midnight Blue PMS 289 C </td>
+<td> Lake Blue PMS 647 C </td>
+<td> Moonlight Grey PMS 422 C </td>
+<td> Aurora Green PMS 368 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New Orleans Pelicans </th>
+<td> Pelicans Navy PMS 289 C </td>
+<td> Pelicans Red PMS 186 C </td>
+<td> Pelicans Gold PMS 872 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New York Knicks </th>
+<td> Knicks Blue PMS 293 C </td>
+<td> Knicks Orange PMS 165 C </td>
+<td> Knicks Silver PMS Cool Gray 5 C </td>
+<td> Knicks Black PMS Black 6 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Oklahoma City Thunder </th>
+<td> Thunder Blue PMS 285 C </td>
+<td> Sunset  PMS Warm Red C </td>
+<td> Blue PMS 282 C </td>
+<td> Yellow PMS 1235 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Orlando Magic </th>
+<td> Magic Blue PMS 2935 C </td>
+<td> Silver PMS 877 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Philadelphia 76ers </th>
+<td> Blue PMS 293 C </td>
+<td> Red PMS 199 C </td>
+<td> Navy PMS 289 C </td>
+<td> Silver PMS 877 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Phoenix Suns </th>
+<td> Purple PMS 275 C </td>
+<td> Orange PMS 159 C </td>
+<td> Black PMS Process Black C </td>
+<td> Gray PMS 431 C </td>
+<td> Yellow PMS 137 C </td>
+</tr>
+<tr>
+<th scope="row"> Portland Trail Blazers </th>
+<td> Red PMS 186 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Sacramento Kings </th>
+<td> Purple PMS 268 C </td>
+<td> Gray PMS 431 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> San Antonio Spurs </th>
+<td> Silver PMS 877 C </td>
+<td> Black PMS Black 6 C </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Toronto Raptors </th>
+<td> Red PMS 200 C </td>
+<td> Black PMS Black 6 C </td>
+<td> Silver PMS Cool Gray 8 C </td>
+<td> Gold PMS 872 C </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Utah Jazz </th>
+<td> Navy PMS 289 C </td>
+<td> Green PMS 350 C </td>
+<td> Yellow PMS 137 C </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Washington Wizards </th>
+<td> Navy Blue PMS 289 C </td>
+<td> Red PMS 186 C </td>
+<td> Silver PMS 877 C </td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+<h2><span id="What_Are_the_HEX_Color_Codes_Used_by_NBA_Teams">What Are the HEX Color Codes Used by NBA Teams?</span></h2>
+
+
+
+<p>HEX Color Codes of NBA Teams can be found at the NBA HEX Color Codes Table below.</p>
+
+
+<div class="su-table su-table-responsive su-table-alternate">
+<table>
+<caption><strong> NBA HEX Color Codes Table </strong></caption>
+<colgroup>
+<col span="1" class="nba-team-name"/>
+<col span="1" class="color-1"/>
+<col span="1" class="color-2"/>
+<col span="1" class="color-3"/>
+<col span="1" class="color-4"/>
+<col span="1" class="color-5"/>
+    </colgroup>
+<thead>
+<tr><th scope="col"> NBA Team Name </th>
+<th scope="col"> Color 1</th>
+<th scope="col"> Color 2</th>
+<th scope="col"> Color 3</th>
+<th scope="col"> Color 4</th>
+<th scope="col"> Color 5</th>
+</tr></thead>
+<tbody>
+<tr>
+<th scope="row"> Atlanta Hawks </th>
+<td> Hawks Red #E03A3E </td>
+<td> Volt Green #C1D32F </td>
+<td> Hawks Charcoal #26282A </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Boston Celtics </th>
+<td> Celtics Green #007A33</td>
+<td> Celtics Gold #BA9653</td>
+<td> Celtics Brown #963821</td>
+<td> White #FFFFFF </td>
+<td> Celtics Black #000000</td>
+</tr>
+<tr>
+<th scope="row"> Brooklyn Nets </th>
+<td> Black #000000</td>
+<td> White #FFFFFF </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Charlotte Hornets </th>
+<td> Hornets Purple #1D1160</td>
+<td> Teal #00788C </td>
+<td> Gray #A1A1A4</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Chicago Bulls </th>
+<td> Bulls Red #CE1141</td>
+<td> Black #000000</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Cleveland Cavaliers </th>
+<td> Cavaliers Wine #860038</td>
+<td> Cavaliers Navy #041E42</td>
+<td> Cavaliers Gold #FDBB30</td>
+<td> Cavaliers Black #000000</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Dallas Mavericks </th>
+<td> Royal Blue #00538C </td>
+<td> Navy Blue #002B5E </td>
+<td> Silver #B8C4CA </td>
+<td> Black #000000</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Denver Nuggets </th>
+<td> Midnight Blue #0E2240</td>
+<td> Sunshine Yellow #FEC524</td>
+<td> Flatirons Red #8B2131</td>
+<td> Skyline Blue #1D428A </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Detroit Pistons </th>
+<td> Red #C8102E </td>
+<td> Royal #1D42BA </td>
+<td> Gray #BEC0C2</td>
+<td> Navy #002D62</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Golden State Warriors </th>
+<td> Warriors Blue #1D428A </td>
+<td> Golden Yellow #FFC72C </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Houston Rockets </th>
+<td> Red #CE1141</td>
+<td> Black #000000</td>
+<td> Silver #C4CED4</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Indiana Pacers </th>
+<td> Pacers Blue #002D62</td>
+<td> Yellow #FDBB30</td>
+<td> Silver #BEC0C2</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Clippers </th>
+<td> Red #C8102E </td>
+<td> Blue #1D428A </td>
+<td> Silver #BEC0C2</td>
+<td> Black #000000</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Lakers </th>
+<td> Lakers Purple #552583</td>
+<td> Gold #FDB927</td>
+<td> Black #000000</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Memphis Grizzlies </th>
+<td> Blue #5D76A9</td>
+<td> Navy #12173F </td>
+<td> Yellow #F5B112</td>
+<td> Gray #707271</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Miami Heat </th>
+<td> Red #98002E </td>
+<td> Yellow #F9A01B </td>
+<td> Black #000000</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Milwaukee Bucks </th>
+<td> Good Land Green #00471B </td>
+<td> Cream City Cream #EEE1C6</td>
+<td> Great Lakes Blue #0077C0</td>
+<td> Black #000000</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Minnesota Timberwolves </th>
+<td> Midnight Blue #0C2340</td>
+<td> Lake Blue #236192</td>
+<td> Moonlight Grey #9EA2A2</td>
+<td> Aurora Green #78BE20</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New Orleans Pelicans </th>
+<td> Pelicans Navy #0C2340</td>
+<td> Pelicans Red #C8102E </td>
+<td> Pelicans Gold #85714D </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New York Knicks </th>
+<td> Knicks Blue #006BB6</td>
+<td> Knicks Orange #F58426</td>
+<td> Knicks Silver #BEC0C2</td>
+<td> Knicks Black #000000</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Oklahoma City Thunder </th>
+<td> Thunder Blue #007AC1</td>
+<td> Sunset  #EF3B24</td>
+<td> Blue #002D62</td>
+<td> Yellow #FDBB30</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Orlando Magic </th>
+<td> Magic Blue #0077C0</td>
+<td> Silver #C4CED4</td>
+<td> Black #000000</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Philadelphia 76ers </th>
+<td> Blue #006BB6</td>
+<td> Red #ED174C </td>
+<td> Navy #002B5C </td>
+<td> Silver #C4CED4</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Phoenix Suns </th>
+<td> Purple #1D1160</td>
+<td> Orange #E56020</td>
+<td> Black #000000</td>
+<td> Gray #63727A </td>
+<td> Yellow #F9AD1B </td>
+</tr>
+<tr>
+<th scope="row"> Portland Trail Blazers </th>
+<td> Red #E03A3E </td>
+<td> Black #000000</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Sacramento Kings </th>
+<td> Purple #5A2D81</td>
+<td> Gray #63727A </td>
+<td> Black #000000</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> San Antonio Spurs </th>
+<td> Silver #C4CED4</td>
+<td> Black #000000</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Toronto Raptors </th>
+<td> Red #CE1141</td>
+<td> Black #000000</td>
+<td> Silver #A1A1A4</td>
+<td> Gold #B4975A </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Utah Jazz </th>
+<td> Navy #002B5C </td>
+<td> Green #00471B </td>
+<td> Yellow #F9A01B </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Washington Wizards </th>
+<td> Navy Blue #002B5C </td>
+<td> Red #E31837</td>
+<td> Silver #C4CED4</td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+<h2><span id="What_Are_the_CMYK_Colors_Used_by_NBA_Teams">What Are the CMYK Colors Used by NBA Teams?</span></h2>
+
+
+
+<p>CMYK Color Codes of NBA Teams can be found at the NBA CMYK Color Codes Table below.</p>
+
+
+<div class="su-table su-table-responsive su-table-alternate">
+<table>
+<caption><strong>NBA CMYK Color Codes Table</strong></caption>
+<colgroup>
+<col span="1" class="nba-team-name"/>
+<col span="1" class="color-1"/>
+<col span="1" class="color-2"/>
+<col span="1" class="color-3"/>
+<col span="1" class="color-4"/>
+<col span="1" class="color-5"/>
+    </colgroup>
+<thead>
+<tr><th scope="col"> NBA Team Name </th>
+<th scope="col"> Color 1</th>
+<th scope="col"> Color 2</th>
+<th scope="col"> Color 3</th>
+<th scope="col"> Color 4</th>
+<th scope="col"> Color 5</th>
+</tr></thead>
+<tbody>
+<tr>
+<th scope="row"> Atlanta Hawks </th>
+<td> Hawks Red (0, 91, 76, 6)</td>
+<td> Volt Green (29, 2, 100, 0)</td>
+<td> Hawks Charcoal (73, 65, 62, 67)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Boston Celtics </th>
+<td> Celtics Green (100, 0, 91, 27)</td>
+<td> Celtics Gold (30, 40, 80, 0)</td>
+<td> Celtics Brown (40, 95, 100, 0)</td>
+<td> White (0, 0, 0, 0)</td>
+<td> Celtics Black (0, 0, 0, 100)</td>
+</tr>
+<tr>
+<th scope="row"> Brooklyn Nets </th>
+<td> Black (75, 68, 67, 90)</td>
+<td> White (0, 0, 0, 0)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Charlotte Hornets </th>
+<td> Hornets Purple (96, 98, 38, 44)</td>
+<td> Teal (100, 38, 39, 7)</td>
+<td> Gray (0, 1, 0, 43)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Chicago Bulls </th>
+<td> Bulls Red (0, 100, 65, 15)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Cleveland Cavaliers </th>
+<td> Cavaliers Wine (0, 100, 34, 53)</td>
+<td> Cavaliers Navy (100, 90, 13, 68)</td>
+<td> Cavaliers Gold (0, 29, 91, 0)</td>
+<td> Cavaliers Black (30, 0, 0, 100)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Dallas Mavericks </th>
+<td> Royal Blue (100, 62, 0, 0)</td>
+<td> Navy Blue (100, 64, 0, 60)</td>
+<td> Silver (5, 25, 0, 0)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Denver Nuggets </th>
+<td> Midnight Blue (100, 76, 12, 70)</td>
+<td> Sunshine Yellow (0, 24, 91, 0)</td>
+<td> Flatirons Red (29, 96, 76, 29)</td>
+<td> Skyline Blue (100, 86, 15, 3)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Detroit Pistons </th>
+<td> Red (2, 100, 85, 6)</td>
+<td> Royal (100, 78, 0, 18)</td>
+<td> Gray (30, 25, 25, 0)</td>
+<td> Navy (100, 68, 0, 54)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Golden State Warriors </th>
+<td> Warriors Blue (100, 78, 0, 18)</td>
+<td> Golden Yellow (0, 19, 89, 0)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Houston Rockets </th>
+<td> Red (0, 100, 65, 15)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> Silver (5, 0, 0, 20)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Indiana Pacers </th>
+<td> Pacers Blue (100, 68, 0, 54)</td>
+<td> Yellow (0, 15, 94, 0)</td>
+<td> Silver (0, 0, 0, 29)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Clippers </th>
+<td> Red (2, 100, 85, 6)</td>
+<td> Blue (100, 78, 0, 18)</td>
+<td> Silver (0, 0, 0, 29)</td>
+<td> Black (75, 68, 67, 90)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Los Angeles Lakers </th>
+<td> Lakers Purple (79, 100, 0, 12)</td>
+<td> Gold (0, 30, 94, 0)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Memphis Grizzlies </th>
+<td> Blue (64, 38, 7, 2)</td>
+<td> Navy (100, 84, 45, 50)</td>
+<td> Yellow (0, 23, 91, 0)</td>
+<td> Gray (30, 20, 19, 58)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Miami Heat </th>
+<td> Red (0, 100, 61, 43)</td>
+<td> Yellow (0, 43, 100, 0)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Milwaukee Bucks </th>
+<td> Good Land Green (80, 0, 90, 75)</td>
+<td> Cream City Cream (6, 9, 23, 0)</td>
+<td> Great Lakes Blue (100, 40, 0, 0)</td>
+<td> Black (20, 20, 20, 100)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Minnesota Timberwolves </th>
+<td> Midnight Blue (100, 76, 12, 70)</td>
+<td> Lake Blue (96, 54, 5, 27)</td>
+<td> Moonlight Grey (19, 12, 13, 34)</td>
+<td> Aurora Green (65, 0, 100, 0)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New Orleans Pelicans </th>
+<td> Pelicans Navy (100, 76, 12, 70)</td>
+<td> Pelicans Red (0, 91, 76, 6)</td>
+<td> Pelicans Gold (40, 48, 76, 16)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> New York Knicks </th>
+<td> Knicks Blue (100, 56, 0, 0)</td>
+<td> Knicks Orange (0, 59, 96, 0)</td>
+<td> Knicks Silver (0, 0, 0, 29)</td>
+<td> Knicks Black (30, 0, 0, 100)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Oklahoma City Thunder </th>
+<td> Thunder Blue (89, 43, 0, 0)</td>
+<td> Sunset (0, 92, 100, 0)</td>
+<td> Blue (100, 68, 54, 0)</td>
+<td> Yellow (0, 29, 91, 0)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Orlando Magic </th>
+<td> Magic Blue (100, 45, 0, 0)</td>
+<td> Silver (5, 0, 0, 25)</td>
+<td> Black (20, 20, 20, 100)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Philadelphia 76ers </th>
+<td> Blue (100, 56, 0, 0)</td>
+<td> Red (0, 100, 65, 0)</td>
+<td> Navy (100, 64, 0, 60)</td>
+<td> Silver (5, 0, 0, 20)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Phoenix Suns </th>
+<td> Purple (98, 100, 0, 43)</td>
+<td> Orange (0, 75, 100, 5)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> Gray (15, 0, 0, 65)</td>
+<td> Yellow (0, 43, 100, 0)</td>
+</tr>
+<tr>
+<th scope="row"> Portland Trail Blazers </th>
+<td> Red (0, 91, 76, 6)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Sacramento Kings </th>
+<td> Purple (81, 100, 12, 2)</td>
+<td> Gray (15, 0, 0, 65)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> San Antonio Spurs </th>
+<td> Silver (5, 0, 0, 20)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Toronto Raptors </th>
+<td> Red (0, 100, 65, 15)</td>
+<td> Black (30, 0, 0, 100)</td>
+<td> Silver (0, 1, 0, 43)</td>
+<td> Gold (20, 30, 70, 15)</td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Utah Jazz </th>
+<td> Navy (100, 64, 0, 60)</td>
+<td> Green (80, 0, 90, 75)</td>
+<td> Yellow (0, 43, 100, 0)</td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<th scope="row"> Washington Wizards </th>
+<td> Navy Blue (100, 64, 0, 60)</td>
+<td> Red (0, 100, 81, 4)</td>
+<td> Silver (5, 0, 0, 20)</td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+<h2><span id="What_Do_NBA_Teams8217_Logos_Mean">What Do NBA Teams’ Logos Mean?</span></h2>
+
+
+
+<p>The meaning of the NBA team logos can be found below.</p>
+
+
+
+<ol><li><a href="https://teamcolorcodes.com/atlanta-hawks-color-codes/" target="_blank" rel="noreferrer noopener">Atlanta Hawks</a> – The Atlanta Hawks logo symbolizes the nickname of the team (Hawks).<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1200" class="wp-image-13359" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Atlanta-Hawks-Logo.png" alt="Atlanta Hawks Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Atlanta-Hawks-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Atlanta-Hawks-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Atlanta-Hawks-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Atlanta-Hawks-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Atlanta-Hawks-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Atlanta-Hawks-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/boston-celtics-color-codes/" target="_blank" rel="noreferrer noopener">Boston Celtics</a> – The Boston Celtics logo symbolizes the heritage and tradition of the city of Boston.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1333" class="wp-image-13361" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Boston-Celtics-Logo.png" alt="Boston Celtics Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Boston-Celtics-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Boston-Celtics-Logo-270x300.png 270w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Boston-Celtics-Logo-922x1024.png 922w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Boston-Celtics-Logo-768x853.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/brooklyn-nets-color-codes/" target="_blank" rel="noreferrer noopener">Brooklyn Nets</a> – The Brooklyn Nets logo symbolizes the sport of basketball and the team location (Brooklyn).<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1588" class="wp-image-13362" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Brooklyn-Nets-Logo.png" alt="Brooklyn Nets Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Brooklyn-Nets-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Brooklyn-Nets-Logo-227x300.png 227w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Brooklyn-Nets-Logo-774x1024.png 774w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Brooklyn-Nets-Logo-768x1016.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Brooklyn-Nets-Logo-1161x1536.png 1161w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/charlotte-hornets-color-codes/" target="_blank" rel="noreferrer noopener">Charlotte Hornets</a> – The Charlotte Hornets logo symbolizes the team name (Hornets).<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1164" class="wp-image-13363" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Charlotte-Hornets-Logo.png" alt="Charlotte Hornets Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Charlotte-Hornets-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Charlotte-Hornets-Logo-300x291.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Charlotte-Hornets-Logo-1024x993.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Charlotte-Hornets-Logo-768x745.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/chicago-bulls-color-codes/" target="_blank" rel="noreferrer noopener">Chicago Bulls</a> – The Chicago Bulls logo symbolizes the team name (Bulls).<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1210" class="wp-image-13364" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Chicago-Bulls-Logo.png" alt="Chicago Bulls Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Chicago-Bulls-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Chicago-Bulls-Logo-298x300.png 298w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Chicago-Bulls-Logo-1016x1024.png 1016w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Chicago-Bulls-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Chicago-Bulls-Logo-768x774.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Chicago-Bulls-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/cleveland-cavaliers-color-codes/" target="_blank" rel="noreferrer noopener">Cleveland Cavaliers</a> – The Cleveland Cavaliers logo symbolizes a musketeer sword and the team name.<br/><div style="text-align:center;"><img loading="lazy" width="2160" height="2160" class="wp-image-13366" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo.png" alt="Cleveland Cavaliers Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo.png 2160w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo-1536x1536.png 1536w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo-2048x2048.png 2048w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Cleveland-Cavaliers-Logo-80x80.png 80w" sizes="(max-width: 2160px) 100vw, 2160px"/></div></li><li><a href="https://teamcolorcodes.com/dallas-mavericks-color-codes/" target="_blank" rel="noreferrer noopener">Dallas Mavericks</a> – The Dallas Mavericks logo symbolizes the state of Texas (The Lone Star State) and its history of horse rearing.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1248" class="wp-image-13367" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Dallas-Mavericks-Logo.png" alt="Dallas Mavericks Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Dallas-Mavericks-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Dallas-Mavericks-Logo-288x300.png 288w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Dallas-Mavericks-Logo-985x1024.png 985w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Dallas-Mavericks-Logo-768x799.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/denver-nuggets-color-codes/" target="_blank" rel="noreferrer noopener">Denver Nuggets</a> – The Denver Nuggets logo symbolizes Denver’s geography (mountains) and its rich mining history.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1200" class="wp-image-13368" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Denver-Nuggets-Logo.png" alt="Denver Nuggets Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Denver-Nuggets-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Denver-Nuggets-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Denver-Nuggets-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Denver-Nuggets-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Denver-Nuggets-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Denver-Nuggets-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/detroit-pistons-color-codes/" target="_blank" rel="noreferrer noopener">Detroit Pistons</a> – The Detroit Pistons logo symbolizes basketball as well as the team name.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1200" class="wp-image-13369" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Detroit-Pistons-Logo.png" alt="Detroit Pistons Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Detroit-Pistons-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Detroit-Pistons-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Detroit-Pistons-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Detroit-Pistons-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Detroit-Pistons-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Detroit-Pistons-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/golden-state-warriors-color-codes/" target="_blank" rel="noreferrer noopener">Golden State Warriors</a> – The Golden State Warriors logo symbolizes the Bay bridge as well as the team name.<br/><div style="text-align:center;"><img loading="lazy" width="800" height="967" class="wp-image-13370" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Golden-State-Warriors-Logo.png" alt="Golden State Warriors Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Golden-State-Warriors-Logo.png 800w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Golden-State-Warriors-Logo-248x300.png 248w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Golden-State-Warriors-Logo-768x928.png 768w" sizes="(max-width: 800px) 100vw, 800px"/></div></li><li><a href="https://teamcolorcodes.com/houston-rockets-color-codes/" target="_blank" rel="noreferrer noopener">Houston Rockets</a> – The Houston Rockets logo symbolizes a stylized rocket with the team name next to it.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1591" class="wp-image-13371" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Houston-Rockets-Logo.png" alt="Houston Rockets Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Houston-Rockets-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Houston-Rockets-Logo-226x300.png 226w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Houston-Rockets-Logo-772x1024.png 772w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Houston-Rockets-Logo-768x1018.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Houston-Rockets-Logo-1159x1536.png 1159w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/indiana-pacers-color-codes/" target="_blank" rel="noreferrer noopener">Indiana Pacers</a> – The Indiana Pacers logo symbolizes the sport of basketball as well as the club name.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1200" class="wp-image-13372" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Indiana-Pacers-Logo.png" alt="Indiana Pacers Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Indiana-Pacers-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Indiana-Pacers-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Indiana-Pacers-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Indiana-Pacers-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Indiana-Pacers-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Indiana-Pacers-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/los-angeles-clippers-color-codes/" target="_blank" rel="noreferrer noopener">Los Angeles Clippers</a> – The Los Angeles Clippers logo symbolizes the team name with a basketball on top of it.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="913" class="wp-image-13373" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Clippers-Logo.png" alt="Los Angeles Clippers Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Clippers-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Clippers-Logo-300x228.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Clippers-Logo-1024x779.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Clippers-Logo-768x584.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/los-angeles-lakers-color-codes/" target="_blank" rel="noreferrer noopener">Los Angeles Lakers</a> – The Los Angeles Lakers logo symbolizes the name of the team as well as the sport of basketball.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="742" class="wp-image-13374" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Lakers-Logo.png" alt="Los Angeles Lakers Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Lakers-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Lakers-Logo-300x186.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Lakers-Logo-1024x633.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Los-Angeles-Lakers-Logo-768x475.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/memphis-grizzlies-color-codes/" target="_blank" rel="noreferrer noopener">Memphis Grizzlies</a> – The Memphis Grizzlies logo symbolizes a stylized grizzly bear head and the team name.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1449" class="wp-image-13376" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Memphis-Grizzlies-Logo.png" alt="Memphis Grizzlies Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Memphis-Grizzlies-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Memphis-Grizzlies-Logo-248x300.png 248w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Memphis-Grizzlies-Logo-848x1024.png 848w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Memphis-Grizzlies-Logo-768x927.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/miami-heat-color-codes/" target="_blank" rel="noreferrer noopener">Miami Heat</a> – The Miami Heat logo symbolizes a basketball on fire (red color), going through a hoop.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1656" class="wp-image-13377" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Miami-Heat-Logo.png" alt="Miami Heat Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Miami-Heat-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Miami-Heat-Logo-217x300.png 217w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Miami-Heat-Logo-742x1024.png 742w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Miami-Heat-Logo-768x1060.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Miami-Heat-Logo-1113x1536.png 1113w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/milwaukee-bucks-color-codes/" target="_blank" rel="noreferrer noopener">Milwaukee Bucks</a> – The Milwaukee Bucks logo symbolizes a fierce-looking buck with the team name under it.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1487" class="wp-image-13378" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Milwaukee-Bucks-Logo.png" alt="Milwaukee Bucks Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Milwaukee-Bucks-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Milwaukee-Bucks-Logo-242x300.png 242w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Milwaukee-Bucks-Logo-826x1024.png 826w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Milwaukee-Bucks-Logo-768x952.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/minnesota-timberwolves-color-codes/" target="_blank" rel="noreferrer noopener">Minnesota Timberwolves</a> – The Minnesota Timberwolves logo symbolizes a howling wolf with a basketball behind it and the team name above it.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1200" class="wp-image-13379" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Minnesota-Timberwolves-Logo.png" alt="Minnesota Timberwolves Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Minnesota-Timberwolves-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Minnesota-Timberwolves-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Minnesota-Timberwolves-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Minnesota-Timberwolves-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Minnesota-Timberwolves-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Minnesota-Timberwolves-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/new-orleans-pelicans-team-color-codes/" target="_blank" rel="noreferrer noopener">New Orleans Pelicans</a> – The New Orleans Pelicans logo symbolizes a pelican with spread wings, holding a basketball in its beak.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="896" class="wp-image-13380" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/New-Orleans-Pelicans-Logo.png" alt="New Orleans Pelicans Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/New-Orleans-Pelicans-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/New-Orleans-Pelicans-Logo-300x224.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/New-Orleans-Pelicans-Logo-1024x765.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/New-Orleans-Pelicans-Logo-768x573.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/new-york-knicks-color-codes/" target="_blank" rel="noreferrer noopener">New York Knicks</a> – The New York Knicks logo symbolizes the team name with a basketball under it.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="974" class="wp-image-13381" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/New-York-Knicks-Logo.png" alt="New York Knicks Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/New-York-Knicks-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/New-York-Knicks-Logo-300x244.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/New-York-Knicks-Logo-1024x831.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/New-York-Knicks-Logo-768x623.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/oklahoma-city-thunder-color-codes/" target="_blank" rel="noreferrer noopener">Oklahoma City Thunder</a> – The Oklahoma City Thunder logo symbolizes the team name, with a basketball at its center.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1103" class="wp-image-13382" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Oklahoma-City-Thunder-Logo.png" alt="Oklahoma City Thunder Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Oklahoma-City-Thunder-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Oklahoma-City-Thunder-Logo-300x276.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Oklahoma-City-Thunder-Logo-1024x941.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Oklahoma-City-Thunder-Logo-768x706.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/orlando-magic-color-codes/" target="_blank" rel="noreferrer noopener">Orlando Magic</a> – The Orlando Magic logo symbolizes the team name and refers to the Magic Kingdom located in Orlando.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="872" class="wp-image-13383" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Orlando-Magic-Logo.png" alt="Orlando Magic Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Orlando-Magic-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Orlando-Magic-Logo-300x218.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Orlando-Magic-Logo-1024x744.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Orlando-Magic-Logo-768x558.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/philadelphia-76ers-color-codes/" target="_blank" rel="noreferrer noopener">Philadelphia 76ers</a> – The Philadelphia 76ers logo symbolizes the team name as well as the 13 colonies that signed the Declaration of Independence.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1200" class="wp-image-13384" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Philadelphia-76ers-Logo.png" alt="Philadelphia 76ers Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Philadelphia-76ers-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Philadelphia-76ers-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Philadelphia-76ers-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Philadelphia-76ers-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Philadelphia-76ers-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Philadelphia-76ers-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/phoenix-suns-color-codes/" target="_blank" rel="noreferrer noopener">Phoenix Suns</a> – The Phoenix Suns logo symbolizes the team name and the sunny weather in the state of Arizona (yellow color).<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1214" class="wp-image-13385" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Phoenix-Suns-Logo.png" alt="Phoenix Suns Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Phoenix-Suns-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Phoenix-Suns-Logo-297x300.png 297w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Phoenix-Suns-Logo-1012x1024.png 1012w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Phoenix-Suns-Logo-768x777.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Phoenix-Suns-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/portland-trailblazers-color-codes/" target="_blank" rel="noreferrer noopener">Portland Trail Blazers</a> – The Portland Trail Blazers logo symbolizes two basketball teams with 5 players each (5 red color stripes and 5 white color stripes).<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1025" class="wp-image-13386" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Portland-Trail-Blazers-Logo.png" alt="" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Portland-Trail-Blazers-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Portland-Trail-Blazers-Logo-300x256.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Portland-Trail-Blazers-Logo-1024x875.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Portland-Trail-Blazers-Logo-768x656.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/sacramento-kings-color-codes/" target="_blank" rel="noreferrer noopener">Sacramento Kings</a> – The Sacramento Kings logo symbolizes a visual representation of the team name (a crown) with the team name at the center and a basketball on the bottom.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1369" class="wp-image-13387" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Sacramento-Kings-Logo.png" alt="Sacramento Kings Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Sacramento-Kings-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Sacramento-Kings-Logo-263x300.png 263w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Sacramento-Kings-Logo-898x1024.png 898w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Sacramento-Kings-Logo-768x876.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/san-antonio-spurs-color-codes/" target="_blank" rel="noreferrer noopener">San Antonio Spurs</a> – The San Antonio Spurs logo symbolizes the full team name with a cowboy spur replacing the letter U.<br/><div style="text-align:center;"><img loading="lazy" width="1024" height="463" class="wp-image-13388" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/San-Antonio-Spurs-Logo.png" alt="San Antonio Spurs Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/San-Antonio-Spurs-Logo.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/San-Antonio-Spurs-Logo-300x136.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/San-Antonio-Spurs-Logo-768x347.png 768w" sizes="(max-width: 1024px) 100vw, 1024px"/></div></li><li><a href="https://teamcolorcodes.com/toronto-raptors-color-codes/" target="_blank" rel="noreferrer noopener">Toronto Raptors</a> – The Toronto Raptors logo symbolizes a raptor claw mark and the sport of basketball.<br/><div style="text-align:center;"><img loading="lazy" width="800" height="800" class="wp-image-13389" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Toronto-Raptors-Logo.png" alt="Toronto Raptors Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Toronto-Raptors-Logo.png 800w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Toronto-Raptors-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Toronto-Raptors-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Toronto-Raptors-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Toronto-Raptors-Logo-80x80.png 80w" sizes="(max-width: 800px) 100vw, 800px"/></div></li><li><a href="https://teamcolorcodes.com/utah-jazz-color-codes/" target="_blank" rel="noreferrer noopener">Utah Jazz</a> – The Utah Jazz logo symbolizes the team name and a music note replacing the letter J.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="521" class="wp-image-13390" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Utah-Jazz-Logo.png" alt="Utah Jazz Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Utah-Jazz-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Utah-Jazz-Logo-300x130.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Utah-Jazz-Logo-1024x445.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Utah-Jazz-Logo-768x333.png 768w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li><li><a href="https://teamcolorcodes.com/washington-wizards-color-codes/" target="_blank" rel="noreferrer noopener">Washington Wizards</a> – The Washington Wizards logo symbolizes the US flag color, the Washington monument, and the sport of basketball.<br/><div style="text-align:center;"><img loading="lazy" width="1200" height="1200" class="wp-image-13391" style="width: 150px;" src="https://teamcolorcodes.com/wp-content/uploads/2021/08/Washington-Wizards-Logo.png" alt="Washington Wizards Logo" srcset="https://teamcolorcodes.com/wp-content/uploads/2021/08/Washington-Wizards-Logo.png 1200w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Washington-Wizards-Logo-300x300.png 300w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Washington-Wizards-Logo-1024x1024.png 1024w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Washington-Wizards-Logo-150x150.png 150w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Washington-Wizards-Logo-768x768.png 768w, https://teamcolorcodes.com/wp-content/uploads/2021/08/Washington-Wizards-Logo-80x80.png 80w" sizes="(max-width: 1200px) 100vw, 1200px"/></div></li></ol>
+
+
+
+<h2><span id="How_Are_the_Logos_Of_the_NBA_Teams_Drawn">How Are the Logos Of the NBA Teams Drawn?</span></h2>
+
+
+
+<p>To draw the NBA Teams’ logos, one can use <a href="https://www.adobe.com/products/illustrator.html" target="_blank" rel="nofollow noreferrer noopener">Adobe Illustrator</a> (best overall), <a href="https://www.canva.com/create/logos/" target="_blank" rel="nofollow noreferrer noopener">Canva </a>(best value), and <a href="https://www.graphicsprings.com/" target="_blank" rel="nofollow noreferrer noopener">GraphicSprings</a> (free to use). To draw the NBA Team logos, the NBA Team colors should be analyzed carefully because the tone of the color codes should be detected by a color picker. To draw an NBA team’s logo, the font of the logo should be analyzed like the colors of the NBA team’s logo. In general, the steps below can be followed to draw the NBA Team color codes.</p>
+
+
+
+<ol><li>Use the NBA team color code picker to detect the color code.</li><li>Check whether the NBA Team color code is correct or not from <a rel="noreferrer noopener" href="https://teamcolorcodes.com/" target="_blank">TeamColorCodes.com</a>.</li><li>Check the NBA team logo’s font styles.</li><li>Understand the objects, colors, and style of the NBA team logo.</li><li>Pick an online or offline NBA team logo drawing method.</li><li>Draw the NBA team logo based on the font, object, and color information, and compare it to the original NBA team logo.</li></ol>
+
+
+
+<h3><span id="What_Colors_Do_NBA_Teams_Use_in_Their_Logos">What Colors Do NBA Teams Use in Their Logos?</span></h3>
+
+
+
+<p>The colors that NBA Teams use in their logos are listed below.</p>
+
+
+
+<ol><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/atlanta-hawks-color-codes/" target="_blank">Atlanta Hawks</a> – The Atlanta Hawks logo uses Hawks red and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/boston-celtics-color-codes/" target="_blank">Boston Celtics</a> – The Boston Celtics logo uses Celtics green, Celtics gold, Celtics brown, white, and Celtics black colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/brooklyn-nets-color-codes/" target="_blank">Brooklyn Nets</a> – The Brooklyn Nets logo uses black and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/charlotte-hornets-color-codes/" target="_blank">Charlotte Hornets</a> – The Charlotte Hornets logo uses Hornets purple, teal, and gray colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/chicago-bulls-color-codes/" target="_blank">Chicago Bulls</a> – The Chicago Bulls logo uses Bulls red, black, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/cleveland-cavaliers-color-codes/" target="_blank">Cleveland Cavaliers</a> – The Cleveland Cavaliers logo uses Cavaliers wine, Cavaliers gold, Cavaliers navy, black, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/dallas-mavericks-color-codes/" target="_blank">Dallas Mavericks</a> – The Dallas Mavericks logo uses royal blue, silver, and black, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/denver-nuggets-color-codes/" target="_blank">Denver Nuggets</a> – The Denver Nuggets logo uses Midnight blue, Sunshine yellow, Flatirons red, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/detroit-pistons-color-codes/" target="_blank">Detroit Pistons</a> – The Detroit Pistons logo uses red, royal, gray, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/golden-state-warriors-color-codes/" target="_blank">Golden State Warriors</a> – The Golden State Warriors logo uses Warriors blue and Golden yellow colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/houston-rockets-color-codes/" target="_blank">Houston Rockets</a> – The Houston Rockets logo uses red and black colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/indiana-pacers-color-codes/" target="_blank">Indiana Pacers</a> – The Indiana Pacers logo uses Pacers blue, yellow, and silver colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/los-angeles-clippers-color-codes/" target="_blank">Los Angeles Clippers</a> – The Los Angeles Clippers logo uses red, blue, and black colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/los-angeles-lakers-color-codes/" target="_blank">Los Angeles Lakers</a> – The Los Angeles Lakers logo uses purple and gold colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/memphis-grizzlies-color-codes/" target="_blank">Memphis Grizzlies</a> – The Memphis Grizzlies logo uses blue, navy, yellow, and gray colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/miami-heat-color-codes/" target="_blank">Miami Heat</a> – The Miami Heat logo uses red, black, yellow, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/milwaukee-bucks-color-codes/" target="_blank">Milwaukee Bucks</a> – The Milwaukee Bucks logo uses Good Land green, Cream City cream, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/minnesota-timberwolves-color-codes/" target="_blank">Minnesota Timberwolves</a> – The Minnesota Timberwolves logo uses Midnight blue, Lake blue, Moonlight grey, and Aurora green colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-orleans-pelicans-team-color-codes/" target="_blank">New Orleans Pelicans</a> – The New Orleans Pelicans logo uses navy, red, gold, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-york-knicks-color-codes/" target="_blank">New York Knicks</a> – The New York Knicks logo uses Knicks blue, Knicks orange, and Knicks silver colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/oklahoma-city-thunder-color-codes/" target="_blank">Oklahoma City Thunder</a> – The New York Knicks logo uses Knicks blue, Knicks orange, and Knicks silver colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/orlando-magic-color-codes/" target="_blank">Orlando Magic</a> – The Orlando Magic logo uses Magic blue, silver, white, and black colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/philadelphia-76ers-color-codes/" target="_blank">Philadelphia 76ers</a> – The Philadelphia 76ers logo uses blue, red, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/phoenix-suns-color-codes/" target="_blank">Phoenix Suns</a> – The Phoenix Suns logo uses black, gray, orange, and yellow colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/portland-trailblazers-color-codes/" target="_blank">Portland Trail Blazers</a> – The Portland Trail Blazers logo uses red, black, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/sacramento-kings-color-codes/" target="_blank">Sacramento Kings</a> – The Sacramento Kings logo uses purple and gray colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/san-antonio-spurs-color-codes/" target="_blank">San Antonio Spurs</a> – The San Antonio Spurs logo uses silver and black colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/toronto-raptors-color-codes/" target="_blank">Toronto Raptors</a> – The Toronto Raptors logo uses red, black, and white colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/utah-jazz-color-codes/" target="_blank">Utah Jazz</a> – The Utah Jazz logo uses navy, green, and yellow colors.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/washington-wizards-color-codes/" target="_blank">Washington Wizards</a> – The Washington Wizards logo uses navy, red, silver, and white colors.</li></ol>
+
+
+
+<h3><span id="What_Are_the_Animals_and_Symbols_in_NBA_Team_Logos">What Are the Animals and Symbols in NBA Team Logos?</span></h3>
+
+
+
+<p>The animals and symbols that NBA Teams use in their logos are listed below.</p>
+
+
+
+<ol><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/atlanta-hawks-color-codes/" target="_blank">Atlanta Hawks</a> – The Atlanta Hawks logo includes a hawk bird symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/boston-celtics-color-codes/" target="_blank">Boston Celtics</a> – The Boston Celtics logo includes leprechaun and basketball symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/brooklyn-nets-color-codes/" target="_blank">Brooklyn Nets</a> – The Brooklyn Nets logo includes shield and basketball symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/charlotte-hornets-color-codes/" target="_blank">Charlotte Hornets</a> – The Charlotte Hornets logo includes a hornet symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/chicago-bulls-color-codes/" target="_blank">Chicago Bulls</a> – The Chicago Bulls logo includes a bull’s head symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/cleveland-cavaliers-color-codes/" target="_blank">Cleveland Cavaliers</a> – The Cleveland Cavaliers logo includes shield and sword symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/dallas-mavericks-color-codes/" target="_blank">Dallas Mavericks</a> – The Dallas Mavericks logo includes a horse (maverick) symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/denver-nuggets-color-codes/" target="_blank">Denver Nuggets</a> – The Denver Nuggets logo includes pickaxe, mountain, and basketball symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/detroit-pistons-color-codes/" target="_blank">Detroit Pistons</a> – The Detroit Pistons logo includes a basketball symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/golden-state-warriors-color-codes/" target="_blank">Golden State Warriors</a> – The Golden State Warriors logo includes a Bay Bridge bridge symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/houston-rockets-color-codes/" target="_blank">Houston Rockets</a> – The Houston Rockets logo includes a stylized rocket symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/indiana-pacers-color-codes/" target="_blank">Indiana Pacers</a> – The Indiana Pacers logo includes a basketball symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/los-angeles-clippers-color-codes/" target="_blank">Los Angeles Clippers</a> – The Los Angeles Clippers logo includes a basketball symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/los-angeles-lakers-color-codes/" target="_blank">Los Angeles Lakers</a> – The Los Angeles Lakers logo includes a basketball symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/memphis-grizzlies-color-codes/" target="_blank">Memphis Grizzlies</a> – The Memphis Grizzlies logo includes a grizzly bear symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/miami-heat-color-codes/" target="_blank">Miami Heat</a> – The Miami Heat logo includes flaming basketball and hoop symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/milwaukee-bucks-color-codes/" target="_blank">Milwaukee Bucks</a> – The Milwaukee Bucks logo includes a buck head symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/minnesota-timberwolves-color-codes/" target="_blank">Minnesota Timberwolves</a> – The Minnesota Timberwolves logo includes wolf and basketball symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-orleans-pelicans-team-color-codes/" target="_blank">New Orleans Pelicans</a> – The New Orleans Pelicans logo includes a pelican symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-york-knicks-color-codes/" target="_blank">New York Knicks</a> – The New York Knicks logo includes a basketball symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/oklahoma-city-thunder-color-codes/" target="_blank">Oklahoma City Thunder</a> – The Oklahoma City Thunder logo includes a basketball symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/orlando-magic-color-codes/" target="_blank">Orlando Magic</a> – The Orlando Magic logo includes a basketball symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/philadelphia-76ers-color-codes/" target="_blank">Philadelphia 76ers</a> – The Philadelphia 76ers logo includes an American Independence symbol (13 stars).</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/phoenix-suns-color-codes/" target="_blank">Phoenix Suns</a> – The Phoenix Suns logo includes basketball and sun symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/portland-trailblazers-color-codes/" target="_blank">Portland Trail Blazers</a> – The Portland Trail Blazers logo includes a pinwheel symbol that represents a 5v5 basketball game.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/sacramento-kings-color-codes/" target="_blank">Sacramento Kings</a> – The Sacramento Kings logo includes crown and basketball symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/san-antonio-spurs-color-codes/" target="_blank">San Antonio Spurs</a> – The San Antonio Spurs logo includes a spur symbol.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/toronto-raptors-color-codes/" target="_blank">Toronto Raptors</a> – The Toronto Raptors logo includes basketball and claw mark symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/utah-jazz-color-codes/" target="_blank">Utah Jazz</a> – The Utah Jazz logo includes music note and basketball symbols.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/washington-wizards-color-codes/" target="_blank">Washington Wizards</a> – The Washington Wizards logo includes the US flag, Washington Monument, and basketball symbols.</li></ol>
+
+
+
+<h2><span id="What_Are_Other_Teams_With_Colors_Similar_To_NBA_Teams">What Are Other Teams With Colors Similar To NBA Teams?</span></h2>
+
+
+
+<p>Teams that use colors similar to the NBA Team colors are listed below.</p>
+
+
+
+<ol><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/atlanta-hawks-color-codes/" target="_blank">Atlanta Hawks</a> – The Atlanta Hawks NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/calgary-flames-color-codes/" target="_blank">Calgary Flames</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/boston-celtics-color-codes/" target="_blank">Boston Celtics</a> – The Boston Celtics NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/celtic-f-c-colors/" target="_blank">Celtic F.C</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/brooklyn-nets-color-codes/" target="_blank">Brooklyn Nets</a> – The Brooklyn Nets NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/juventus-color-codes/" target="_blank">Juventus FC</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/charlotte-hornets-color-codes/" target="_blank">Charlotte Hornets</a> – The Charlotte Hornets NBA team has colors similar to the old <a rel="noreferrer noopener" href="https://teamcolorcodes.com/arizona-diamondbacks-color-codes/" target="_blank">Arizona Diamondbacks</a> logo.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/chicago-bulls-color-codes/" target="_blank">Chicago Bulls</a> – The Chicago Bulls NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/a-c-milan-color-codes/" target="_blank">A.C. Milan</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/cleveland-cavaliers-color-codes/" target="_blank">Cleveland Cavaliers</a> – The Cleveland Cavaliers NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/barcelona-fc-colors/" target="_blank">Barcelona FC</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/dallas-mavericks-color-codes/" target="_blank">Dallas Mavericks</a> – The Dallas Mavericks NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/dallas-cowboys-color-codes/" target="_blank">Dallas Cowboys</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/denver-nuggets-color-codes/" target="_blank">Denver Nuggets</a> – The Denver Nuggets NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/west-ham-united-colors/" target="_blank">West Ham United</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/detroit-pistons-color-codes/" target="_blank">Detroit Pistons</a> – The Detroit Pistons NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/los-angeles-clippers-color-codes/" target="_blank">Los Angeles Clippers</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/golden-state-warriors-color-codes/" target="_blank">Golden State Warriors</a> – The Golden State Warriors NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/la-galaxy-color-codes/" target="_blank">LA Galaxy</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/houston-rockets-color-codes/" target="_blank">Houston Rockets</a> – The Houston Rockets NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/d-c-united-team-color-codes/" target="_blank">D.C. United</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/indiana-pacers-color-codes/" target="_blank">Indiana Pacers</a> – The Indiana Pacers NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/buffalo-sabres-color-codes/" target="_blank">Buffalo Sabres</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/los-angeles-clippers-color-codes/" target="_blank">Los Angeles Clippers</a> – The Los Angeles Clippers NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/montreal-canadiens-color-codes/" target="_blank">Montreal Canadiens</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/los-angeles-lakers-color-codes/" target="_blank">Los Angeles Lakers</a> – The Los Angeles Lakers NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/minnesota-vikings-color-codes/" target="_blank">Minnesota Vikings</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/memphis-grizzlies-color-codes/" target="_blank">Memphis Grizzlies</a> – The Memphis Grizzlies NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/montreal-impact-color-codes/" target="_blank">Montreal Impact</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/miami-heat-color-codes/" target="_blank">Miami Heat</a> – The Miami Heat NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/chicago-blackhawks-color-codes/" target="_blank">Chicago Blackhawks</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/milwaukee-bucks-color-codes/" target="_blank">Milwaukee Bucks</a> – The Milwaukee Bucks NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/oakland-athletics-color-codes/" target="_blank">Oakland Athletics</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/minnesota-timberwolves-color-codes/" target="_blank">Minnesota Timberwolves</a> – The Minnesota Timberwolves NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/sporting-kansas-city-color-codes/" target="_blank">Sporting Kansas City</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-orleans-pelicans-team-color-codes/" target="_blank">New Orleans Pelicans</a> – The New Orleans Pelicans NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-orleans-saints-color-codes/" target="_blank">New Orleans Saints</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-york-knicks-color-codes/" target="_blank">New York Knicks</a> – The New York Knicks NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-york-islanders-color-codes/" target="_blank">New York Islanders</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/oklahoma-city-thunder-color-codes/" target="_blank">Oklahoma City Thunder</a> – The Oklahoma City Thunder NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/cincinnati-fc-color-codes/" target="_blank">FC Cincinnati</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/orlando-magic-color-codes/" target="_blank">Orlando Magic</a> – The Orlando Magic NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/carolina-panthers-color-codes/" target="_blank">Carolina Panthers</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/philadelphia-76ers-color-codes/" target="_blank">Philadelphia 76ers</a> – The Philadelphia 76ers NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-york-yankees-color-codes/" target="_blank">New York Yankees</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/phoenix-suns-color-codes/" target="_blank">Phoenix Suns</a> – The Phoenix Suns NBA team has colors similar to <a rel="noreferrer noopener" href="https://teamcolorcodes.com/fiorentina-color-codes/" target="_blank">Fiorentina</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/portland-trailblazers-color-codes/" target="_blank">Portland Trail Blazers</a> – The Portland Trail Blazers NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-jersey-devils-color-codes/" target="_blank">New Jersey Devils</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/sacramento-kings-color-codes/" target="_blank">Sacramento Kings</a> – The Sacramento Kings NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/colorado-rockies-color-codes/" target="_blank">Colorado Rockies</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/san-antonio-spurs-color-codes/" target="_blank">San Antonio Spurs</a> – The San Antonio Spurs NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/chicago-white-sox-color-codes/" target="_blank">Chicago White Sox</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/toronto-raptors-color-codes/" target="_blank">Toronto Raptors</a> – The Toronto Raptors NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/atlanta-falcons-color-codes/" target="_blank">Atlanta Falcons</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/utah-jazz-color-codes/" target="_blank">Utah Jazz</a> – The Utah Jazz NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/green-bay-packers-color-codes/" target="_blank">Green Bay Packers</a>.</li><li><a rel="noreferrer noopener" href="https://teamcolorcodes.com/washington-wizards-color-codes/" target="_blank">Washington Wizards</a> – The Washington Wizards NBA team has colors similar to the <a rel="noreferrer noopener" href="https://teamcolorcodes.com/new-england-patriots-color-codes/" target="_blank">New England Patriots</a>.</li></ol>
+</div></article></main></div></div></div><footer class="site-footer"><div class="wrap"><div class="creds"><p>Copyright © 2021 | <a href="https://teamcolorcodes.com/disclaimer/">Disclaimer</a> | <a href="https://g.ezoic.net/privacy/teamcolorcodes.com">Privacy Policy</a> </p><center><br/><div style="color:#fff;">Teamcolorcodes.com is not affiliated with any teams or leagues that have their colors displayed.</div><br/>
+<a href="https://teamcolorcodes.com/this-site-contains-affiliate-links-to-products-we-may-receive-a-commission-for-purchases-made-through-these-links/">Affiliate Disclosure</a>
+</center><p></p></div><nav class="nav-secondary" aria-label="Secondary"><div class="wrap"><ul id="menu-footer-menu" class="menu genesis-nav-menu menu-secondary js-superfish"><li id="menu-item-11081" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-11081"><a href="https://teamcolorcodes.com/"><span>Home</span></a></li>
+<li id="menu-item-11082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11082"><a href="https://teamcolorcodes.com/mlb-color-codes/"><span>MLB Team Colors</span></a></li>
+<li id="menu-item-11083" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-791 current_page_item menu-item-11083"><a href="https://teamcolorcodes.com/nba-team-color-codes/" aria-current="page"><span>NBA Team Colors</span></a></li>
+<li id="menu-item-11084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11084"><a href="https://teamcolorcodes.com/nascar-colors/"><span>NASCAR Colors</span></a></li>
+<li id="menu-item-11085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11085"><a href="https://teamcolorcodes.com/ncaa-color-codes/"><span>NCAA Color Codes</span></a></li>
+<li id="menu-item-11114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11114"><a href="https://teamcolorcodes.com/nfl-team-color-codes/"><span>NFL Team Colors</span></a></li>
+<li id="menu-item-11115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11115"><a href="https://teamcolorcodes.com/nhl-team-color-codes/"><span>NHL Team Colors</span></a></li>
+<li id="menu-item-11116" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11116"><a href="https://teamcolorcodes.com/soccer/"><span>Soccer</span></a></li>
+<li id="menu-item-11122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11122"><a href="https://teamcolorcodes.com/esports-colors/"><span>eSports</span></a></li>
+<li id="menu-item-11123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11123"><a href="https://teamcolorcodes.com/how-we-do-it/"><span>How We Do It</span></a></li>
+<li id="menu-item-11124" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11124"><a href="https://teamcolorcodes.com/contact-us/"><span>Contact</span></a></li>
+</ul></div></nav></div></footer><link rel="stylesheet" id="su-shortcodes-css" href="https://teamcolorcodes.com/wp-content/plugins/shortcodes-ultimate/includes/css/shortcodes.css?ver=5.9.8" type="text/css" media="all"/>
+<script type="text/javascript" id="toc-front-js-extra">
+/* <![CDATA[ */
+var tocplus = {"visibility_show":"show","visibility_hide":"hide","width":"Auto"};
+var tocplus = {"visibility_show":"show","visibility_hide":"hide","width":"Auto"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-content/plugins/table-of-contents-plus/front.min.js?ver=2002" id="toc-front-js"></script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-includes/js/hoverIntent.min.js?ver=1.8.1" id="hoverIntent-js"></script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-content/themes/genesis/lib/js/menu/superfish.min.js?ver=1.7.10" id="superfish-js"></script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-content/themes/genesis/lib/js/menu/superfish.args.min.js?ver=3.3.3" id="superfish-args-js"></script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-content/themes/genesis/lib/js/skip-links.min.js?ver=3.3.3" id="skip-links-js"></script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-content/themes/monochrome-pro/js/global.js?ver=1.0.0" id="monochrome-global-script-js"></script>
+<script type="text/javascript" id="monochrome-responsive-menu-js-extra">
+/* <![CDATA[ */
+var genesis_responsive_menu = {"mainMenu":"Menu","menuIconClass":"ionicons-before ion-navicon","subMenu":"Submenu","subMenuIconClass":"ionicons-before ion-chevron-down","menuClasses":{"combine":[],"others":[".nav-primary"]}};
+var genesis_responsive_menu = {"mainMenu":"Menu","menuIconClass":"ionicons-before ion-navicon","subMenu":"Submenu","subMenuIconClass":"ionicons-before ion-chevron-down","menuClasses":{"combine":[],"others":[".nav-primary"]}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-content/themes/monochrome-pro/js/responsive-menus.min.js?ver=1.0.0" id="monochrome-responsive-menu-js"></script>
+<script type="text/javascript" src="https://teamcolorcodes.com/wp-includes/js/wp-embed.min.js?ver=5.7.4" id="wp-embed-js"></script>
+<script type='text/javascript' style='display:none;' async>
+__ez.queue.addFile('/detroitchicago/edmonton.webp', '/detroitchicago/edmonton.webp?a=a&cb=3&shcb=34', true, ['/detroitchicago/minneapolis.js'], true, false, false, false);
+__ez.queue.addFile('/porpoiseant/jellyfish.webp', '/porpoiseant/jellyfish.webp?a=a&cb=3&shcb=34', false, [], true, false, false, false);
+</script>
+
+<script>var _audins_dom="teamcolorcodes_com",_audins_did=23681;__ez.queue.addDelayFunc("audins.js","__ez.script.add", "//go.ezoic.net/detroitchicago/audins.js?cb=195-3");</script><noscript><div style="display:none;"><img src="//pixel.quantserve.com/pixel/p-31iz6hfFutd16.gif?labels=Domain.teamcolorcodes_com,DomainId.23681" border="0" height="1" width="1" alt="Quantcast"/></div></noscript>
+<script type="text/javascript" data-cfasync="false"></script>
+<script>__ez.queue.addFile('/tardisrocinante/vitals.js', '/tardisrocinante/vitals.js?gcb=3&cb=3', false, ['/detroitchicago/minneapolis.js'], true, false, true, false);</script></body></html>

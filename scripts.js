@@ -1,8 +1,10 @@
 d3.json("all-years-data.json", parseData);
+d3.json("teamColors.json", parseColors);
 
 // global variables to store data
 var playerNames = [];
 var allData = {};
+var teamColors = {};
 var numPlayers = 1;
 
 /*
@@ -10,6 +12,11 @@ var all_arcs = svg.select('g').selectAll('path');
 all_arcs.on('mouseover', function(d, i){
     d3.select(this)
 });*/
+
+function parseColors(error, data){
+    teamColors = data;
+    console.log(teamColors)
+}
 
 function parseData(error, data) {
     allData = data;
@@ -366,9 +373,9 @@ function drawSinglePlayer(player1, p1_yr) {
 
     var arcData = [
 
-        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400 },
-        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280 },
-        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140 }
+        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString() + '%'},
+        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%'},
+        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label: Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%' }
     ];
 
     var arcGenerator = d3.arc();
@@ -411,95 +418,22 @@ function drawSinglePlayer(player1, p1_yr) {
             tooltip.select("text.value").text(d);
         });
 
-    /*
-    var labels = d3.select('g').selectAll('path').append("text")
-        .attr("transform", function(d,i) { 
-            if (i == 0){
-                d.outerRadius = 200;
-                d.innerRadius = 140;
-            }else if (i == 1){
-                d.outerRadius = 140;
-                d.innerRadius = 70;
-            }else if (i == 2){
-                d.outerRadius = 70;
-                d.innerRadius = 0;
-            }
-            console.log(arcGenerator.centroid(d)); 
-            return "translate(" + arcGenerator.centroid(d) + ")"; 
-        })
-        .attr("dy", ".35em")
-        .style("text-anchor", "middle")
-        .style("fill", "black")
-        .text(function(d, i){
-            if (i == 0){
-                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString();
-            }else if (i == 1){
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString();
-            }else if (i == 2){
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString();
-            }
-        });*/
-
-    var label0 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path0';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "26.5%")
-        .text(function (d, i) {
-            if (i == 0) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 1) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString();
-            } else if (i == 2) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString();
-            }
-        });
-
-    var label1 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path1';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "27.5%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-        });
-
-    var label2 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path2';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "27.5%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
+    var labels = d3.select('g')
+        .selectAll('text')
+        .data(arcData)
+        .enter()
+        .append('text')
+        .each(function(d){
+            var centroid = arcGenerator.centroid(d);
+            d3.select(this)
+                .attr('x', centroid[0])
+                .attr('y', centroid[1])
+			    .attr('dy', '0.33em')
+                .attr('fill', 'white')
+                .attr('stroke', 'white')
+                .style("text-anchor", "middle")
+                .style("font-size", "22px")
+			    .text(d.label);
         });
 
     var box = d3.select('g')
@@ -520,14 +454,21 @@ function drawSinglePlayer(player1, p1_yr) {
         .attr('fill', 'transparent')
         .attr('stroke', 'black');
 
-    var title = d3.select('g')
-        .append('text')
-        .attr('x', 0)
-        .attr('y', -420)
-        .attr('stroke', 'black')
+    var title1 = d3.select('g').append('text')
+        .attr("stroke", 'black')
+        .attr("fill", 'black')
+        .attr("dy", -5)
+        .append("textPath")
+        .attr('xlink:href', function (d, i) {
+            //return ('#path' + i).toString();
+            return '#path0';
+        })
         .style("text-anchor", "middle")
-        .attr('startOffset', '50%')
-        .text(player1);
+        .style("font-size", "22px")
+        .attr('startOffset', "26.25%")
+        .text(function (d, i) {
+            return player1;
+        });
 
 
     // Prep the tooltip bits, initial display is hidden
@@ -560,6 +501,14 @@ function drawSinglePlayer(player1, p1_yr) {
 
 }
 
+function sortPercentages(threePt, twoLong, twoShort){
+    three_sorted = []
+    for (var i = 0; i < threePt.length; i++){
+        
+    }
+     
+}
+
 function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
     console.log(player1);
     console.log(player2);
@@ -570,15 +519,24 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
     svg.selectAll('text').remove();
+    var p1_threePt_perc = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString() + '%';
+    var p1_twoLong_perc = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString() + '%';
+    var p1_twoShort_perc = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString() + '%';
+
+    var p2_threePt_perc = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"]/allData[player2][p2_yr]["threePt"]["Total"])*100).toFixed(2).toString() + '%';
+    var p2_twoLong_perc = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"]/allData[player2][p2_yr]["twoLong"]["Total"])*100).toFixed(2).toString() + '%';
+    var p2_twoShort_perc = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"]/allData[player2][p2_yr]["twoShort"]["Total"])*100).toFixed(2).toString() + '%';
+
+    
 
     var arcData = [
 
-        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 280, outerRadius: 400 },
-        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400 },
-        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 140, outerRadius: 280 },
-        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280 },
-        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 40, outerRadius: 140 },
-        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140 }
+        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 280, outerRadius: 400, label: p1_threePt_perc},
+        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: p2_threePt_perc},
+        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 140, outerRadius: 280, label: p1_twoLong_perc },
+        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: p2_twoLong_perc},
+        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 40, outerRadius: 140, label: p1_twoShort_perc},
+        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label:  p2_twoShort_perc}
 
     ];
 
@@ -633,6 +591,50 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             }
         })
         .attr('stroke', 'white')
+        .attr('opacity', function(d, i){
+
+            var threePt = {"0": p1_threePt_perc, "1": p2_threePt_perc};
+            var twoLong = {"2": p1_twoLong_perc, "3": p2_twoLong_perc};
+            var twoShort = {"4": p1_twoShort_perc, "5": p2_twoShort_perc};
+
+            three_sort = Object.keys(threePt).map(function(key){
+                return [key, threePt[key]];
+            }).sort(function(first, second){
+                return second[1] - first[1];
+            }).reverse();
+
+            twoLong_sort = Object.keys(twoLong).map(function(key){
+                return [key, twoLong[key]];
+            }).sort(function(first, second){
+                return second[1] - first[1];
+            }).reverse();
+
+            twoShort_sort = Object.keys(twoShort).map(function(key){
+                return [key, twoShort[key]];
+            }).sort(function(first, second){
+                return second[1] - first[1];
+            }).reverse();
+
+            if (i==0 || i == 1){
+                if (three_sort[0][0] == i){
+                    return "1.0";
+                }else{
+                    return "0.75";
+                }
+            }else if (i==2 || i == 3){
+                if (twoLong_sort[0][0] == i){
+                    return "1.0";
+                }else{
+                    return "0.75";
+                }
+            }else if (i==4 || i == 5){
+                if (twoShort_sort[0][0] == i){
+                    return "1.0";
+                }else{
+                    return "0.75";
+                }
+            }
+        })
         .on("mouseover", function () { tooltip.style("display", null); })
         .on("mouseout", function () { tooltip.style("display", "none"); })
         .on("mousemove", function (d) {
@@ -643,125 +645,24 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             tooltip.select("text.age").text(d.age);
             tooltip.select("text.value").text(Number(d.value * 100).toFixed(2) + "%");
         });
+        
 
-
-    var label0 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path0';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "27.5%")
-        .text(function (d, i) {
-            if (i == 0) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 1) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 2) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
-            }
-        });
-
-    var label1 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path2';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "27.5%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-        });
-
-    var label2 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path4';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "27.5%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
-
-        });
-
-    var label3 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path1';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            if (i == 0) {
-                console.log(Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"] / allData[player2][p2_yr]["threePt"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"] / allData[player2][p2_yr]["threePt"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 1) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 2) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
-            }
-        });
-
-    var label4 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path3';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-        });
-
-    var label5 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path5';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
+        var labels = d3.select('g')
+        .selectAll('text')
+        .data(arcData)
+        .enter()
+        .append('text')
+        .each(function(d){
+            var centroid = arcGenerator.centroid(d);
+            d3.select(this)
+                .attr('x', centroid[0])
+                .attr('y', centroid[1])
+			    .attr('dy', '0.33em')
+                .attr('fill', 'white')
+                .attr('stroke', 'white')
+                .style("text-anchor", "middle")
+                .style("font-size", "22px")
+			    .text(d.label);
         });
 
     var box = d3.select('g')
@@ -782,21 +683,34 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
         .attr('fill', 'transparent')
         .attr('stroke', 'black');
 
-    var title = d3.select('g')
-        .append('text')
-        .attr('x', -250)
-        .attr('y', -400)
-        .attr('stroke', 'black')
+    var title1 = d3.select('g').append('text')
+        .attr("stroke", 'black')
+        .attr("fill", 'black')
+        .attr("dy", -5)
+        .append("textPath")
+        .attr('xlink:href', function (d, i) {
+            //return ('#path' + i).toString();
+            return '#path0';
+        })
         .style("text-anchor", "middle")
-        .text(player1);
+        .style("font-size", "22px")
+        .attr('startOffset', "25%")
+        .text(function (d, i) {
+            return player1;
+        });
 
-    var title2 = d3.select('g')
-        .append('text')
-        .attr('x', 250)
-        .attr('y', -400)
-        .attr('stroke', 'black')
+    var title2 = d3.select('g').append('text')
+        .attr("stroke", 'black')
+        .attr("fill", 'black')
+        .attr("dy", -5)
+        .append("textPath")
+        .attr('xlink:href', '#path1')
         .style("text-anchor", "middle")
-        .text(player2);
+        .style("font-size", "22px")
+        .attr('startOffset', "25%")
+        .text(function (d, i) {
+            return player2;
+        });
 
 }
 
@@ -808,21 +722,35 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
     const players = [{ 'Name': player1, 'Year': p1_yr }, { 'Name': player2, 'Year': p2_yr }, { 'Name': player3, 'Year': p3_yr }];
     updatePlayerStats(players);
 
+    
+
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
     svg.selectAll('text').remove();
 
+    var p1_threePt_perc = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString() + '%';
+    var p1_twoLong_perc = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2).toString() + '%';
+    var p1_twoShort_perc = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2).toString() + '%';
+
+    var p2_threePt_perc = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"]/allData[player2][p2_yr]["threePt"]["Total"])*100).toFixed(2).toString() + '%';
+    var p2_twoLong_perc = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"]/allData[player2][p2_yr]["twoLong"]["Total"])*100).toFixed(2).toString() + '%';
+    var p2_twoShort_perc = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"]/allData[player2][p2_yr]["twoShort"]["Total"])*100).toFixed(2).toString() + '%';
+
+    var p3_threePt_perc = Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"]/allData[player3][p3_yr]["threePt"]["Total"])*100).toFixed(2).toString() + '%';
+    var p3_twoLong_perc = Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"]/allData[player3][p3_yr]["twoLong"]["Total"])*100).toFixed(2).toString() + '%';
+    var p3_twoShort_perc = Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"]/allData[player3][p3_yr]["twoShort"]["Total"])*100).toFixed(2).toString() + '%';
+
     var arcData = [
 
-        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 280, outerRadius: 400 },
-        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 280, outerRadius: 400 },
-        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400 },
-        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 140, outerRadius: 280 },
-        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 140, outerRadius: 280 },
-        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280 },
-        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 40, outerRadius: 140 },
-        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 40, outerRadius: 140 },
-        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140 }
+        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 280, outerRadius: 400, label: p1_threePt_perc},
+        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 280, outerRadius: 400, label: p2_threePt_perc},
+        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: p3_threePt_perc},
+        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 140, outerRadius: 280, label: p1_twoLong_perc},
+        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 140, outerRadius: 280, label: p2_twoLong_perc},
+        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: p3_twoLong_perc},
+        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 40, outerRadius: 140, label: p1_twoShort_perc},
+        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 40, outerRadius: 140, label: p2_twoShort_perc },
+        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label: p3_twoShort_perc}
 
     ];
 
@@ -848,184 +776,74 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
                 return 'green';
             }
         })
-        .attr('stroke', 'white');
+        .attr('stroke', 'white')
+        .attr('opacity', function(d, i){
 
-    var label0 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path0';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "27.5%")
-        .text(function (d, i) {
-            if (i == 0) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 1) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 2) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
+            var threePt = {"0": p1_threePt_perc, "1": p2_threePt_perc, "2": p3_threePt_perc};
+            var twoLong = {"3": p1_twoLong_perc, "4": p2_twoLong_perc, "5": p3_twoLong_perc};
+            var twoShort = {"6": p1_twoShort_perc, "7": p2_twoShort_perc, "8": p3_twoShort_perc};
+
+            three_sort = Object.keys(threePt).map(function(key){
+                return [key, threePt[key]];
+            }).sort(function(first, second){
+                return second[1] - first[1];
+            }).reverse();
+
+            twoLong_sort = Object.keys(twoLong).map(function(key){
+                return [key, twoLong[key]];
+            }).sort(function(first, second){
+                return second[1] - first[1];
+            }).reverse();
+
+            twoShort_sort = Object.keys(twoShort).map(function(key){
+                return [key, twoShort[key]];
+            }).sort(function(first, second){
+                return second[1] - first[1];
+            }).reverse();
+
+            if (i==0 || i == 1 || i == 3){
+                if (three_sort[0][0] == i){
+                    return "1.0";
+                }else if (three_sort[1][0] == i){
+                    return "0.75";
+                }else{
+                    return "0.5";
+                }
+            }else if (i==3 || i == 4 || i == 5){
+                if (twoLong_sort[0][0] == i){
+                    return "1.0";
+                }else if (twoLong_sort[1][0] == i){
+                    return "0.75";
+                }else{
+                    return "0.5";
+                }
+            }else if (i==6 || i == 7 || i == 8){
+                if (twoShort_sort[0][0] == i){
+                    return "1.0";
+                }else if (twoShort_sort[1][0] == i){
+                    return "0.75";
+                }else{
+                    return "0.5";
+                }
             }
         });
 
-    var label1 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path3';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "27.5%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-        });
-
-    var label2 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path6';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
-
-        });
-
-    var label3 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path1';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            if (i == 0) {
-                console.log(Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"] / allData[player2][p2_yr]["threePt"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"] / allData[player2][p2_yr]["threePt"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 1) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 2) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
-            }
-        });
-
-    var label4 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path4';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-        });
-
-    var label5 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path7';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
-        });
-
-    var label6 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path2';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            if (i == 0) {
-                console.log(Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"] / allData[player3][p3_yr]["threePt"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"] / allData[player3][p3_yr]["threePt"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 1) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-            } else if (i == 2) {
-                console.log(Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-                return Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
-            }
-        });
-
-    var label7 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path5';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"] / allData[player3][p3_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"] / allData[player3][p3_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%';
-        });
-
-    var label8 = d3.select('g').append('text')
-        .attr("stroke", 'white')
-        .attr("fill", 'white')
-        .attr("dy", 35)
-        .append("textPath")
-        .attr('xlink:href', function (d, i) {
-            //return ('#path' + i).toString();
-            return '#path8';
-        })
-        .style("text-anchor", "middle")
-        .style("font-size", "22px")
-        .attr('startOffset', "25%")
-        .text(function (d, i) {
-            console.log(Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"] / allData[player3][p3_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString());
-            return Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"] / allData[player3][p3_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%';
+    var labels = d3.select('g')
+        .selectAll('text')
+        .data(arcData)
+        .enter()
+        .append('text')
+        .each(function(d){
+            var centroid = arcGenerator.centroid(d);
+            d3.select(this)
+                .attr('x', centroid[0])
+                .attr('y', centroid[1])
+			    .attr('dy', '0.33em')
+                .attr('fill', 'white')
+                .attr('stroke', 'white')
+                .style("text-anchor", "middle")
+                .style("font-size", "22px")
+			    .text(d.label);
         });
 
 
@@ -1047,28 +865,46 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
         .attr('fill', 'transparent')
         .attr('stroke', 'black');
 
-    var title1 = d3.select('g')
-        .append('text')
-        .attr('x', -400)
-        .attr('y', -200)
-        .attr('stroke', 'black')
+    var title1 = d3.select('g').append('text')
+        .attr("stroke", 'black')
+        .attr("fill", 'black')
+        .attr("dy", -5)
+        .append("textPath")
+        .attr('xlink:href', function (d, i) {
+            //return ('#path' + i).toString();
+            return '#path0';
+        })
         .style("text-anchor", "middle")
-        .text(player1);
+        .style("font-size", "22px")
+        .attr('startOffset', "20%")
+        .text(function (d, i) {
+            return player1;
+        });
 
-    var title2 = d3.select('g')
-        .append('text')
-        .attr('x', 0)
-        .attr('y', -420)
-        .attr('stroke', 'black')
+    var title2 = d3.select('g').append('text')
+        .attr("stroke", 'black')
+        .attr("fill", 'black')
+        .attr("dy", -5)
+        .append("textPath")
+        .attr('xlink:href', '#path1')
         .style("text-anchor", "middle")
-        .text(player2);
+        .style("font-size", "22px")
+        .attr('startOffset', "20%")
+        .text(function (d, i) {
+            return player2;
+        });
 
-    var title3 = d3.select('g')
-        .append('text')
-        .attr('x', 400)
-        .attr('y', -200)
-        .attr('stroke', 'black')
+    var title3 = d3.select('g').append('text')
+        .attr("stroke", 'black')
+        .attr("fill", 'black')
+        .attr("dy", -5)
+        .append("textPath")
+        .attr('xlink:href', '#path2')
         .style("text-anchor", "middle")
-        .text(player3);
+        .style("font-size", "22px")
+        .attr('startOffset', "20%")
+        .text(function (d, i) {
+            return player3;
+        });
 
 }
