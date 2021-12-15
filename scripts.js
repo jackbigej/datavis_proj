@@ -16,7 +16,7 @@ all_arcs.on('mouseover', function(d, i){
     d3.select(this)
 });*/
 
-function parseColors(error, data){
+function parseColors(error, data) {
     teamColors = data;
     console.log(teamColors)
 }
@@ -378,13 +378,13 @@ function drawSinglePlayer(player1, p1_yr) {
 
     var arcData = [
 
-        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2).toString() + '%'},
-        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%'},
+        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2).toString() + '%' },
+        { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2).toString() + '%' },
         { startAngle: -Math.PI / 2, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label: Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2).toString() + '%' }
     ];
 
     var ftArcData = [
-        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 75, outerRadius: 75}
+        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 75, outerRadius: 75 }
     ];
 
     var arcGenerator = d3.arc();
@@ -397,7 +397,7 @@ function drawSinglePlayer(player1, p1_yr) {
 
     var court = d3.select('g')
         .append('image')
-        .attr('xlink:href', 'https://lh3.googleusercontent.com/proxy/xWOwKDb8l4NrTKgQSHmVkF3NEcaVkXUAxWw_3mtfC4-kNPWYy21xDFMNLpdpvC3RGSWjV5mft1pDxEZeiKFmaxUlAA')
+        .attr('xlink:href', 'court.jpeg')
         .attr('x', -400)
         .attr('y', -562)
         .attr('width', 800)
@@ -423,43 +423,43 @@ function drawSinglePlayer(player1, p1_yr) {
         .attr('d', arcGenerator)
         .attr('fill', function (d, i) {
             if (i == 0) {
-                if (teamColorCheckbox.checked == true){
-                    if (allData[player1][p1_yr]['Team'] in teamColors){
+                if (teamColorCheckbox.checked == true) {
+                    if (allData[player1][p1_yr]['Team'] in teamColors) {
                         return teamColors[allData[player1][p1_yr]['Team']][0];
-                    }else{
+                    } else {
                         return 'orange';
                     }
-                }else{
+                } else {
                     return 'orange';
                 }
 
-                
+
             }
             else if (i == 1) {
-                if (teamColorCheckbox.checked === true){
+                if (teamColorCheckbox.checked === true) {
 
-                    if (allData[player1][p1_yr]['Team'] in teamColors){
+                    if (allData[player1][p1_yr]['Team'] in teamColors) {
                         return teamColors[allData[player1][p1_yr]['Team']][1];
-                    }else{
+                    } else {
                         return 'blue';
                     }
-                }else{
+                } else {
                     return 'blue';
                 }
             }
             else {
-                if (teamColorCheckbox.checked == true){
+                if (teamColorCheckbox.checked == true) {
 
-                    if (allData[player1][p1_yr]['Team'] in teamColors){
-                        if (teamColors[allData[player1][p1_yr]['Team']].length >= 3){
+                    if (allData[player1][p1_yr]['Team'] in teamColors) {
+                        if (teamColors[allData[player1][p1_yr]['Team']].length >= 3) {
                             return teamColors[allData[player1][p1_yr]['Team']][2];
-                        }else{
+                        } else {
                             return teamColors[allData[player1][p1_yr]['Team']][0]
                         }
-                    }else{
+                    } else {
                         return 'green';
                     }
-                }else{
+                } else {
                     return 'green';
                 }
             }
@@ -487,17 +487,17 @@ function drawSinglePlayer(player1, p1_yr) {
         .data(arcData)
         .enter()
         .append('text')
-        .each(function(d){
+        .each(function (d) {
             var centroid = arcGenerator.centroid(d);
             d3.select(this)
                 .attr('x', centroid[0])
                 .attr('y', centroid[1])
-			    .attr('dy', '0.33em')
+                .attr('dy', '0.33em')
                 .attr('fill', 'white')
                 .attr('stroke', 'white')
                 .style("text-anchor", "middle")
                 .style("font-size", "22px")
-			    .text(d.label);
+                .text(d.label);
         });
 
     var box = d3.select('g')
@@ -573,57 +573,57 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
     svg.selectAll('text').remove();
-    var p1_threePt_perc = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2);
-    var p1_twoLong_perc = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2);
-    var p1_twoShort_perc = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2);
+    var p1_threePt_perc = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2);
+    var p1_twoLong_perc = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2);
+    var p1_twoShort_perc = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2);
 
-    var p2_threePt_perc = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"]/allData[player2][p2_yr]["threePt"]["Total"])*100).toFixed(2);
-    var p2_twoLong_perc = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"]/allData[player2][p2_yr]["twoLong"]["Total"])*100).toFixed(2);
-    var p2_twoShort_perc = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"]/allData[player2][p2_yr]["twoShort"]["Total"])*100).toFixed(2);
+    var p2_threePt_perc = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"] / allData[player2][p2_yr]["threePt"]["Total"]) * 100).toFixed(2);
+    var p2_twoLong_perc = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2);
+    var p2_twoShort_perc = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2);
 
-    var threePt = {"0": p1_threePt_perc, "1": p2_threePt_perc};
-    var twoLong = {"2": p1_twoLong_perc, "3": p2_twoLong_perc};
-    var twoShort = {"4": p1_twoShort_perc, "5": p2_twoShort_perc};
+    var threePt = { "0": p1_threePt_perc, "1": p2_threePt_perc };
+    var twoLong = { "2": p1_twoLong_perc, "3": p2_twoLong_perc };
+    var twoShort = { "4": p1_twoShort_perc, "5": p2_twoShort_perc };
 
-            three_sort = Object.keys(threePt).map(function(key){
-                console.log([key, threePt[key]])
-                return [key, threePt[key]];
-            }).sort(function(first, second){
-                console.log(first[1], second[1])
-                return parseFloat(second[1]) - parseFloat(first[1]);
-            });
+    three_sort = Object.keys(threePt).map(function (key) {
+        console.log([key, threePt[key]])
+        return [key, threePt[key]];
+    }).sort(function (first, second) {
+        console.log(first[1], second[1])
+        return parseFloat(second[1]) - parseFloat(first[1]);
+    });
 
-            twoLong_sort = Object.keys(twoLong).map(function(key){
-                return [key, twoLong[key]];
-            }).sort(function(first, second){
-                return parseFloat(second[1]) - parseFloat(first[1]);
-            });
+    twoLong_sort = Object.keys(twoLong).map(function (key) {
+        return [key, twoLong[key]];
+    }).sort(function (first, second) {
+        return parseFloat(second[1]) - parseFloat(first[1]);
+    });
 
-            twoShort_sort = Object.keys(twoShort).map(function(key){
-                return [key, twoShort[key]];
-            }).sort(function(first, second){
-                return parseFloat(second[1]) - parseFloat(first[1]);
-            });
+    twoShort_sort = Object.keys(twoShort).map(function (key) {
+        return [key, twoShort[key]];
+    }).sort(function (first, second) {
+        return parseFloat(second[1]) - parseFloat(first[1]);
+    });
 
-            console.log(three_sort)
-            console.log(twoLong_sort)
-            console.log(twoShort_sort)
-    
+    console.log(three_sort)
+    console.log(twoLong_sort)
+    console.log(twoShort_sort)
+
 
     var arcData = [
 
-        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 280, outerRadius: 400, label: p1_threePt_perc.toString() + '%'},
-        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: p2_threePt_perc.toString() + '%'},
-        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 140, outerRadius: 280, label: p1_twoLong_perc.toString() + '%'},
-        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: p2_twoLong_perc.toString() + '%'},
-        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 40, outerRadius: 140, label: p1_twoShort_perc.toString() + '%'},
-        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label:  p2_twoShort_perc.toString() + '%'}
+        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 280, outerRadius: 400, label: p1_threePt_perc.toString() + '%' },
+        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: p2_threePt_perc.toString() + '%' },
+        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 140, outerRadius: 280, label: p1_twoLong_perc.toString() + '%' },
+        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: p2_twoLong_perc.toString() + '%' },
+        { startAngle: -Math.PI / 2, endAngle: 0, innerRadius: 40, outerRadius: 140, label: p1_twoShort_perc.toString() + '%' },
+        { startAngle: 0, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label: p2_twoShort_perc.toString() + '%' }
 
     ];
 
     var court = d3.select('g')
         .append('image')
-        .attr('xlink:href', 'https://lh3.googleusercontent.com/proxy/xWOwKDb8l4NrTKgQSHmVkF3NEcaVkXUAxWw_3mtfC4-kNPWYy21xDFMNLpdpvC3RGSWjV5mft1pDxEZeiKFmaxUlAA')
+        .attr('xlink:href', 'court.jpeg')
         .attr('x', -400)
         .attr('y', -562)
         .attr('width', 800)
@@ -679,108 +679,108 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
         .attr('d', arcGenerator)
         .attr('fill', function (d, i) {
             if (i == 0 || i == 1) {
-                if (teamColorCheckbox.checked == true){
+                if (teamColorCheckbox.checked == true) {
 
-                    if (i == 0){
-                        if (allData[player1][p1_yr]['Team'] in teamColors){
+                    if (i == 0) {
+                        if (allData[player1][p1_yr]['Team'] in teamColors) {
                             return teamColors[allData[player1][p1_yr]['Team']][0];
-                        }else{
+                        } else {
                             return 'orange';
                         }
                     }
-                    if (i == 1){
-                        if (allData[player2][p2_yr]['Team'] in teamColors){
+                    if (i == 1) {
+                        if (allData[player2][p2_yr]['Team'] in teamColors) {
                             return teamColors[allData[player2][p2_yr]['Team']][0];
-                        }else{
+                        } else {
                             return 'orange';
                         }
                     }
-                }else{
+                } else {
                     return 'orange';
                 }
             }
             else if (i == 2 || i == 3) {
-                if (teamColorCheckbox.checked == true){
+                if (teamColorCheckbox.checked == true) {
 
-                    if (i == 2){
-                        if (allData[player1][p1_yr]['Team'] in teamColors){
+                    if (i == 2) {
+                        if (allData[player1][p1_yr]['Team'] in teamColors) {
                             return teamColors[allData[player1][p1_yr]['Team']][1];
-                        }else{
+                        } else {
                             return 'blue';
                         }
                     }
-                    if (i == 3){
-                        if (allData[player2][p2_yr]['Team'] in teamColors){
+                    if (i == 3) {
+                        if (allData[player2][p2_yr]['Team'] in teamColors) {
                             return teamColors[allData[player2][p2_yr]['Team']][1];
-                        }else{
+                        } else {
                             return 'blue';
                         }
                     }
-                }else{
+                } else {
                     return 'blue';
                 }
             }
             else {
-                if (teamColorCheckbox.checked == true){
+                if (teamColorCheckbox.checked == true) {
 
-                    if (i == 4){
-                        if (allData[player1][p1_yr]['Team'] in teamColors){
-                            if (teamColors[allData[player1][p1_yr]['Team']].length >= 3){
+                    if (i == 4) {
+                        if (allData[player1][p1_yr]['Team'] in teamColors) {
+                            if (teamColors[allData[player1][p1_yr]['Team']].length >= 3) {
                                 return teamColors[allData[player1][p1_yr]['Team']][2];
-                            }else{
+                            } else {
                                 return teamColors[allData[player1][p1_yr]['Team']][0]
                             }
-                        }else{
+                        } else {
                             return 'green';
                         }
                     }
-                    if (i == 5){
-                        if (allData[player2][p2_yr]['Team'] in teamColors){
-                            if (teamColors[allData[player2][p2_yr]['Team']].length >= 3){
+                    if (i == 5) {
+                        if (allData[player2][p2_yr]['Team'] in teamColors) {
+                            if (teamColors[allData[player2][p2_yr]['Team']].length >= 3) {
                                 return teamColors[allData[player2][p2_yr]['Team']][2];
-                            }else{
+                            } else {
                                 return teamColors[allData[player2][p2_yr]['Team']][0]
                             }
-                        }else{
+                        } else {
                             return 'green';
                         }
                     }
-                }else{
+                } else {
                     return 'green';
                 }
             }
         })
         .attr('stroke', 'white')
-        .attr('opacity', function(d, i){
-            if (opacityRankingCheckbox.checked == true){
+        .attr('opacity', function (d, i) {
+            if (opacityRankingCheckbox.checked == true) {
 
-                if (i==0 || i == 1){
+                if (i == 0 || i == 1) {
                     console.log(three_sort[0][0], i)
 
-                    if (three_sort[0][0] == i){
+                    if (three_sort[0][0] == i) {
                         console.log()
                         return "1.0";
-                    }else{
+                    } else {
                         return "0.5";
                     }
-                }else if (i==2 || i == 3){
+                } else if (i == 2 || i == 3) {
                     console.log(twoLong_sort[0][0], i)
 
-                    if (twoLong_sort[0][0] == i){
+                    if (twoLong_sort[0][0] == i) {
                         return "1.0";
-                    }else{
+                    } else {
                         return "0.5";
                     }
-                }else if (i==4 || i == 5){
+                } else if (i == 4 || i == 5) {
                     console.log(twoShort_sort[0][0], i)
 
-                    if (twoShort_sort[0][0] == i){
+                    if (twoShort_sort[0][0] == i) {
                         return "1.0";
-                    }else{
+                    } else {
                         return "0.5";
                     }
                 }
-            }else{
+            } else {
                 return "1.0";
             }
         })
@@ -794,24 +794,24 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
             tooltip.select("text.age").text(d.age);
             tooltip.select("text.value").text(Number(d.value * 100).toFixed(2) + "%");
         });
-        
 
-        var labels = d3.select('g')
+
+    var labels = d3.select('g')
         .selectAll('text')
         .data(arcData)
         .enter()
         .append('text')
-        .each(function(d){
+        .each(function (d) {
             var centroid = arcGenerator.centroid(d);
             d3.select(this)
                 .attr('x', centroid[0])
                 .attr('y', centroid[1])
-			    .attr('dy', '0.33em')
+                .attr('dy', '0.33em')
                 .attr('fill', 'white')
                 .attr('stroke', 'white')
                 .style("text-anchor", "middle")
                 .style("font-size", "22px")
-			    .text(d.label);
+                .text(d.label);
         });
 
     var box = d3.select('g')
@@ -822,7 +822,7 @@ function drawTwoPlayers(player1, p1_yr, player2, p2_yr) {
         .attr('height', 190)
         .attr('fill', 'transparent')
         .attr('stroke', 'white');
-    
+
 
     var title1 = d3.select('g').append('text')
         .attr("stroke", 'black')
@@ -863,7 +863,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
     const players = [{ 'Name': player1, 'Year': p1_yr }, { 'Name': player2, 'Year': p2_yr }, { 'Name': player3, 'Year': p3_yr }];
     updatePlayerStats(players);
 
-    
+
 
     var svg = d3.select("svg");
     svg.selectAll('path').remove();
@@ -871,39 +871,39 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
     svg.selectAll('rect').remove();
     svg.selectAll('image').remove();
 
-    var p1_threePt_perc = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"]/allData[player1][p1_yr]["threePt"]["Total"])*100).toFixed(2);
-    var p1_twoLong_perc = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"]/allData[player1][p1_yr]["twoLong"]["Total"])*100).toFixed(2);
-    var p1_twoShort_perc = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"]/allData[player1][p1_yr]["twoShort"]["Total"])*100).toFixed(2);
+    var p1_threePt_perc = Number.parseFloat((allData[player1][p1_yr]["threePt"]["Make"] / allData[player1][p1_yr]["threePt"]["Total"]) * 100).toFixed(2);
+    var p1_twoLong_perc = Number.parseFloat((allData[player1][p1_yr]["twoLong"]["Make"] / allData[player1][p1_yr]["twoLong"]["Total"]) * 100).toFixed(2);
+    var p1_twoShort_perc = Number.parseFloat((allData[player1][p1_yr]["twoShort"]["Make"] / allData[player1][p1_yr]["twoShort"]["Total"]) * 100).toFixed(2);
 
-    var p2_threePt_perc = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"]/allData[player2][p2_yr]["threePt"]["Total"])*100).toFixed(2);
-    var p2_twoLong_perc = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"]/allData[player2][p2_yr]["twoLong"]["Total"])*100).toFixed(2);
-    var p2_twoShort_perc = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"]/allData[player2][p2_yr]["twoShort"]["Total"])*100).toFixed(2);
+    var p2_threePt_perc = Number.parseFloat((allData[player2][p2_yr]["threePt"]["Make"] / allData[player2][p2_yr]["threePt"]["Total"]) * 100).toFixed(2);
+    var p2_twoLong_perc = Number.parseFloat((allData[player2][p2_yr]["twoLong"]["Make"] / allData[player2][p2_yr]["twoLong"]["Total"]) * 100).toFixed(2);
+    var p2_twoShort_perc = Number.parseFloat((allData[player2][p2_yr]["twoShort"]["Make"] / allData[player2][p2_yr]["twoShort"]["Total"]) * 100).toFixed(2);
 
-    var p3_threePt_perc = Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"]/allData[player3][p3_yr]["threePt"]["Total"])*100).toFixed(2);
-    var p3_twoLong_perc = Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"]/allData[player3][p3_yr]["twoLong"]["Total"])*100).toFixed(2);
-    var p3_twoShort_perc = Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"]/allData[player3][p3_yr]["twoShort"]["Total"])*100).toFixed(2);
+    var p3_threePt_perc = Number.parseFloat((allData[player3][p3_yr]["threePt"]["Make"] / allData[player3][p3_yr]["threePt"]["Total"]) * 100).toFixed(2);
+    var p3_twoLong_perc = Number.parseFloat((allData[player3][p3_yr]["twoLong"]["Make"] / allData[player3][p3_yr]["twoLong"]["Total"]) * 100).toFixed(2);
+    var p3_twoShort_perc = Number.parseFloat((allData[player3][p3_yr]["twoShort"]["Make"] / allData[player3][p3_yr]["twoShort"]["Total"]) * 100).toFixed(2);
 
-    var threePt = {"0": p1_threePt_perc, "1": p2_threePt_perc, "2": p3_threePt_perc};
-    var twoLong = {"3": p1_twoLong_perc, "4": p2_twoLong_perc, "5": p3_twoLong_perc};
-    var twoShort = {"6": p1_twoShort_perc, "7": p2_twoShort_perc, "8": p3_twoShort_perc};
+    var threePt = { "0": p1_threePt_perc, "1": p2_threePt_perc, "2": p3_threePt_perc };
+    var twoLong = { "3": p1_twoLong_perc, "4": p2_twoLong_perc, "5": p3_twoLong_perc };
+    var twoShort = { "6": p1_twoShort_perc, "7": p2_twoShort_perc, "8": p3_twoShort_perc };
 
-    three_sort = Object.keys(threePt).map(function(key){
+    three_sort = Object.keys(threePt).map(function (key) {
         console.log([key, threePt[key]])
         return [key, threePt[key]];
-    }).sort(function(first, second){
+    }).sort(function (first, second) {
         console.log(first[1], second[1])
         return parseFloat(second[1]) - parseFloat(first[1]);
     });
 
-    twoLong_sort = Object.keys(twoLong).map(function(key){
+    twoLong_sort = Object.keys(twoLong).map(function (key) {
         return [key, twoLong[key]];
-    }).sort(function(first, second){
+    }).sort(function (first, second) {
         return parseFloat(second[1]) - parseFloat(first[1]);
     });
 
-    twoShort_sort = Object.keys(twoShort).map(function(key){
+    twoShort_sort = Object.keys(twoShort).map(function (key) {
         return [key, twoShort[key]];
-    }).sort(function(first, second){
+    }).sort(function (first, second) {
         return parseFloat(second[1]) - parseFloat(first[1]);
     });
 
@@ -914,15 +914,15 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
 
     var arcData = [
 
-        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 280, outerRadius: 400, label: p1_threePt_perc.toString() + '%'},
-        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 280, outerRadius: 400, label: p2_threePt_perc.toString() + '%'},
-        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: p3_threePt_perc.toString() + '%'},
-        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 140, outerRadius: 280, label: p1_twoLong_perc.toString() + '%'},
-        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 140, outerRadius: 280, label: p2_twoLong_perc.toString() + '%'},
-        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: p3_twoLong_perc.toString() + '%'},
-        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 40, outerRadius: 140, label: p1_twoShort_perc.toString() + '%'},
-        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 40, outerRadius: 140, label: p2_twoShort_perc.toString() + '%'},
-        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label: p3_twoShort_perc.toString() + '%'}
+        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 280, outerRadius: 400, label: p1_threePt_perc.toString() + '%' },
+        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 280, outerRadius: 400, label: p2_threePt_perc.toString() + '%' },
+        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 280, outerRadius: 400, label: p3_threePt_perc.toString() + '%' },
+        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 140, outerRadius: 280, label: p1_twoLong_perc.toString() + '%' },
+        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 140, outerRadius: 280, label: p2_twoLong_perc.toString() + '%' },
+        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 140, outerRadius: 280, label: p3_twoLong_perc.toString() + '%' },
+        { startAngle: -Math.PI / 2, endAngle: -Math.PI / 6, innerRadius: 40, outerRadius: 140, label: p1_twoShort_perc.toString() + '%' },
+        { startAngle: -Math.PI / 6, endAngle: Math.PI / 6, innerRadius: 40, outerRadius: 140, label: p2_twoShort_perc.toString() + '%' },
+        { startAngle: Math.PI / 6, endAngle: Math.PI / 2, innerRadius: 40, outerRadius: 140, label: p3_twoShort_perc.toString() + '%' }
 
     ];
 
@@ -930,7 +930,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
 
     var court = d3.select('g')
         .append('image')
-        .attr('xlink:href', 'https://lh3.googleusercontent.com/proxy/xWOwKDb8l4NrTKgQSHmVkF3NEcaVkXUAxWw_3mtfC4-kNPWYy21xDFMNLpdpvC3RGSWjV5mft1pDxEZeiKFmaxUlAA')
+        .attr('xlink:href', 'court.jpeg')
         .attr('x', -400)
         .attr('y', -562)
         .attr('width', 800)
@@ -955,132 +955,132 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
         })
         .attr('d', arcGenerator)
         .attr('fill', function (d, i) {
-            if (i <=2 ) {
-                if (teamColorCheckbox.checked == true){
+            if (i <= 2) {
+                if (teamColorCheckbox.checked == true) {
 
-                    if (i == 0){
-                        if (allData[player1][p1_yr]['Team'] in teamColors){
+                    if (i == 0) {
+                        if (allData[player1][p1_yr]['Team'] in teamColors) {
                             return teamColors[allData[player1][p1_yr]['Team']][0];
-                        }else{
+                        } else {
                             return 'orange';
                         }
                     }
-                    if (i == 1){
-                        if (allData[player2][p2_yr]['Team'] in teamColors){
+                    if (i == 1) {
+                        if (allData[player2][p2_yr]['Team'] in teamColors) {
                             return teamColors[allData[player2][p2_yr]['Team']][0];
-                        }else{
+                        } else {
                             return 'orange';
                         }
                     }
-                    if (i == 2){
-                        if (allData[player3][p3_yr]['Team'] in teamColors){
+                    if (i == 2) {
+                        if (allData[player3][p3_yr]['Team'] in teamColors) {
                             return teamColors[allData[player3][p3_yr]['Team']][0];
-                        }else{
+                        } else {
                             return 'orange';
                         }
                     }
-                }else{
+                } else {
                     return 'orange';
                 }
             }
             else if (i <= 5) {
-                if (teamColorCheckbox.checked == true){
+                if (teamColorCheckbox.checked == true) {
 
-                    if (i == 3){
-                        if (allData[player1][p1_yr]['Team'] in teamColors){
+                    if (i == 3) {
+                        if (allData[player1][p1_yr]['Team'] in teamColors) {
                             return teamColors[allData[player1][p1_yr]['Team']][1];
-                        }else{
+                        } else {
                             return 'blue';
                         }
                     }
-                    if (i == 4){
-                        if (allData[player2][p2_yr]['Team'] in teamColors){
+                    if (i == 4) {
+                        if (allData[player2][p2_yr]['Team'] in teamColors) {
                             return teamColors[allData[player2][p2_yr]['Team']][1];
-                        }else{
+                        } else {
                             return 'blue';
                         }
                     }
-                    if (i == 5){
-                        if (allData[player3][p3_yr]['Team'] in teamColors){
+                    if (i == 5) {
+                        if (allData[player3][p3_yr]['Team'] in teamColors) {
                             return teamColors[allData[player3][p3_yr]['Team']][1];
-                        }else{
+                        } else {
                             return 'blue';
                         }
                     }
-                }else{
+                } else {
                     return 'blue';
                 }
             }
             else {
-                if (teamColorCheckbox.checked == true){
+                if (teamColorCheckbox.checked == true) {
 
-                    if (i == 6){
-                        if (allData[player1][p1_yr]['Team'] in teamColors){
-                            if (teamColors[allData[player1][p1_yr]['Team']].length >= 3){
+                    if (i == 6) {
+                        if (allData[player1][p1_yr]['Team'] in teamColors) {
+                            if (teamColors[allData[player1][p1_yr]['Team']].length >= 3) {
                                 return teamColors[allData[player1][p1_yr]['Team']][2];
-                            }else{
+                            } else {
                                 return teamColors[allData[player1][p1_yr]['Team']][0]
                             }
-                        }else{
+                        } else {
                             return 'green';
                         }
                     }
-                    if (i == 7){
-                        if (allData[player2][p2_yr]['Team'] in teamColors){
-                            if (teamColors[allData[player2][p2_yr]['Team']].length >= 3){
+                    if (i == 7) {
+                        if (allData[player2][p2_yr]['Team'] in teamColors) {
+                            if (teamColors[allData[player2][p2_yr]['Team']].length >= 3) {
                                 return teamColors[allData[player2][p2_yr]['Team']][2];
-                            }else{
+                            } else {
                                 return teamColors[allData[player2][p2_yr]['Team']][0]
                             }
-                        }else{
+                        } else {
                             return 'green';
                         }
                     }
-                    if (i == 8){
-                        if (allData[player3][p3_yr]['Team'] in teamColors){
-                            if (teamColors[allData[player3][p3_yr]['Team']].length >= 3){
+                    if (i == 8) {
+                        if (allData[player3][p3_yr]['Team'] in teamColors) {
+                            if (teamColors[allData[player3][p3_yr]['Team']].length >= 3) {
                                 return teamColors[allData[player3][p3_yr]['Team']][2];
-                            }else{
+                            } else {
                                 return teamColors[allData[player3][p3_yr]['Team']][0]
                             }
-                        }else{
+                        } else {
                             return 'green';
                         }
                     }
-                }else{
+                } else {
                     return 'green';
                 }
             }
         })
         .attr('stroke', 'white')
-        .attr('opacity', function(d, i){
-            if (opacityRankingCheckbox.checked == true){
-                if (i==0 || i == 1 || i == 2){
-                    if (three_sort[0][0] == i){
+        .attr('opacity', function (d, i) {
+            if (opacityRankingCheckbox.checked == true) {
+                if (i == 0 || i == 1 || i == 2) {
+                    if (three_sort[0][0] == i) {
                         return "1.0";
-                    }else if (three_sort[1][0] == i){
+                    } else if (three_sort[1][0] == i) {
                         return "0.65";
-                    }else{
+                    } else {
                         return "0.3";
                     }
-                }else if (i==3 || i == 4 || i == 5){
-                    if (twoLong_sort[0][0] == i){
+                } else if (i == 3 || i == 4 || i == 5) {
+                    if (twoLong_sort[0][0] == i) {
                         return "1.0";
-                    }else if (twoLong_sort[1][0] == i){
+                    } else if (twoLong_sort[1][0] == i) {
                         return "0.65";
-                    }else{
+                    } else {
                         return "0.3";
                     }
-                }else if (i==6 || i == 7 || i == 8){
-                    if (twoShort_sort[0][0] == i){
+                } else if (i == 6 || i == 7 || i == 8) {
+                    if (twoShort_sort[0][0] == i) {
                         return "1.0";
-                    }else if (twoShort_sort[1][0] == i){
+                    } else if (twoShort_sort[1][0] == i) {
                         return "0.65";
-                    }else{
+                    } else {
                         return "0.3";
                     }
                 }
-            }else{
+            } else {
                 return "1.0";
             }
         });
@@ -1090,17 +1090,17 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
         .data(arcData)
         .enter()
         .append('text')
-        .each(function(d){
+        .each(function (d) {
             var centroid = arcGenerator.centroid(d);
             d3.select(this)
                 .attr('x', centroid[0])
                 .attr('y', centroid[1])
-			    .attr('dy', '0.33em')
+                .attr('dy', '0.33em')
                 .attr('fill', 'white')
                 .attr('stroke', 'white')
                 .style("text-anchor", "middle")
                 .style("font-size", "22px")
-			    .text(d.label);
+                .text(d.label);
         });
 
 
@@ -1111,7 +1111,7 @@ function drawThreePlayers(player1, p1_yr, player2, p2_yr, player3, p3_yr) {
         .attr('width', 150)
         .attr('height', 190)
         .attr('fill', 'transparent')
-        .attr('stroke', 'white');        
+        .attr('stroke', 'white');
 
     var title1 = d3.select('g').append('text')
         .attr("stroke", 'black')
